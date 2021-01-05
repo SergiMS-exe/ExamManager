@@ -1,4 +1,8 @@
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 
-app=Flask("ExamManager")
-from app import views
+app = Flask(__name__)
+app.config.from_object('config')
+db = SQLAlchemy(app=app)
+
+from app import models, views
