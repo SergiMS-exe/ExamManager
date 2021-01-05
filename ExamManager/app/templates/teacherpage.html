@@ -21,7 +21,7 @@
   
          
          <div class="my-skills"> 
-             <div class="columns">
+             <div class="columns"> <!--left hand column-->
                  
                  <div style = "width: 60%">
                      <div class="columns" style=" background-color: white;"> 
@@ -31,18 +31,20 @@
                          </button>
                      </div>
                      
+                     
+                     {% for examgroup in groups %}
                     <div class = "exam-group">
                         
                            <div >
-                             <p class = "examgroupname">Oracle 1A </p>
+                             <p class = "examgroupname">{{examgroup.name}} </p>
                               <div class = "columns" >
                                 <div >
                                     <p class= "examgroupinfo">Examiner  </p>
                                     <p class= "examgroupinfo">Group ID </p>
                                 </div>
                                 <div class = "egdata">
-                                    <p class= "examgroupinfo">  Examiner </p>
-                                    <p class= "examgroupinfo">  Group ID </p>
+                                    <p class= "examgroupinfo">  {{examgroup.examiner}} </p>
+                                    <p class= "examgroupinfo">  {{examgroup.id}} </p>
                                 </div>
                               </div> 
                            </div>
@@ -50,36 +52,14 @@
                            <div class = "vertical-column" style ="margin-left: auto; padding-right: 5px; ">
                              <button class = "delete">x</button> 
                              <div  style= "flex-grow: 1"></div>
-                             <p class= "examgroupinforight">Participants</p>
-                             <p class= "examgroupinforight">Exams Set</p>
+                             <p class= "examgroupinforight">{{examgroup.totalParticipants}}Participants</p>
+                             <p class= "examgroupinforight">{{examgroup.totalExams}}Exams Set</p>
                            </div>
                         
                     </div>
                     
-                    <div class = "exam-group">
-                        
-                           <div >
-                             <p class = "examgroupname">Oracle 1A </p>
-                              <div class = "columns" >
-                                <div >
-                                    <p class= "examgroupinfo">Examiner  </p>
-                                    <p class= "examgroupinfo">Group ID </p>
-                                </div>
-                                <div class = "egdata">
-                                    <p class= "examgroupinfo">  Examiner </p>
-                                    <p class= "examgroupinfo">  Group ID </p>
-                                </div>
-                              </div> 
-                           </div>
-                            
-                           <div class = "vertical-column" style ="margin-left: auto; padding-right: 5px; ">
-                             <button class = "delete">x</button> 
-                             <div  style= "flex-grow: 1"></div>
-                             <p class= "examgroupinforight">Participants</p>
-                             <p class= "examgroupinforight">Exams Set</p>
-                           </div>
-                        
-                    </div>
+                  {% endfor %}
+                    
                  </div>   
                      
  
