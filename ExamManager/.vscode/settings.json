@@ -3,6 +3,6 @@
     "python.linting.pylintArgs": [
         "--load-plugins",
         "pylint_flask_sqlalchemy",
-        "pylint_flask",                 # This package is optional
-    ]
+        "pylint_flask"            # This package is optional
+    ],
 }
