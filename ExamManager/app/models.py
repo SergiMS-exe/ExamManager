@@ -1,12 +1,5 @@
 #!/usr/bin/env python
 # pylint: disable=no-member
-# from sqlalchemy import create_engine, Column, Integer, String, ForeignKey
-# from sqlalchemy.orm import relationship, scoped_session, sessionmaker
-# from sqlalchemy.ext.declarative import declarative_base
-
-# engine = create_engine(u'sqlite:///:memory:', echo=True)
-# session = scoped_session(sessionmaker(bind=engine))
-# Base = declarative_base()
 
 from app import *
 

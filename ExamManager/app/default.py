@@ -69,37 +69,188 @@ def run():
                  2021, 8, 14), group_id=4),
              models.Exam(exam_id=1202100006, exam_date=datetime.date(2021, 8, 14), group_id=6)]
 
-             
     ExamGroups = [models.ExamGroup(group_id=1, group_name="G--1", examiner_id=2021010, exam_id=1202100001),
-                 models.ExamGroup(group_id=2, group_name="G--2",
-                                  examiner_id=2021010, exam_id=1202100002),
-                 models.ExamGroup(group_id=3, group_name="G--3",
-                                  examiner_id=2021009, exam_id=1202100003),
-                 models.ExamGroup(group_id=4, group_name="G--4",
-                                  examiner_id=2021004, exam_id=1202100006),
-                 models.ExamGroup(group_id=5, group_name="G--5",
-                                  examiner_id=2021011, exam_id=1202100003),
-                 models.ExamGroup(group_id=6, group_name="G--6", examiner_id=2021010, exam_id=1202100004)]
-    
-    # db.session.flush()
-    # for exam in Exams:
-    #     db.session.add(exam)
+                  models.ExamGroup(group_id=2, group_name="G--2",
+                                   examiner_id=2021010, exam_id=1202100002),
+                  models.ExamGroup(group_id=3, group_name="G--3",
+                                   examiner_id=2021009, exam_id=1202100003),
+                  models.ExamGroup(group_id=4, group_name="G--4",
+                                   examiner_id=2021004, exam_id=1202100006),
+                  models.ExamGroup(group_id=5, group_name="G--5",
+                                   examiner_id=2021011, exam_id=1202100003),
+                  models.ExamGroup(group_id=6, group_name="G--6", examiner_id=2021010, exam_id=1202100004)]
+    ExamStudents = [models.ExamStudent(student_id=251567, exam_id=1202100001, grade=5),
+                    models.ExamStudent(student_id=251452,
+                                       exam_id=1202100002, grade=4),
+                    models.ExamStudent(student_id=251234,
+                                       exam_id=1202100001, grade=3),
+                    models.ExamStudent(student_id=251236,
+                                       exam_id=1202100003, grade=4.5),
+                    models.ExamStudent(student_id=251235, exam_id=1202100005, grade=0)]
+    ExamQuestions = [models.ExamQuestion(
+        question_id=1, question_text="who is the president of poland?", exam_id=1202100001),
+        models.ExamQuestion(
+        question_id=2, question_text="who is Chloe Malujlo?", exam_id=1202100001),
+        models.ExamQuestion(
+        question_id=3, question_text="what is Python ?", exam_id=1202100001),
+        models.ExamQuestion(
+        question_id=4, question_text="what is JavaScript?", exam_id=1202100001),
+        models.ExamQuestion(
+        question_id=5, question_text="who is MarK Zuckerberg?", exam_id=1202100002),
+        models.ExamQuestion(
+        question_id=6, question_text="what is DDR in IT?", exam_id=1202100004),
+        models.ExamQuestion(
+        question_id=7, question_text="what is Edx?", exam_id=1202100004),
+        models.ExamQuestion(
+        question_id=8, question_text="Is java a Script Language?", exam_id=1202100002),
+        models.ExamQuestion(
+        question_id=9, question_text="Where is located Poland?", exam_id=1202100001),
+        models.ExamQuestion(
+        question_id=10, question_text="What is a DVD", exam_id=1202100003),
+        models.ExamQuestion(
+        question_id=11, question_text="What is the meaning of CD", exam_id=1202100003),
+        models.ExamQuestion(question_id=12, question_text="What is A LED", exam_id=1202100003)]
 
-    # # # db.session.commit()
-    # # # eTest = models.Exam.query.all()
-    # # # for u in eTest:
-    # # #     print(u.exam_id, u.exam_date)
-    # # # db.session.commit()
-    # for student in Students:
-    #     db.session.add(student)
-    # for examiner in Examiners:
-    #     db.session.add(examiner)
-    # for examGroup in ExamGroups:
-    #     db.session.add(examGroup)
-    
-    eTest = models.ExamGroup.query.all()
-    for u in eTest:
-        print(u.group_id, u.group_name,u.examiner_id)
+    ExamAnswers = [models.ExamAnswer(answer_id=1, answer_text="Donald Trump", question_id=1),
+                   models.ExamAnswer(
+                       answer_id=2, answer_text="Andrzej Dupa", question_id=1),
+                   models.ExamAnswer(
+                       answer_id=3, answer_text="Marvin Gerald", question_id=1),
+                   models.ExamAnswer(
+                       answer_id=4, answer_text="Andrzej Duda ", question_id=1),
+                   models.ExamAnswer(
+                       answer_id=5, answer_text="CEO of IBM", question_id=2),
+                   models.ExamAnswer(
+                       answer_id=6, answer_text="Police Officer", question_id=2),
+                   models.ExamAnswer(
+                       answer_id=7, answer_text="Teacher at PWR", question_id=2),
+                   models.ExamAnswer(
+                       answer_id=8, answer_text=" Great PM in Project Software Eng.", question_id=2),
+                   models.ExamAnswer(
+                       answer_id=9, answer_text="Cleaning Lady in mercure Hotel", question_id=2),
+                   models.ExamAnswer(
+                       answer_id=10, answer_text="Programming Language", question_id=3),
+                   models.ExamAnswer(
+                       answer_id=11, answer_text="type of Dog", question_id=3),
+                   models.ExamAnswer(
+                       answer_id=12, answer_text="Streaming Video website", question_id=3),
+                   models.ExamAnswer(
+                       answer_id=13, answer_text="Computer HardWare", question_id=3),
+                   models.ExamAnswer(
+                       answer_id=14, answer_text="Programming Language", question_id=4),
+                   models.ExamAnswer(
+                       answer_id=15, answer_text="A mailBox name", question_id=4),
+                   models.ExamAnswer(
+                       answer_id=16, answer_text="It is a Company", question_id=4),
+                   models.ExamAnswer(
+                       answer_id=17, answer_text="CEO pwr", question_id=5),
+                   models.ExamAnswer(
+                       answer_id=18, answer_text="Facebook Incentor", question_id=5),
+                   models.ExamAnswer(
+                       answer_id=19, answer_text="Car seller in Poland", question_id=5),
+                   models.ExamAnswer(
+                       answer_id=20, answer_text=" Great PM in Project Software Eng.", question_id=5),
+                   models.ExamAnswer(
+                       answer_id=21, answer_text="Polish Singer ", question_id=5),
+                   models.ExamAnswer(
+                       answer_id=22, answer_text="DDR (Double Data Rate) is a type of fast, expensive, volatile Random Access Memory (RAM)", question_id=6),
+                   models.ExamAnswer(
+                       answer_id=23, answer_text="Digital Directory Register", question_id=6),
+                   models.ExamAnswer(
+                       answer_id=24, answer_text="Doubled Digged Repository ", question_id=6),
+                   models.ExamAnswer(
+                       answer_id=25, answer_text="A Web Browser", question_id=6),
+                   models.ExamAnswer(
+                       answer_id=26, answer_text="Russian Social Network ", question_id=7),
+                   models.ExamAnswer(
+                       answer_id=27, answer_text="elearnmig Platform", question_id=7),
+                   models.ExamAnswer(
+                       answer_id=28, answer_text="Ethernet Dx", question_id=7),
+                   models.ExamAnswer(
+        answer_id=29, answer_text="Electronic Component", question_id=7),
+        models.ExamAnswer(
+        answer_id=30, answer_text="No,But allow to write scripts", question_id=8),
+        models.ExamAnswer(answer_id=31, answer_text="yes", question_id=8),
+        models.ExamAnswer(
+            answer_id=32, answer_text="Programming Language", question_id=8),
+        models.ExamAnswer(
+            answer_id=33, answer_text="No, It a markup language", question_id=8),
+        models.ExamAnswer(
+            answer_id=34, answer_text="In Africa", question_id=9),
+        models.ExamAnswer(
+            answer_id=35, answer_text="In America", question_id=9),
+        models.ExamAnswer(
+            answer_id=36, answer_text="In Europe", question_id=9),
+        models.ExamAnswer(answer_id=37, answer_text="In Asia", question_id=9),
+        models.ExamAnswer(
+            answer_id=38, answer_text="Dangerous Vibes Direction", question_id=10),
+        models.ExamAnswer(
+            answer_id=39, answer_text="Digital Versatile Disc", question_id=10),
+        models.ExamAnswer(
+            answer_id=40, answer_text="Dom Version D", question_id=10),
+        models.ExamAnswer(
+            answer_id=41, answer_text="Dealers in sector VD", question_id=10),
+        models.ExamAnswer(
+            answer_id=42, answer_text="Circular Diagram", question_id=11),
+        models.ExamAnswer(
+            answer_id=43, answer_text="China Direction", question_id=11),
+        models.ExamAnswer(
+            answer_id=44, answer_text="Compact Disk", question_id=11),
+        models.ExamAnswer(
+            answer_id=45, answer_text="Clear Directory Command in Linux", question_id=12),
+        models.ExamAnswer(
+            answer_id=46, answer_text="Clear Directory Command in Linux", question_id=12),
+        models.ExamAnswer(
+            answer_id=47, answer_text="Clear Directory Command in Linux", question_id=12),
+        models.ExamAnswer(answer_id=48, answer_text="Clear Directory Command in Linux", question_id=12)]
 
+    StudentAnswers = [models.StudentAnswer(
+        student_id=251567, exam_id=1202100001, question_id=1, answer_id=4),
+        models.StudentAnswer(
+            student_id=251567, exam_id=1202100001, question_id=2, answer_id=8),
+        models.StudentAnswer(
+            student_id=251567, exam_id=1202100001, question_id=3, answer_id=10),
+        models.StudentAnswer(
+            student_id=251567, exam_id=1202100001, question_id=4, answer_id=1),
+        models.StudentAnswer(student_id=251452, exam_id=1202100001, question_id=1, answer_id=1)]
+
+    StudentExamGroups = [models.StudentExamGroup(student_id=251567, group_id=1),
+                         models.StudentExamGroup(student_id=251452, group_id=1)]
+    for exam in Exams:
+        db.session.add(exam)
+
+    # db.session.commit()
+    # eTest = models.Exam.query.all()
+    # for u in eTest:
+    #     print(u.exam_id, u.exam_date)
+    # db.session.commit()
+    for student in Students:
+        db.session.add(student)
+
+    for examiner in Examiners:
+        db.session.add(examiner)
+
+    for examGroup in ExamGroups:
+        db.session.add(examGroup)
+
+    for examStudent in ExamStudents:
+        db.session.add(examStudent)
+    for examQuestion in ExamQuestions:
+        db.session.add(examQuestion)
+
+    for examAnswer in ExamAnswers:
+        db.session.add(examAnswer)
+    for studentAnswer in StudentAnswers:
+        db.session.add(studentAnswer)
+
+    for studentExamGroup in StudentExamGroups:
+        db.session.add(studentExamGroup)
+
+    print("Default setting Applied!!!")
+    # eTest = models.ExamGroup.query.all()
+    # for u in eTest:
+    #     print(u.group_id, u.group_name, u.examiner_id, exam_id=1202100002)
     db.session.commit()
+
+
 run()
