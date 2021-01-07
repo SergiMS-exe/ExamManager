@@ -35,7 +35,7 @@ html, body {
     width: 60%;
     background-color: WHITE;
     display: flex;
-    justify-content: center;
+    
     align-items: center;
 }
 .righttab{
@@ -48,16 +48,16 @@ html, body {
 }
 
 .innerdiv{
-    margin: auto auto;
-    display: flex;
-    flex-direction: column;
-    
+    margin: auto;
+    text-align: center;
     padding: 1.7em;
+    align-items: center;
 }
 .centerhead{
      margin: 10px auto;
      font-size: 4em;
      color: #593E48;
+     text-align: center;
 }
 .centertext{
      margin: 10px auto;
@@ -114,12 +114,16 @@ html, body {
     padding: 0px 10px;
     height: 40px;
     width: 200px
+    margin-left: auto;
+    margin-right: auto
     
 }
 .loginlabel{
     font-size: 2em;
     margin: 20px auto;
     color:#AD4268;
+    text-align: center;
+
 }
 
 ::placeholder { 

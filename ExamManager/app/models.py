@@ -72,7 +72,7 @@ class ExamAnswer(db.Model):
     answer_text = db.Column(db.String)
     question_id = db.Column(
         db.Integer, db.ForeignKey(ExamQuestion.question_id))
-
+    correct = db.Column(db.Boolean,unique=False, default=False)
     def __repr__(self):
         return  # add representation
 
