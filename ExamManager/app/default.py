@@ -117,7 +117,7 @@ def run():
                    models.ExamAnswer(
                        answer_id=3, answer_text="Marvin Gerald", question_id=1),
                    models.ExamAnswer(
-                       answer_id=4, answer_text="Andrzej Duda ", question_id=1),
+                       answer_id=4, answer_text="Andrzej Duda ", question_id=1, correct=True),
                    models.ExamAnswer(
                        answer_id=5, answer_text="CEO of IBM", question_id=2),
                    models.ExamAnswer(
@@ -125,11 +125,11 @@ def run():
                    models.ExamAnswer(
                        answer_id=7, answer_text="Teacher at PWR", question_id=2),
                    models.ExamAnswer(
-                       answer_id=8, answer_text=" Great PM in Project Software Eng.", question_id=2),
+                       answer_id=8, answer_text=" Great PM in Project Software Eng.", question_id=2, correct=True),
                    models.ExamAnswer(
                        answer_id=9, answer_text="Cleaning Lady in mercure Hotel", question_id=2),
                    models.ExamAnswer(
-                       answer_id=10, answer_text="Programming Language", question_id=3),
+                       answer_id=10, answer_text="Programming Language", question_id=3, correct=True),
                    models.ExamAnswer(
                        answer_id=11, answer_text="type of Dog", question_id=3),
                    models.ExamAnswer(
@@ -137,7 +137,7 @@ def run():
                    models.ExamAnswer(
                        answer_id=13, answer_text="Computer HardWare", question_id=3),
                    models.ExamAnswer(
-                       answer_id=14, answer_text="Programming Language", question_id=4),
+                       answer_id=14, answer_text="Programming Language", question_id=4, correct=True),
                    models.ExamAnswer(
                        answer_id=15, answer_text="A mailBox name", question_id=4),
                    models.ExamAnswer(
@@ -145,7 +145,7 @@ def run():
                    models.ExamAnswer(
                        answer_id=17, answer_text="CEO pwr", question_id=5),
                    models.ExamAnswer(
-                       answer_id=18, answer_text="Facebook Incentor", question_id=5),
+                       answer_id=18, answer_text="Facebook Inventor", question_id=5, correct=True),
                    models.ExamAnswer(
                        answer_id=19, answer_text="Car seller in Poland", question_id=5),
                    models.ExamAnswer(
@@ -153,7 +153,7 @@ def run():
                    models.ExamAnswer(
                        answer_id=21, answer_text="Polish Singer ", question_id=5),
                    models.ExamAnswer(
-                       answer_id=22, answer_text="DDR (Double Data Rate) is a type of fast, expensive, volatile Random Access Memory (RAM)", question_id=6),
+                       answer_id=22, answer_text="DDR (Double Data Rate) is a type of fast, expensive, volatile Random Access Memory (RAM)", question_id=6 , correct=True),
                    models.ExamAnswer(
                        answer_id=23, answer_text="Digital Directory Register", question_id=6),
                    models.ExamAnswer(
@@ -163,13 +163,13 @@ def run():
                    models.ExamAnswer(
                        answer_id=26, answer_text="Russian Social Network ", question_id=7),
                    models.ExamAnswer(
-                       answer_id=27, answer_text="elearnmig Platform", question_id=7),
+                       answer_id=27, answer_text="elearnmig Platform", question_id=7, correct=True),
                    models.ExamAnswer(
                        answer_id=28, answer_text="Ethernet Dx", question_id=7),
                    models.ExamAnswer(
         answer_id=29, answer_text="Electronic Component", question_id=7),
         models.ExamAnswer(
-        answer_id=30, answer_text="No,But allow to write scripts", question_id=8),
+        answer_id=30, answer_text="No,But allow to write scripts", question_id=8, correct=True),
         models.ExamAnswer(answer_id=31, answer_text="yes", question_id=8),
         models.ExamAnswer(
             answer_id=32, answer_text="Programming Language", question_id=8),
@@ -180,12 +180,12 @@ def run():
         models.ExamAnswer(
             answer_id=35, answer_text="In America", question_id=9),
         models.ExamAnswer(
-            answer_id=36, answer_text="In Europe", question_id=9),
+            answer_id=36, answer_text="In Europe", question_id=9, correct=True),
         models.ExamAnswer(answer_id=37, answer_text="In Asia", question_id=9),
         models.ExamAnswer(
             answer_id=38, answer_text="Dangerous Vibes Direction", question_id=10),
         models.ExamAnswer(
-            answer_id=39, answer_text="Digital Versatile Disc", question_id=10),
+            answer_id=39, answer_text="Digital Versatile Disc", question_id=10, correct=True),
         models.ExamAnswer(
             answer_id=40, answer_text="Dom Version D", question_id=10),
         models.ExamAnswer(
@@ -195,14 +195,14 @@ def run():
         models.ExamAnswer(
             answer_id=43, answer_text="China Direction", question_id=11),
         models.ExamAnswer(
-            answer_id=44, answer_text="Compact Disk", question_id=11),
+            answer_id=44, answer_text="Compact Disk", question_id=11, correct=True),
         models.ExamAnswer(
-            answer_id=45, answer_text="Clear Directory Command in Linux", question_id=12),
+            answer_id=45, answer_text="Light Ellicitation Diagram", question_id=12),
         models.ExamAnswer(
-            answer_id=46, answer_text="Clear Directory Command in Linux", question_id=12),
+            answer_id=46, answer_text="Electoric Coponent made of Secmi-Conductors", question_id=12, correct=True),
         models.ExamAnswer(
-            answer_id=47, answer_text="Clear Directory Command in Linux", question_id=12),
-        models.ExamAnswer(answer_id=48, answer_text="Clear Directory Command in Linux", question_id=12)]
+            answer_id=47, answer_text="Windos comand", question_id=12),
+        models.ExamAnswer(answer_id=48, answer_text="Java IDE", question_id=12)]
 
     StudentAnswers = [models.StudentAnswer(
         student_id=251567, exam_id=1202100001, question_id=1, answer_id=4),
@@ -245,11 +245,9 @@ def run():
 
     for studentExamGroup in StudentExamGroups:
         db.session.add(studentExamGroup)
-
-    print("Default setting Applied!!!")
-    # eTest = models.ExamGroup.query.all()
+    eTest = models.Exam.query.all()
     # for u in eTest:
-    #     print(u.group_id, u.group_name, u.examiner_id, exam_id=1202100002)
+    #     print(u.exam_id, u.exam_date, u.duration)
     db.session.commit()
 
 
