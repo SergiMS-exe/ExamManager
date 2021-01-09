@@ -79,14 +79,16 @@ def handle_data():
 def login():
     error = None
     if request.method == 'POST':
-        # update with db logic to validate email ,password
-        if request.form['email'] != 'admin@admin' or request.form['password'] != 'admin':
-            error = 'Invalid Credentials. Please try again.'
+        # check if email/in examiner  table or student table and change redirect
+        # request.form['email']  in student then  return redirect('/studentpage')
+        # else
+        student = Student.query.filter(student_email=request.form['email'])
+        examiner = Examiner.query.filter(examiner_email=request.form['email'])
+        if len(student)>0:
+            return redirect('/studentpage')
+        elif len(examiner)>0:
+            return redirect('/teacherpage')
         else:
-            # check if email/in examiner  table or student table and change redirect
-            # request.form['email']  in student then  return redirect('/studentpage')
-            # else
-
-            actions.login(request.form['email'], request.form['password'])
-            
+            error = 'Invalid Credentials. Please try again.'
+                    
     return render_template('index.html', error=error)

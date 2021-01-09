@@ -2,16 +2,6 @@
 from app import db, models
 import datetime
 
-def login(email, password):
-    student = Student.query.filter(student_email=request.form['email'])
-    examiner = Examiner.query.filter(examiner_email=request.form['email'])
-    if len(student)>0:
-        return redirect('/studentpage')
-    elif len(examiner)>0:
-        return redirect('/teacherpage')
-    else:
-        return render_template('index.html', error='Invalid Credentials. Please try again.')
-
 def saveExam(exam_id,exam_name,exam_date,exam_time,duration,group_id,questions,answers):
     myExam = models.Exam(exam_id=exam_id,exam_name = exam_name, exam_date=datetime.datetime.combine(exam_date,exam_time),duration = duration, group_id=group_id)
     # if db.session.query(Exam).filter(
