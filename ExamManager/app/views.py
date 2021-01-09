@@ -1,20 +1,18 @@
 # pylint: disable=no-member
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 from .models import Examiner,Student
-#import actions
 import re
-from app import db
+from app import db, app
 
-app = Flask(__name__)
 
-radioT = ""
 
+
+radioT=""
 
 @app.route('/')
 @app.route('/index')
 def index():
     return render_template('index.html')
-
 
 @app.route("/register")
 def register():
@@ -29,7 +27,6 @@ def teacher():
 @app.route('/studentpage')
 def student():
     return render_template('studentpage.html')
-
 
 # register data handling
 # you can add more logic

@@ -8,6 +8,7 @@ app.config.from_object('config')
 db = SQLAlchemy(app=app)
 
 from app import views, models
+#import app.views
 if os.path.exists('./Exammanager/app.db'):
     os.remove('./Exammanager/app.db')
 from app import db_create, default, actions
