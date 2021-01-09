@@ -1,0 +1,91 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="exam.css">
+    </head>
+    <body>
+        
+     <header>
+         <div class="columns">
+         <div class="columns">
+             
+            <div class = "backtab">
+                <p style = "padding: 5px; font-size: 0.7em;"> BACK TO HOME PAGE</p>
+            </div>
+         </div>
+         <div style = "flex: 1;"></div>
+         <div class="columns">
+             
+            <div class = "profile-tab">
+                <span></span>
+                <p style = "padding: 5px; font-size: 0.7em;"> {{teacher.name}} </p>
+            </div>
+         </div>
+         </div>
+     </header>
+     <div class = "examnameholder">
+        <p class = "examname"> {{exam.examName}} </p>
+     </div>
+     <p style = "color: #959595; text-align: center;"> {{timeleft}} remaining </p>
+
+     <div class = "questionbox">
+         <div >
+            <div class = "question">
+                <p>{{question.number}}. {{question.question}}</p>
+            </div>
+            <div class = "columns" style = "margin: 0px auto; padding: 5px;" >
+                            <div style = "flex: 1;"></div>
+                            <div class = "vertical-column">
+                                
+                                
+                                <div class = "columns">
+                                    <p class = "answerletterstyle">a</p>
+                                    <div class = "answerbox">
+                                        <p>{{question.answerA}}</p>
+                                    </div>   
+                                    <input type="radio" id="answer-a" name="radioA" value="a" class = "radiostyle">
+                                </div>
+                                <div>
+                                    <div class = "columns">
+                                    <p class = "answerletterstyle">b</p>
+                                    <div class = "answerbox">
+                                        <p>{{question.answerB}}</p>
+                                    </div>   
+                                    <input type="radio" id="answer-b" name="radioB" value="b" class = "radiostyle">
+                                </div>
+                                </div>
+                            </div>
+                            
+                            <div style = "width: 5vw;"></div>
+                    <div class = "vertical-column" style = "flex: 1;">
+                            <div>
+                                    <div class = "columns">
+                                        <p class = "answerletterstyle">c</p>
+                                        <div class = "answerbox">
+                                            <p>{{question.answerC}}</p>
+                                        </div>   
+                                        <input type="radio" id="answer-c" name="c" value="c" class = "radiostyle">
+                                    </div>
+                            </div>
+                            <div>
+                                    <div class = "columns">
+                                        <p class = "answerletterstyle">d</p>
+                                        <div class = "answerbox">
+                                            <p>{{question.answerD}}</p>
+                                        </div>   
+                                        <input type="radio" id="answer-d" name="d" value="d" class = "radiostyle">
+                                    </div>
+                            </div> 
+                        
+                    </div>
+                    <div style = "flex: 1;"></div>
+                </div>
+            </div>
+         </div>
+     </div>
+     
+     <div class = "columns" style = "padding-bottom: 20px;">
+     <button name = "btn-back">BACK</button>
+     <button name = "btn-nextquestion">NEXT QUESTION</button> 
+     </div>  
+    </body>
+</html>

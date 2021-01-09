@@ -1,0 +1,97 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="examresultStudentView.css">
+    </head>
+    <body>
+        
+     <header>
+         <div class="columns">
+         <div class="columns">
+             
+            <div class = "backtab" name = "backhome">
+                <p style = "padding: 5px; font-size: 0.7em;"> BACK TO HOME PAGE</p>
+            </div>
+         </div>
+         <div style = "flex: 1;"></div>
+         <div class="columns">
+             
+            <div class = "profile-tab">
+                <span></span>
+                <p style = "padding: 5px; font-size: 0.7em;"> {{student.name}} </p>
+            </div>
+         </div>
+         </div>
+     </header>
+     <div class = "examnameholder">
+        <p class = "examname"> {{exam.name}} </p>
+        <p class = "userlabel"> Results </p>
+     </div>
+     
+     <!--A question result starts from here to *follow to bottom comment-->
+     <p class = "userresult"> {{student.questionResult}} / {{question.total}} </p>
+     
+     <div class = "questionbox">
+         <div >
+            <div class = "question">
+                <p>{{question.number}}. {{question.question}}</p>
+            </div>
+            <div class = "columns" style = "margin: 0px auto; padding: 5px;" >
+                            <div style = "flex: 1;"></div>
+                            <div class = "vertical-column">
+                                
+                                
+                                <div class = "columns">
+                                    <p class = "answerletterstyle">a</p>
+                                    <div class = "answerbox" name= "div-answera">
+                                        <p>{{question.answera}}</p>
+                                    </div>   
+                                
+                                </div>
+                                <div>
+                                    <div class = "columns">
+                                    <p class = "answerletterstyle">b</p>
+                                    <div class = "answerbox" name= "div-answerb">
+                                        <p>{{question.answerb}}</p>
+                                    </div>   
+                                   
+                                </div>
+                                </div>
+                            </div>
+                            
+                            <div style = "width: 5vw;"></div>
+                    <div class = "vertical-column" style = "flex: 1;">
+                            <div>
+                                    <div class = "columns">
+                                        <p class = "answerletterstyle">c</p>
+                                        <div class = "answerbox-wronganswer" name= "div-answerc">
+                                            <!--give the 'div-answerX' this style when this is the user's answer AND is not the correct answer-->
+                                            <p>{{question.answerc}}</p>
+                                        </div>   
+                                        
+                                    </div>
+                            </div>
+                            <div>
+                                    <div class = "columns">
+                                        <p class = "answerletterstyle" >d</p>
+                                        <div class = "answerbox-correctanswer" name= "div-answerd"> <!--give the 'div-answerX' this style class when this is the correct answer-->
+                                            <p>{{question.answerd}}</p>
+                                        </div>   
+                                       
+                                    </div>
+                            </div> 
+                        
+                    </div>
+                    <div style = "flex: 1;"></div>
+                </div>
+            </div>
+         </div>
+     </div>
+     <!--question result section TO HERE -->
+     
+     <div class = "columns" style = "padding-bottom: 20px;"> <!-- if having difficulty creating pages for separate exam questions, just stack the 'question boxes' on top of each other with a for loop and delete this div--> 
+        <button name = "btn-back">BACK</button>
+        <button name = "btn-next">NEXT QUESTION</button> 
+     </div>  
+     
+    </body>
+</html>

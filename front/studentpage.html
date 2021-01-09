@@ -1,0 +1,240 @@
+<html>
+    <head>
+        <title>HTML & CSS</title>
+        <!--<Href(url_for ( static, 'styles\studentpage.css')>-->
+<link rel="stylesheet" href="studentpage.css">
+    </head>
+    <body>
+     
+     <header>
+         <div class="columns">
+             
+            <div class = "profile-tab">
+                <span></span>
+                <p style = "padding: 5px; font-size: 0.7em;"> {{student.name}} #{{student.id}} </p>
+            </div>
+        
+         </div>
+         
+     </header>
+     
+     <main>
+  
+         
+         <div class="my-skills"> 
+             <div class="columns">
+                 
+                 <div style = "width: 60%">
+                     <div class="columns" style=" background-color: white;"> 
+                         <p style = "margin: auto 10px;">Your Exam groups</p>
+                         
+                     </div>
+                     
+                     
+                    {% for group in examgroups %}
+                    <div class = "exam-group" name= "div-examgroup"> <!-- click on this div to show the data for this exam group on the right-->
+                        
+                           <div >
+                             <p class = "examgroupname">{{group.name}} </p>
+                              <div class = "columns" >
+                                <div >
+                                    <p class= "examgroupinfo">Examiner  </p>
+                                    <p class= "examgroupinfo">Group ID </p>
+                                </div>
+                                <div class = "egdata">
+                                    <p class= "examgroupinfo">  {{group.Examiner}} </p>
+                                    <p class= "examgroupinfo">  {{group.id}} </p>
+                                </div>
+                              </div> 
+                           </div>
+                            
+                           <div class = "vertical-column" style ="margin-left: auto; padding-right: 5px; ">
+                             
+                             <div  style= "flex-grow: 1"></div>
+                             <p class= "examgroupinforight">{{group.totalparticipants}} Participants</p>
+                             <p class= "examgroupinforight">{{group.totalexams}} Exams Set</p>
+                           </div>
+                        
+                    </div>
+                    {% endfor %}
+                 </div>   
+                     
+ 
+ 
+ 
+ 
+                 
+                 <div class="vertical-column" style= "width: 40%" > <!--right hand column-->
+                     
+                    <div class="tab" > <!--tab buttons-->
+                        
+                        <button class="tablinks" name= "btn-futureexams" >Upcoming Exams</button>
+                        <button class="tablinks"  name= "btn-results">Results</button>
+                    </div>
+                    
+                    
+                    <!--EXPLANATION FOR TAB BUTTONS:
+                    was hoping the above tabs would work by making the appropriate div for  the button that was clicked visible and the rest invisible, 
+                    using a for loop in each div to show multiple boxes for that category, 
+                    
+                    I will leave one of each type of box to show what the end product will look like and where to put appropriate data, please delete these example boxes when you do not need them
+                    
+                    please refer to further comments to see where the different divs end and begin to toggle visibility when following tab buttons are clicked: 'participants', 'upcoming exams' and 'results'-->
+                    
+                    
+         <!-----------------------------------------------------------START OF UPCOMING EXAM DIV-->
+                    <div id = "upcomingexams-div"> <!-- toggle visibility for this div tag -->
+                       
+                       
+                     
+                     
+                    <!--EXAMPLE NEW EXAM BOX to delete-->
+                     <div class = "exam" >
+                        
+                           <div class= "vertical-column" >
+                             <p class = "examtime">12 OCT</p>
+                             <p class = "edata" >ENTRY EXAM</p>
+                              <div  style= "flex-grow: 1"></div>
+                              
+                              <div class = "columns" >
+                                <div >
+                                    <p class= "examinfo">points</p>
+                                </div>
+                                <div class = "edata">
+                                    <p class= "edata"> 12</p>
+                                </div>
+                              </div> 
+                           </div>
+                            
+                           <div class = "vertical-column" style ="margin-left: auto; padding-right: 5px; ">
+                            
+                             <p class= "edata" style="margin-left: auto;">12:00</p>
+                             <div  style= "flex-grow: 1"></div>
+                             <button class="edit-exam-button-inactive"> TAKE EXAM</button><!--INACTIVE STYLE for when exam is not open yet-->
+                           </div>
+                        
+                    </div>
+                    
+                    <!--END OF EXAMPLE BOX to delete -->
+                    
+                 
+                    <!--for loop to be used officially below-->
+                    
+                    {% for exam in exams %}
+                
+                     <div class = "exam">
+                        
+                           <div class= "vertical-column" >
+                             <p class = "examtime">{{exam.date}}</p>
+                             <p class = "edata" >{{exam.name}}</p>
+                              <div  style= "flex-grow: 1"></div>
+                              
+                              <div class = "columns" >
+                                <div >
+                                    <p class= "examinfo">points</p>
+                                </div>
+                                <div class = "edata">
+                                    <p class= "edata">{{exam.points}}</p>
+                                </div>
+                              </div> 
+                           </div>
+                            
+                           <div class = "vertical-column" style ="margin-left: auto; padding-right: 5px; ">
+                             
+                             <p class= "edata" style="margin-left: auto;">{{exam.time}}</p>
+                             <div  style= "flex-grow: 1"></div>
+                             <button class="edit-exam-button" name ="btn-takeexam"> TAKE EXAM</button> <!-- button to edit the current exam-->
+                           </div>
+                        
+                    </div>
+                    
+                    {% endfor %}
+                    </div>
+       <!---------------------------------------END OF ADD NEW EXAM DIV-->
+                    
+                    
+                    
+                    
+                    
+          
+                     
+                     
+                     
+                     
+        <!-----------------------------------------------------------------START OF RESULTS DIV-->
+                     <div id = "results-div"><!-- toggle visibility for this div tag -->
+                     
+                     <!--RESULTS EXAMPLE BOX to delete--> 
+                     <div class = "exam">
+                        
+                           <div class= "vertical-column" >
+                             <p class = "examtime">12 OCT</p>
+                             <p class = "edata" >ENTRY EXAM</p>
+                              <div  style= "flex-grow: 1"></div>
+                              
+                              <div class = "columns" >
+                                <div >
+                                    <p class= "examinfo">points</p>
+                                </div>
+                                <div class = "edata">
+                                    <p class= "edata"> 12</p>
+                                </div>
+                              </div> 
+                           </div>
+                            
+                           <div class = "vertical-column" style ="margin-left: auto; padding-right: 5px; ">
+                             
+                             <p class= "edata" style="margin-left: auto;">12:00</p>
+                             <div  style= "flex-grow: 1"></div>
+                             <button class="edit-exam-button"> REVIEW EXAM</button>
+                           </div>
+                        
+                    </div>
+                    <!--END of EXAMPLE BOX to delete-->
+                    
+                    {% for exam in results %}
+                     <div class = "exam">
+                        
+                           <div class= "vertical-column" >
+                             <p class = "examtime">{{exam.date}}</p>
+                             <p class = "edata" >{{exam.name}}</p>
+                              <div  style= "flex-grow: 1"></div>
+                              
+                              <div class = "columns" >
+                                <div >
+                                    <p class= "examinfo">points</p>
+                                </div>
+                                <div class = "edata">
+                                    <p class= "edata"> {{exam.points}}</p>
+                                </div>
+                              </div> 
+                           </div>
+                            
+                           <div class = "vertical-column" style ="margin-left: auto; padding-right: 5px; ">
+                             
+                             <p class= "edata" style="margin-left: auto;">{{exam.time}}</p>
+                             <div  style= "flex-grow: 1"></div>
+                             <button class="edit-exam-button" name= "btn-reviewexam"> REVIEW EXAM </button> <!--opens a pop up box with participants and their scores (see design for details), if possible make it so that when a participant is clicked on in this pop up page, they can go to a 'review exam' page.-->
+                           </div>
+                        
+                    </div>
+                    
+                    {% endfor %}
+                    
+                     </div>
+            <!-----------------------------END OF RESULTS DIV-->
+                     
+                     
+                     
+                     
+                     
+                     
+                 </div>
+                 
+             </div> <!-- / columns -->
+         </div> <!-- / my-skills -->
+         
+     </main>
+     
+    </body>
+</html>

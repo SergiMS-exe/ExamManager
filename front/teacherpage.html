@@ -1,0 +1,328 @@
+<html>
+    <head>
+        <title>HTML & CSS</title>
+        <!--<Href(url_for ( static, 'styles\teacherpage.css')>-->
+	<link rel="stylesheet" href="teacherpage.css">
+    </head>
+    <body>
+     
+     <header>
+         <div class="columns">
+             
+            <div class = "profile-tab">
+                <span></span>
+                <p style = "padding: 5px; font-size: 0.7em;"> {{teacher.name}} </p>
+            </div>
+        
+         </div>
+         
+     </header>
+     
+     <main>
+  
+         
+         <div class="my-skills"> 
+             <div class="columns">
+                 
+                 <div style = "width: 60%">
+                     <div class="columns" style=" background-color: white;"> 
+                         <p style = "margin: auto 5px;">Exam Groups You Manage</p>
+                         <button class= "create-button" style= "margin-left: auto" name = "btn-creategroup">
+                             Add New Group
+                         </button>
+                     </div>
+                     
+                    <div class = "exam-group">
+                        
+                           <div >
+                             <p class = "examgroupname">Oracle 1A </p>
+                              <div class = "columns" >
+                                <div >
+                                    <p class= "examgroupinfo">Examiner  </p>
+                                    <p class= "examgroupinfo">Group ID </p>
+                                </div>
+                                <div class = "egdata">
+                                    <p class= "examgroupinfo">  Examiner </p>
+                                    <p class= "examgroupinfo">  Group ID </p>
+                                </div>
+                              </div> 
+                           </div>
+                            
+                           <div class = "vertical-column" style ="margin-left: auto; padding-right: 5px; ">
+                             <button class = "delete" name = "btn-delgroup">x</button> 
+                             <div  style= "flex-grow: 1"></div>
+                             <p class= "examgroupinforight">Participants</p>
+                             <p class= "examgroupinforight">Exams Set</p>
+                           </div>
+                        
+                    </div>
+                    
+                    <div class = "exam-group">
+                        
+                           <div >
+                             <p class = "examgroupname">Oracle 1A </p>
+                              <div class = "columns" >
+                                <div >
+                                    <p class= "examgroupinfo">Examiner  </p>
+                                    <p class= "examgroupinfo">Group ID </p>
+                                </div>
+                                <div class = "egdata">
+                                    <p class= "examgroupinfo">  Examiner </p>
+                                    <p class= "examgroupinfo">  Group ID </p>
+                                </div>
+                              </div> 
+                           </div>
+                            
+                           <div class = "vertical-column" style ="margin-left: auto; padding-right: 5px; ">
+                             <button class = "delete" name = "btn-delgroup">x</button> 
+                             <div  style= "flex-grow: 1"></div>
+                             <p class= "examgroupinforight">Participants</p>
+                             <p class= "examgroupinforight">Exams Set</p>
+                           </div>
+                        
+                    </div>
+                 </div>   
+                     
+ 
+ 
+ 
+ 
+                 
+                 <div class="vertical-column" style= "width: 40%" > <!--right hand column-->
+                     
+                    <div class="tab" > <!--tab buttons-->
+                        <button class="tablinks" name = "btn-participants">Participants</button>
+                        <button class="tablinks" name = "btn-upcomingexams">Upcoming Exams</button>
+                        <button class="tablinks" name = "btn-results">Results</button>
+                    </div>
+                    
+                    
+                    <!--EXPLANATION FOR TAB BUTTONS:
+                    was hoping the above tabs would work by making the appropriate div for  the button that was clicked visible and the rest invisible, 
+                    using a for loop in each div to show multiple boxes for that category, 
+                    
+                    I will leave one of each type of box to show what the end product will look like and where to put appropriate data, please delete these example boxes when you do not need them
+                    
+                    please refer to further comments to see where the different divs end and begin to toggle visibility when following tab buttons are clicked: 'participants', 'upcoming exams' and 'results'-->
+                    
+                    
+         <!-----------------------------------------------------------START OF UPCOMING EXAM DIV-->
+                    <div id = "upcomingexams-div"> <!-- !!toggle visibility for this div tag!! -->
+                       
+                        <div class="columns" style=" background-color: #591B31;"> 
+                         <button class= "create-button" style= "margin-left: auto" name = "btn-createexam"> <!-- takes u to the create exam page-->
+                             Add New Exam
+                         </button>
+                     </div> <!-- header for add new exam-->
+                     
+                     
+                    <!--EXAMPLE NEW EXAM BOX to delete-->
+                     <div class = "exam">
+                        
+                           <div class= "vertical-column" >
+                             <p class = "examtime">12 OCT</p>
+                             <p class = "edata" >ENTRY EXAM</p>
+                              <div  style= "flex-grow: 1"></div>
+                              
+                              <div class = "columns" >
+                                <div >
+                                    <p class= "examinfo">points</p>
+                                </div>
+                                <div class = "edata">
+                                    <p class= "edata"> 12</p>
+                                </div>
+                              </div> 
+                           </div>
+                            
+                           <div class = "vertical-column" style ="margin-left: auto; padding-right: 5px; ">
+                             <button class = "delete" name = "btn-delexam">x</button> 
+                             <p class= "edata" style="margin-left: auto;">12:00</p>
+                             <div  style= "flex-grow: 1"></div>
+                             <button class="edit-exam-button"name = "btn-editexam"> EDIT EXAM</button> <!--takes u to the create exam page-->
+                           </div>
+                        
+                    </div>
+                    
+                    <!--END OF EXAMPLE BOX to delete -->
+                    
+                 
+                    <!--for loop to be used officially below-->
+                    
+                    {% for exam in exams %}
+                
+                     <div class = "exam">
+                        
+                           <div class= "vertical-column" >
+                             <p class = "examtime">{{exam.date}}</p>
+                             <p class = "edata" >{{exam.name}}</p>
+                              <div  style= "flex-grow: 1"></div>
+                              
+                              <div class = "columns" >
+                                <div >
+                                    <p class= "examinfo">points</p>
+                                </div>
+                                <div class = "edata">
+                                    <p class= "edata">{{exam.points}}</p>
+                                </div>
+                              </div> 
+                           </div>
+                            
+                           <div class = "vertical-column" style ="margin-left: auto; padding-right: 5px; ">
+                             <button class = "delete" name = "btn-delexam">x</button> <!--button to delete the current exam from the database, should have an 'are you sure you wish to delete' pop up-->
+                             <p class= "edata" style="margin-left: auto;">{{exam.time}}</p>
+                             <div  style= "flex-grow: 1"></div>
+                             <button class="edit-exam-button" name = "btn-editexam"> EDIT EXAM</button> <!-- button to edit the current exam-->
+                           </div>
+                        
+                    </div>
+                    
+                    {% endfor %}
+                    </div>
+       <!---------------------------------------END OF ADD NEW EXAM DIV-->
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+        <!--------------------------------------------------ADD NEW PARTICIPANT DIV-->
+                    <div id = "participants-div"><!-- toggle visibility for this div tag -->
+                    
+                     <div class="columns" style=" background-color: #591B31;"> 
+                         <form>
+                            <input type = "text" class = "inputstyle" placeholder="Add Participant by ID"></input> <!--inputs the participant id here and presses button to add, if not found show error message-->
+                            <button class= "create-button" style= "margin-left: auto" name = "btn-addparticipant">
+                                Add 
+                            </button>
+                         </form>
+                     </div> <!-- ADD NEW PARTICIPANT HEADER-->
+                     
+                     <!--EXAMPLE PARTICIPANT BOX to delete -->
+                    <div class = "participantbox">
+                        <span style = "background-color: white"></span>
+                        
+                        <div class = "columns">
+                            <div >
+                                <p class= "examgroupinfo"  style = "line-height: 3px;"" >id</p>
+                                <p class= "examgroupinfo"  style = "line-height: 3px;">Name</p>
+                            </div>    
+                            <div class= "egdata">
+                                <p class= "examgroupinfo"  style = "line-height: 3px;">#345</p>
+                                <p class= "examgroupinfo"  style = "line-height: 3px;">John Smith </p>
+                            </div>  
+                            
+                            
+                        </div>    
+                            <button class = "delete" style ="margin-left: auto;" name = "btn-delpartic">x</button> 
+                    </div>
+                    <!-- END OF EXAMPLE BOX to delete-->
+                    
+                    
+                    {% for examParticipant in participants %}
+                      <div class = "participantbox">
+                        <span style = "background-color: white"></span>
+                        
+                        <div class = "columns">
+                            <div >
+                                <p class= "examgroupinfo"  style = "line-height: 3px;"" >id</p>
+                                <p class= "examgroupinfo"  style = "line-height: 3px;">Name</p>
+                            </div>    
+                            <div class= "egdata">
+                                <p class= "examgroupinfo"  style = "line-height: 3px;">{{examParticipant.id}}</p>
+                                <p class= "examgroupinfo"  style = "line-height: 3px;">{{examParticipant.name}} </p>
+                            </div>  
+                            
+                            
+                        </div>    
+                            <button class = "delete" style ="margin-left: auto;" name = "btn-delpartic">x</button> 
+                    </div>
+                    {& endfor %}
+                    
+                    
+                    </div>
+         <!--------------------------------END OF ADD PARTICIPANT DIV-->
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+        <!-----------------------------------------------------------------START OF RESULTS DIV-->
+                     <div id = "results-div"><!-- toggle visibility for this div tag -->
+                     
+                     <!--RESULTS EXAMPLE BOX to delete--> 
+                     <div class = "exam">
+                        
+                           <div class= "vertical-column" >
+                             <p class = "examtime">12 OCT</p>
+                             <p class = "edata" >ENTRY EXAM</p>
+                              <div  style= "flex-grow: 1"></div>
+                              
+                              <div class = "columns" >
+                                <div >
+                                    <p class= "examinfo">points</p>
+                                </div>
+                                <div class = "edata">
+                                    <p class= "edata"> 12</p>
+                                </div>
+                              </div> 
+                           </div>
+                            
+                           <div class = "vertical-column" style ="margin-left: auto; padding-right: 5px; ">
+                             <button class = "delete">x</button> 
+                             <p class= "edata" style="margin-left: auto;">12:00</p>
+                             <div  style= "flex-grow: 1"></div>
+                             <button class="edit-exam-button"> PARTICIPANT SCORES</button>
+                           </div>
+                        
+                    </div>
+                    <!--END of EXAMPLE BOX to delete-->
+                    
+                    {% for exam in results %}
+                     <div class = "exam">
+                        
+                           <div class= "vertical-column" >
+                             <p class = "examtime">{{exam.date}}</p>
+                             <p class = "edata" >{{exam.name}}</p>
+                              <div  style= "flex-grow: 1"></div>
+                              
+                              <div class = "columns" >
+                                <div >
+                                    <p class= "examinfo">points</p>
+                                </div>
+                                <div class = "edata">
+                                    <p class= "edata"> {{exam.points}}</p>
+                                </div>
+                              </div> 
+                           </div>
+                            
+                           <div class = "vertical-column" style ="margin-left: auto; padding-right: 5px; ">
+                             
+                             <p class= "edata" style="margin-left: auto;">{{exam.time}}</p>
+                             <div  style= "flex-grow: 1"></div>
+                             <button class="edit-exam-button" name = "btn-seescores"> PARTICIPANT SCORES</button> <!--opens a pop up box with participants and their scores (see design for details), if possible make it so that when a participant is clicked on in this pop up page, they can go to a 'review exam' page.-->
+                           </div>
+                        
+                    </div>
+                    
+                    {% endfor %}
+                    
+                     </div>
+            <!-----------------------------END OF RESULTS DIV-->
+                     
+                     
+                     
+                     
+                     
+                     
+                 </div>
+                 
+             </div> <!-- / columns -->
+         </div> <!-- / my-skills -->
+         
+     </main>
+     
+    </body>
+</html>
