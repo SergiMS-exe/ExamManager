@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # pylint: disable=no-member
-
-from app import *
+from app import db
 import datetime
 
 class Examiner(db.Model):
