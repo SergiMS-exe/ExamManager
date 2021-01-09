@@ -102,5 +102,3 @@ class StudentExamGroup(db.Model):
 
     def __repr__(self):
         return  # add representation
-
-# Base.metadata.create_all(engine)
