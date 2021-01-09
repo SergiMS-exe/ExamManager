@@ -1,7 +1,7 @@
 <html>
     <head>
         <title>HTML & CSS</title>
-        <link href="teacherpage.css" rel="stylesheet">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/teacherpage.css')  }}">
     </head>
     <body>
      
@@ -183,7 +183,7 @@
                         
                         <div class = "columns">
                             <div >
-                                <p class= "examgroupinfo"  style = "line-height: 3px;"" >id</p>
+                                <p class= "examgroupinfo"  style = "line-height: 3px;" >id</p>
                                 <p class= "examgroupinfo"  style = "line-height: 3px;">Name</p>
                             </div>    
                             <div class= "egdata">
@@ -204,11 +204,11 @@
                         
                         <div class = "columns">
                             <div >
-                                <p class= "examgroupinfo"  style = "line-height: 3px;"" >id</p>
+                                <p class= "examgroupinfo"  style = "line-height: 3px;"">id</p>
                                 <p class= "examgroupinfo"  style = "line-height: 3px;">Name</p>
                             </div>    
                             <div class= "egdata">
-                                <p class= "examgroupinfo"  style = "line-height: 3px;">{{examParticipant.id}}</p>
+                                <p class= "examgroupinfo"  style = "line-height: 3px;"">{{examParticipant.id}}</p>
                                 <p class= "examgroupinfo"  style = "line-height: 3px;">{{examParticipant.name}} </p>
                             </div>  
                             
@@ -216,7 +216,7 @@
                         </div>    
                             <button class = "delete" style ="margin-left: auto;">x</button> 
                     </div>
-                    {& endfor %}
+                    {% endfor %}
                     
                     
                     </div>
