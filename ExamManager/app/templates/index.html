@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <html>
     <head>
         <link rel="stylesheet" href="index.css">
@@ -24,3 +25,38 @@
         
     </body>
 </html>
+=======
+<html>
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
+    </head>
+    <body>
+        <div class = "columns">
+            <div class ="lefttab">
+                <div class= "innerdiv">
+                    <p class = "centerhead"> Welcome</p>
+                    <p class = "centertext">Don't have an account with us already?</p>
+                   <button class = "regbutton"><a   href=register>  REGISTER HERE</a> </button>
+                </div>
+            </div>
+            
+            
+            <div class = "righttab">
+                <div class= "innerdiv">
+                    <p class = "loginlabel"> Sign In</p>
+                    <form action="/login" method="post">
+                        <input class="inputstyle" type="email" placeholder="E-mail" required name ="email" value="{{
+          request.form.email }}"/>
+                        <input class="inputstyle" type="text" placeholder="Password" required  name ="password"value="{{
+          request.form.password }}"/>
+                        <input class = "loginbutton" type = submit value ='LOG IN'>  </input>
+                    </form>
+                    {% if error %}
+                    <p class="error"><strong>Error:</strong> {{ error }}
+                    {% endif %}
+                </div>    
+            </div>
+        
+    </body>
+</html>
+>>>>>>> origin/Sergio

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <html>
     <head>
         <link rel="stylesheet" href="index.css">
@@ -36,3 +37,51 @@
         
     </body>
 </html>
+=======
+<html>
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/reg.css') }}">
+    </head>
+    <body>
+        <div class = "columns">
+            <div class ="lefttab">
+                <div class= "innerdiv">
+                    
+                    <p class = "centertext">Already have an account?</p>
+                   <button class = "regbutton"> <a href = index >  SIGN IN HERE </a> </button>
+                </div>
+            </div>
+            
+            
+            <div class = "righttab">
+                <div class= "innerdiv" style = "width: 200px;">
+                    <p class = "loginlabel">Register</p>
+                    {% if error %}
+                    <p class="error"><strong>Error:</strong> {{ error }}
+                    {% endif %}
+
+                   <form  action="{{ url_for('handle_data') }}" method="post">
+
+		            <input class ="inputstyle" type="email" name="email"placeholder="E-mail" required></input>
+                    <input class ="inputstyle" type="text" name="Name" placeholder="Name" required></input>
+                    <input class ="inputstyle" type="text" name="Surname"placeholder="Surname" required></input>
+                    <input class ="inputstyle" type="text"name="Password" placeholder="Password" required></input>
+                    <input class ="inputstyle" type="text"name="repeatPassword" placeholder="Repeat Password" required></input>
+                    <input class ="inputstyle" type="text" name="dob" placeholder="Date of Birth" required></input>
+                    <div class = "columns" style = "margin: 10px 0px;">
+                    <input type="radio" id="examiner" name="radioT" value="examiner">
+                        <label for="examiner">Examiner</label><br>
+                    <input type="radio" id="Student" name="radioT" value="student">
+                        <label for="Student">Student</label><br>
+                    </div>
+<!--                       <button class = "loginbutton" name = "loginButton" ><a   href=handle_data>REGISTER </a></button>-->
+                       <input  class = "loginbutton" type="submit" name="loginbutton"><a   href=handle_data> </a></input>
+		   </form>
+
+                </div>    
+            </div>
+        </div>
+        
+    </body>
+</html>
+>>>>>>> origin/Sergio

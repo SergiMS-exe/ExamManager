@@ -2,7 +2,10 @@
 from app import db, models
 import datetime
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/Sergio
 def saveExam(exam_id,exam_name,exam_date,exam_time,duration,group_id,questions,answers):
     myExam = models.Exam(exam_id=exam_id,exam_name = exam_name, exam_date=datetime.datetime.combine(exam_date,exam_time),duration = duration, group_id=group_id)
     # if db.session.query(Exam).filter(
