@@ -1,17 +1,9 @@
 #!/usr/bin/env python
 # pylint: disable=no-member
-<<<<<<< HEAD
-from app import db
+
+from app import *
 import datetime
 
-=======
-
-from app import db
-import datetime
-
-
-#We have to add to examiner and student profile photo and date of birth attributes
->>>>>>> origin/Sergio
 class Examiner(db.Model):
     examiner_id = db.Column(db.Integer,autoincrement=True, primary_key=True)
     examiner_name = db.Column(db.String(255))
@@ -31,11 +23,7 @@ class Student(db.Model):
     student_password = db.Column(db.String(255))
 
     def __repr__(self):
-<<<<<<< HEAD
         return  # add representation
-=======
-        return "Student: " + self.student_name + " " + self.student_surname
->>>>>>> origin/Sergio
 
 
 class Exam(db.Model):
