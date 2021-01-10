@@ -65,7 +65,7 @@ class ExamQuestion(db.Model):
     question_id = db.Column(db.Integer,autoincrement=True, primary_key=True)
     question_text = db.Column(db.String)
     exam_id = db.Column(db.Integer, db.ForeignKey(Exam.exam_id))
-
+    question_point = db.Column(db.Float,default=0)
     def __repr__(self):
         return  # add representation
 

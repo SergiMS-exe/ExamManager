@@ -17,21 +17,34 @@ def saveExam(exam_id,exam_name,exam_date,exam_time,duration,group_id,questions,a
         except Exception as e:
             print(e)
     db.session.commit()
-    # ok = db.session.query(models.Exam).filter(models.Exam.exam_id== exam_id)
-    # for u in ok:
-    #    print(u.exam_id, u.exam_date)
+
+def getQuestions(exam_id):
+    listQuestions = []
+    query =  db.session.query(models.ExamQuestion).filter(models.ExamQuestion.exam_id== exam_id)
+    for question in query:
+        temp = models.ExamQuestion(question_id=question.question_id, question_text=question.question_text, exam_id=question.exam_id,question_point=question.question_point),
+        print(question.question_id,question.question_text,question.exam_id)
+        listQuestions.append(temp)
+    return listQuestions
+
+def editExam(exam_id):
+    getExam =  db.session.query(models.Exam).filter(models.Exam.exam_id== exam_id)
+    lisQuestions =  getQuestions(exam_id)
+    listQuestions = []
     
-def modifyExam():
+    getAnswers = 0
+    pass
+
+def addParticipantToExam():
+    pass
+def addNewGroup():
     pass
 
 
-
-
-
 def test():
-    questions=[models.ExamQuestion(question_text="who is the president of USA?", exam_id=1202100001),
+    questions=[models.ExamQuestion(question_text="who is the president of USA?", exam_id=1202100009),
         models.ExamQuestion(
-        question_id=15, question_text="who is Chloe Malujlo Jr?", exam_id=1202100001)]
+        question_id=15, question_text="who is Chloe Malujlo Jr?", exam_id=1202100009)]
     answers=[models.ExamAnswer(answer_text="Donald Trump", question_id=13, correct=True),
                    models.ExamAnswer( answer_text="Andrzej Dupa", question_id=13),
                    models.ExamAnswer(answer_text="Marvin Gerald", question_id=13),
@@ -44,10 +57,12 @@ def test():
                        answer_id=100, answer_text="Cleaning Lady in mercure Hotel", question_id=2)]
     group_id =12
     saveExam(exam_id=1202100009,exam_name="Math Test",exam_date= datetime.date(year=2022,month= 8,day= 14,),exam_time=datetime.time(hour=14,minute=25,second=0) , duration= datetime.time(1, 30, 0), group_id=group_id,questions=questions,answers=answers)
-    
-
-
-
+    print("exam testtttttttttttttttttttttttttttttttt")
+    ok = db.session.query(models.Exam).filter(models.Exam.exam_id== 1202100005)
+    for u in ok:
+       print(u.exam_id, u.exam_date)
+    print("questions testtttttttttttttttttttttttttttttttt")
+    editExam(1202100001)
 
 
 test()

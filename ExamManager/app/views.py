@@ -23,6 +23,9 @@ def register():
 def teacher():
     return render_template('teacherpage.html')
 
+@app.route('/editexam')
+def editexam():
+    return render_template('editexam.html')
 
 @app.route('/studentpage')
 def student():
