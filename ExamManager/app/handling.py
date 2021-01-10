@@ -1,15 +1,20 @@
 # pylint: disable=no-member
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for
 from .models import Examiner,Student
+import actions
 import re
-from app import db, app
+from app import db
 
-radioT=""
+app = Flask(__name__)
+
+radioT = ""
+
 
 @app.route('/')
 @app.route('/index')
 def index():
     return render_template('index.html')
+
 
 @app.route("/register")
 def register():
@@ -25,6 +30,7 @@ def teacher():
 def student():
     return render_template('studentpage.html')
 
+
 # register data handling
 # you can add more logic
 @app.route('/handle_data', methods=['POST', 'GET'])
@@ -35,12 +41,8 @@ def handle_data():
     repeatPassword = request.form['repeatPassword']
     dob = request.form['dob']
     radioT = request.form['radioT']
-    email = request.form["email"]
+    email = request.get["email"]
 
-    #regular expression that matches with an email (something@something.something)
-    re_email = re.match('[0-9A-Za-z]+@[a-z]+"."[a-z]+')
-    if (re_email==False):
-        return render_template('reg.html', error="Please enter a valid email")
 
     # create user and add db logic to save data to db
     print(name, Surname, email, password, repeatPassword, dob, radioT)
@@ -80,9 +82,8 @@ def login():
         # check if email/in examiner  table or student table and change redirect
         # request.form['email']  in student then  return redirect('/studentpage')
         # else
-        email = request.form['email']
-        student = Student.query.filter_by(student_email=email).all()
-        examiner = Examiner.query.filter_by(examiner_email=email).all()
+        student = Student.query.filter(student_email=request.form['email'])
+        examiner = Examiner.query.filter(examiner_email=request.form['email'])
         if len(student)>0:
             return redirect('/studentpage')
         elif len(examiner)>0:
