@@ -280,3 +280,18 @@ header {
 #results-div{
     visibility: visible;
 }
+
+
+.inputstyletwo{
+    background-color: #EFEEEE;
+    color: #929292;
+    border: 0px;
+    margin: auto 10px;
+    margin-right: 5px; 
+    font-family: "Montserrat";
+    padding: 12px;
+    border-radius: 0px; 
+}
+.inputstyletwo::placeholder{
+    color:#929292;
+}
