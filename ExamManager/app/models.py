@@ -10,7 +10,7 @@ class Examiner(db.Model):
     examiner_surname = db.Column(db.String(255))
     examiner_email = db.Column(db.String(255), unique=True)
     examiner_password = db.Column(db.String(255))
-
+    examiner_dateOfBirth = db.Column(db.DateTime,default= datetime.date.today())
     def __repr__(self):
         return  # add representation
 
@@ -21,6 +21,7 @@ class Student(db.Model):
     student_surname = db.Column(db.String(255))
     student_email = db.Column(db.String(255), unique=True)
     student_password = db.Column(db.String(255))
+    student_dateOfBirth = db.Column(db.DateTime,default= datetime.date.today())
 
     def __repr__(self):
         return  # add representation
