@@ -4,6 +4,9 @@ from .models import Examiner,Student
 import re
 from app import db, app
 
+
+
+
 radioT=""
 
 @app.route('/')
@@ -20,6 +23,9 @@ def register():
 def teacher():
     return render_template('teacherpage.html')
 
+@app.route('/editexam')
+def editexam():
+    return render_template('editexam.html')
 
 @app.route('/studentpage')
 def student():
@@ -36,25 +42,23 @@ def handle_data():
     dob = request.form['dob']
     email = request.form['email']
 
-    try:
+    #check if at least one radio button is selected
+    try: 
         radioT = request.form['radioT']
     except:
-        error = 'You have to choose if you want to register as a student or as a examiner'
+        error = 'You have to choose if you want to register as a student or as an examiner'
         return render_template('reg.html', error=error)
 
-    #regular expression that matches with an email (something@something.something)
-    re_email = re.search(r'(^[\w]+)@([\w]+)'+'.com', email)
-    if not re_email:
-        return render_template('reg.html', error="Please enter a valid E-mail")
-
-    #check if that email cis already registered
-    student = Student.query.filter_by(student_email=email).all()
-    examiner = Examiner.query.filter_by(examiner_email=email).all()
-    if len(student)>0 or len(examiner)>0:
-        return render_template('reg.html', error="That E-mail is already registered")
 
     # create user and add db logic to save data to db
     print(name, Surname, email, password, repeatPassword, dob, radioT)
+
+    #check if that e a
+    student = Student.query.filter_by(student_email=request.form['email']).all()
+    examiner = Examiner.query.filter_by(examiner_email=request.form['email']).all()
+    if len(student)>0 or len(examiner)>0:
+        error = 'This email is already registered'
+        return render_template('reg.html', error=error)
 
     if (password != repeatPassword):
         error = 'Passwords mismatch . Please try again.'
@@ -65,21 +69,21 @@ def handle_data():
     # with groups
     if radioT == "examiner":
         last_id = Examiner.query.all()[-1].examiner_id
-        my_examiner = Examiner(examiner_id=last_id+1,examiner_name=name,examiner_surname=Surname,
-            examiner_email=email,examiner_password=password)
+        my_examiner = Examiner(last_id+1,name,Surname,email,password)
         db.session.add(my_examiner)
         db.session.commit()
 
         return redirect('/teacherpage')
-        
     elif radioT == "student":
         last_id = Student.query.all()[-1].student_id
-        my_student = Student(student_id=last_id+1,student_name=name,student_surname=Surname, 
-            student_email=email, student_password=password)
+        my_student = Student(last_id+1,name,Surname,email,password)
         db.session.add(my_student)
         db.session.commit()
 
         return redirect('/studentpage')
+    else:
+        error = 'Invalid data. Please try again.'
+        return render_template('reg.html', error=error)
 
 
 @app.route('/')
@@ -91,9 +95,8 @@ def login():
         # check if email/in examiner  table or student table and change redirect
         # request.form['email']  in student then  return redirect('/studentpage')
         # else
-        email = request.form['email']
-        student = Student.query.filter_by(student_email=email).all()
-        examiner = Examiner.query.filter_by(examiner_email=email).all()
+        student = Student.query.filter_by(student_email=request.form['email']).all()
+        examiner = Examiner.query.filter_by(examiner_email=request.form['email']).all()
         if len(student)>0:
             return redirect('/studentpage')
         elif len(examiner)>0:

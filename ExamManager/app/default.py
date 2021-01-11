@@ -245,9 +245,9 @@ def run():
 
     for studentExamGroup in StudentExamGroups:
         db.session.add(studentExamGroup)
-    # eTest = models.Exam.query.all()
+    eTest = models.Student.query.all()
     # for u in eTest:
-    #     print(u.exam_id, u.exam_date, u.duration)
+    #     print(u.student_dateOfBirth)
     db.session.commit()
 
 
