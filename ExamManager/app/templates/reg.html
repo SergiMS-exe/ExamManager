@@ -1,6 +1,6 @@
 <html>
     <head>
-        <link rel="stylesheet" href="reg.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/reg.css') }}">
     </head>
     <body>
         <div class = "columns">
@@ -8,7 +8,7 @@
                 <div class= "innerdiv">
                     
                     <p class = "centertext">Already have an account?</p>
-                    <button class = "regbutton"> SIGN IN HERE </button>
+                   <button class = "regbutton"> <a href = index >  SIGN IN HERE </a> </button>
                 </div>
             </div>
             
@@ -16,23 +16,31 @@
             <div class = "righttab">
                 <div class= "innerdiv" style = "width: 200px;">
                     <p class = "loginlabel">Register</p>
-                   <form>
-		    <input class ="inputstyle" type="text" placeholder="E-mail"></input>
-                    <input class ="inputstyle" type="text" placeholder="Name"></input>
-                    <input class ="inputstyle" type="text" placeholder="Surname"></input>
-                    <input class ="inputstyle" type="text" placeholder="Password"></input>
-                    <input class ="inputstyle" type="text" placeholder="Repeat Password"></input>
-                    <input class ="inputstyle" type="text" placeholder="Date of Birth"></input>
+                    {% if error %}
+                    <p class="error"><strong>Error:</strong> {{ error }}
+                    {% endif %}
+
+                   <form  action="{{ url_for('handle_data') }}" method="post">
+
+		            <input class ="inputstyle" type="email" name="email" placeholder="E-mail" required></input>
+                    <input class ="inputstyle" type="text" name="Name" placeholder="Name" required></input>
+                    <input class ="inputstyle" type="text" name="Surname"placeholder="Surname" required></input>
+                    <input class ="inputstyle" type="text"name="Password" placeholder="Password" required></input>
+                    <input class ="inputstyle" type="text"name="repeatPassword" placeholder="Repeat Password" required></input>
+                    <input class ="inputstyle" type="text" name="dob" placeholder="Date of Birth" required></input>
                     <div class = "columns" style = "margin: 10px 0px;">
-                    <input type="radio" id="examiner" name="gender" value="examiner">
+                    <input type="radio" id="examiner" name="radioT" value="examiner">
                         <label for="examiner">Examiner</label><br>
-                    <input type="radio" id="Student" name="gender" value="student">
+                    <input type="radio" id="Student" name="radioT" value="student">
                         <label for="Student">Student</label><br>
                     </div>
-                    <button class = "loginbutton">REGISTER </button>
+<!--                       <button class = "loginbutton" name = "loginButton" ><a   href=handle_data>REGISTER </a></button>-->
+                       <input  class = "loginbutton" type="submit" name="loginbutton"><a   href=handle_data> </a></input>
 		   </form>
+
                 </div>    
             </div>
+        </div>
         
     </body>
 </html>

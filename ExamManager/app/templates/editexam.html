@@ -1,0 +1,134 @@
+<html>
+    <head>
+        <title>HTML & CSS</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/editexam.css')  }}">
+    </head>
+    <body>
+        
+     <header>
+         <div class="columns">
+         <div class="columns">
+             
+            <div class = "backtab">
+                <p style = "padding: 5px; font-size: 0.7em;"> BACK TO HOME PAGE</p>
+            </div>
+         </div>
+         <div style = "flex: 1;"></div>
+         <div class="columns">
+             
+            <div class = "profile-tab">
+                <span></span>
+                <p style = "padding: 5px; font-size: 0.7em;"> Teacher Profile </p>
+            </div>
+         </div>
+         </div>
+     </header>
+    
+      
+     
+     
+     
+     
+     
+    <div class = "columns">
+        
+        
+        
+            <div class = "lefttab">
+                <div class= "innerdiv">
+                    <div>
+                    <p class = "loginlabel"> Edit Exam</p>
+                    <input class ="inputstyle" type="text" placeholder="Exam Name" name = "examname"></input>
+                    <p class ="labels"> Exam Date</p>
+                    <input class ="inputstyle" type="date" placeholder="Exam Date"  name = "examdate"></input>
+                    <p class ="labels"> Exam Time</p>
+                    <input class ="inputstyle" type="time" placeholder="Exam Time"  name = "examtime"></input>
+                    <p class ="labels"> Exam Duration</p>
+                    <input class ="inputstyle" type="time" placeholder="Duration"  name = "examlength"></input>
+                    <button class = "loginbutton"> SAVE </button>
+                    </div>
+                </div>    
+            </div>
+                    
+                    
+                    
+                    
+            <div>      
+                <div style = "width: 100%">
+                     <div class="columns" style=" background-color: white;"> 
+                          <div style = "flex: 1;"></div>
+                         <button class= "create-button" >
+                             Add New Question
+                         </button>
+                     </div>  
+                
+                
+                
+                <div class = "questionbox">
+                    <div >
+                        <div class = "question">
+                            <p>1. What is the velocity of an unladen swallow?</p>
+                        </div>
+                        <div class = "columns" style = "margin: 0px auto; padding: 5px;" >
+                                        <div style = "flex: 1;"></div>
+                                        <div class = "vertical-column">
+                                            
+                                            
+                                            <div class = "columns">
+                                                <p class = "answerletterstyle">a</p>
+                                                <div class = "answerbox">
+                                                    <p>African or European?</p>
+                                                </div>   
+                                                <input type="radio" id="answer-a" name="a" value="a" class = "radiostyle">
+                                            </div>
+                                            <div>
+                                                <div class = "columns">
+                                                <p class = "answerletterstyle">b</p>
+                                                <div class = "answerbox">
+                                                    <p>African or European?</p>
+                                                </div>   
+                                                <input type="radio" id="answer-a" name="b" value="b" class = "radiostyle">
+                                            </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div style = "width: 5vw;"></div>
+                                <div class = "vertical-column" style = "flex: 1;">
+                                        <div>
+                                                <div class = "columns">
+                                                    <p class = "answerletterstyle">c</p>
+                                                    <div class = "answerbox">
+                                                        <p>African or European?</p>
+                                                    </div>   
+                                                    <input type="radio" id="answer-a" name="c" value="c" class = "radiostyle">
+                                                </div>
+                                        </div>
+                                        <div>
+                                                <div class = "columns">
+                                                    <p class = "answerletterstyle">d</p>
+                                                    <div class = "answerbox">
+                                                        <p>African or European?</p>
+                                                    </div>   
+                                                    <input type="radio" id="answer-a" name="d" value="d" class = "radiostyle">
+                                                </div>
+                                        </div> 
+                                    
+                                </div>
+                                <div style = "flex: 1;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                
+                
+                
+                
+             </div>   
+                
+    </div>
+     
+     
+    </body>
+</html>
