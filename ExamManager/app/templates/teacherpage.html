@@ -41,7 +41,8 @@
                      
                      
                      {% for examgroup in examGroup %}
-                    <div class = "exam-group"><a href = "{{ url_for('editexam', examiner_id=examgroup.examiner_id, group_id=examgroup.group_id) }}">
+                    <div class = "exam-group">
+                        <a href = "{{ url_for('editexam', examiner_id=examgroup.examiner_id, group_id=examgroup.group_id) }}">
                         
                            <div >
                              <p class = "examgroupname">{{examgroup.group_name}} </p>
@@ -97,9 +98,11 @@
                     <div id = "upcomingexams-div"> <!-- !!toggle visibility for this div tag!! -->
                        
                         <div class="columns" style=" background-color: #591B31;"> 
-                         <button class= "create-button" style= "margin-left: auto"><a href="{{ url_for('editexam', examiner_id=user.examiner_id) }}" >
+                         <button class= "create-button" style= "margin-left: auto">
+                            <!-- <a href="{{ url_for('editexam', examiner_id=user.examiner_id) }}" > -->
                             <!-- clicking add new exam will take you immediately to the editexam.html page-->
-                             Add New Exam </a>
+                             Add New Exam
+                             <!-- </a> -->
                          </button>
                      </div> <!-- header for add new exam-->
                      

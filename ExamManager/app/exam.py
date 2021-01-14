@@ -16,6 +16,7 @@ original_questions = {" 1.where is something located ": ["this is the answer ", 
 questions = copy.deepcopy(original_questions)
 
 
+def shuffle(q):
     """
     This function is for shuffling 
     the dictionary elements.

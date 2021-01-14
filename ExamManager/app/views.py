@@ -71,7 +71,10 @@ def teacher(examiner_id):
 
 
 @app.route('/teacherpage/<examiner_id>/<group_id>/editexam')
-def editexam(examiner_id, group_id):
+def editexam():
+    """  user= 
+     group_id=
+     exam_id = """
     return render_template('editexam.html')
 
 

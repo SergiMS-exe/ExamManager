@@ -26,7 +26,7 @@ def register(name, surname, email, password, radioT):
     if radioT == "examiner":
         last_id = Examiner.query.all()[-1].examiner_id
         my_examiner = Examiner(examiner_id=last_id+1, examiner_name=name,
-                            examiner_surname=surname, examiner_email=email, examiner_password=password)
+                               examiner_surname=surname, examiner_email=email, examiner_password=password)
         db.session.add(my_examiner)
         db.session.commit()
 
@@ -34,7 +34,7 @@ def register(name, surname, email, password, radioT):
     elif radioT == "student":
         last_id = Student.query.all()[-1].student_id
         my_student = Student(student_id=last_id+1, student_name=name,
-                            student_surname=surname, student_email=email, student_password=password)
+                             student_surname=surname, student_email=email, student_password=password)
         db.session.add(my_student)
         db.session.commit()
 
@@ -43,18 +43,20 @@ def register(name, surname, email, password, radioT):
         error = 'Invalid data. Please try again.'
         return 'reg.html', error
 
+
 def login(email, password):
     student = Student.query.filter_by(student_email=email).first()
     examiner = Examiner.query.filter_by(examiner_email=email).first()
-    if student!=None:
-        if student.student_password==password:
+    if student != None:
+        if student.student_password == password:
             return '/studentpage/'+str(student.student_id), None
-        elif examiner!=None:
-            if examiner.examiner_password==password:
-                return '/teacherpage/'+str(examiner.examiner_id), None
-    
+    elif examiner != None:
+        if examiner.examiner_password == password:
+            return '/teacherpage/'+str(examiner.examiner_id), None
+
     error = 'Invalid Credentials. Please try again.'
     return 'index.html', error
+
 
 def addNewGroup(group_name, examiner_id):
     # Function to add a new examgroup object to the db
@@ -89,7 +91,7 @@ def getGroups(examiner_id):
 # add new group linking
 
 
-#@app.route('/newGroup', methods=['GET', 'POST'])
+# @app.route('/newGroup', methods=['GET', 'POST'])
 def newGroup():
     groupName = request.form["inp-groupname"]
     print(groupName)
