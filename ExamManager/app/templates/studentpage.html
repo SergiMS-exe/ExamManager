@@ -52,8 +52,8 @@
                            <div class = "vertical-column" style ="margin-left: auto; padding-right: 5px; ">
                              
                              <div  style= "flex-grow: 1"></div>
-                             <p class= "examgroupinforight">{{group.totalparticipants}} Participants</p>
-                             <p class= "examgroupinforight">{{group.totalexams}} Exams Set</p>
+                             <!-- <p class= "examgroupinforight">{{group.totalparticipants}} Participants</p>
+                             <p class= "examgroupinforight">{{group.totalexams}} Exams Set</p> -->
                            </div>
                         
                     </div>
@@ -90,13 +90,13 @@
                  
                     <!--for loop to be used officially below-->
                     
-                    {% for exam in exams %}
+                    <!-- {% for exam in exams %} -->
                 
                      <div class = "exam">
                         
                            <div class= "vertical-column" >
-                             <p class = "examtime">{{exam.date}}</p>
-                             <p class = "edata" >{{exam.name}}</p>
+                             <!-- <p class = "examtime">{{exam.date}}</p> -->
+                             <!-- <p class = "edata" >{{exam.name}}</p> -->
                               <div  style= "flex-grow: 1"></div>
                               
                               <div class = "columns" >
@@ -104,21 +104,21 @@
                                     <p class= "examinfo">points</p>
                                 </div>
                                 <div class = "edata">
-                                    <p class= "edata">{{exam.points}}</p>
+                                    <!-- <p class= "edata">{{exam.points}}</p> -->
                                 </div>
                               </div> 
                            </div>
                             
                            <div class = "vertical-column" style ="margin-left: auto; padding-right: 5px; ">
                              
-                             <p class= "edata" style="margin-left: auto;">{{exam.time}}</p>
+                             <!-- <p class= "edata" style="margin-left: auto;">{{exam.time}}</p> -->
                              <div  style= "flex-grow: 1"></div>
                              <button class="edit-exam-button" name ="btn-takeexam"> TAKE EXAM</button> <!-- button to edit the current exam-->
                            </div>
                         
                     </div>
                     
-                    {% endfor %}
+                    <!-- {% endfor %} -->
                     </div>
        <!---------------------------------------END OF ADD NEW EXAM DIV-->
                     

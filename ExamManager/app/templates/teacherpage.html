@@ -41,18 +41,18 @@
                      
                      
                      {% for examgroup in examGroup %}
-                    <div class = "exam-group">
+                    <div class = "exam-group"><a href = "{{ url_for('editexam', examiner_id=examgroup.examiner_id, group_id=examgroup.group_id) }}">
                         
                            <div >
-                             <p class = "examgroupname">{{examgroup.name}} </p>
+                             <p class = "examgroupname">{{examgroup.group_name}} </p>
                               <div class = "columns" >
                                 <div >
                                     <p class= "examgroupinfo">Examiner  </p>
                                     <p class= "examgroupinfo">Group ID </p>
                                 </div>
                                 <div class = "egdata">
-                                    <p class= "examgroupinfo">  {{examgroup.examiner}} </p>
-                                    <p class= "examgroupinfo">  {{examgroup.id}} </p>
+                                    <p class= "examgroupinfo">  {{examgroup.examiner_id}} </p>
+                                    <p class= "examgroupinfo">  {{examgroup.group_id}} </p>
                                 </div>
                               </div> 
                            </div>
@@ -60,10 +60,10 @@
                            <div class = "vertical-column" style ="margin-left: auto; padding-right: 5px; ">
                              <button class = "delete">x</button> 
                              <div  style= "flex-grow: 1"></div>
-                             <p class= "examgroupinforight">{{examgroup.totalParticipants}}Participants</p>
-                             <p class= "examgroupinforight">{{examgroup.totalExams}}Exams Set</p>
+                             <!-- <p class= "examgroupinforight">{{examgroup.totalParticipants}}Participants</p>
+                             <p class= "examgroupinforight">{{examgroup.totalExams}}Exams Set</p> -->
                            </div>
-                        
+                        </a>
                     </div>
                     
                   {% endfor %}
@@ -97,8 +97,9 @@
                     <div id = "upcomingexams-div"> <!-- !!toggle visibility for this div tag!! -->
                        
                         <div class="columns" style=" background-color: #591B31;"> 
-                         <button class= "create-button" style= "margin-left: auto"> <!-- clicking add new exam will take you immediately to the editexam.html page-->
-                             Add New Exam
+                         <button class= "create-button" style= "margin-left: auto"><a href="{{ url_for('editexam', examiner_id=user.examiner_id) }}" >
+                            <!-- clicking add new exam will take you immediately to the editexam.html page-->
+                             Add New Exam </a>
                          </button>
                      </div> <!-- header for add new exam-->
                      

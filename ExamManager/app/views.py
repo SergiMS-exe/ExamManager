@@ -12,13 +12,15 @@ from .extra_classes import Template_Group
 def login():
     error = None
     if request.method == 'POST':
-        next_page, error = actions.login(request.form['email'], request.form['password'])
+        next_page, error = actions.login(
+            request.form['email'], request.form['password'])
         if error == None:
             return redirect(next_page)
     return render_template('index.html', error=error)
 
+
 @app.route('/register', methods=['POST', 'GET'])
-def register(): 
+def register():
     if request.method == 'POST':
         name = request.form['Name']
         surname = request.form['Surname']
@@ -41,50 +43,54 @@ def register():
             error = 'Passwords mismatch . Please try again.'
             return render_template('reg.html', error=error)
 
-        next_page, error = actions.register(name, surname, email, password, radioT)
+        next_page, error = actions.register(
+            name, surname, email, password, radioT)
 
         if error == None:
             return redirect(next_page)
         else:
             return render_template(next_page, error=error)
 
-    else: 
+    else:
         return render_template('reg.html')
+
 
 @app.route('/teacherpage/<examiner_id>', methods=['GET', 'POST'])
 def teacher(examiner_id):
-    if request.method=='POST':
-        if request.form['btn-creategroup']=='Add New Group':
+    if request.method == 'POST':
+        if request.form['btn-creategroup'] == 'Add New Group':
             groupName = request.form['inp-groupname']
             actions.addNewGroup(groupName, examiner_id)
-        if 
-        return redirect('/teacherpage/'+str(examiner_id))
+            # actions.getGroups(examiner_id)
+
+            return redirect('/teacherpage/'+str(examiner_id))
 
     user = Examiner.query.filter_by(examiner_id=examiner_id).first()
     groups = ExamGroup.query.filter_by(examiner_id=examiner_id).all()
     return render_template('teacherpage.html', user=user, examGroup=groups)
 
 
-@app.route('/editexam')
-def editexam():
+@app.route('/teacherpage/<examiner_id>/<group_id>/editexam')
+def editexam(examiner_id, group_id):
     return render_template('editexam.html')
 
-@app.route('/exam')
+
+@app.route('/studentpage/<student_id>/<group_id>/exam')
 def exam():
     return render_template('exam.html')
 
 
-
 @app.route('/studentpage/<student_id>', methods=['POST', 'GET'])
-def student(student_id):            
+def student(student_id):
     user = Student.query.filter_by(student_id=student_id).first()
-    studentExamGroups=StudentExamGroup.query.filter_by(student_id=student_id).all()
+    """ studentExamGroups = StudentExamGroup.query.filter_by(
+        student_id=student_id).all()
     examgroups = []
     for examGroup in studentExamGroups:
-        examgroups.append(ExamGroup.query.filter_by(group_id=examGroup.group_id).first())
+        examgroups.append(ExamGroup.query.filter_by(
+            group_id=examGroup.group_id).first())
     groups = []
     for i in examgroups:
         Examiner.query.filter_by
-        groups.append(Template_Group(i.group_id,i.group_name, ))
-    return render_template('studentpage.html', user=user, examgroups=examgroups)
-
+        groups.append(Template_Group(i.group_id, i.group_name, )) """
+    return render_template('studentpage.html', user=user)
