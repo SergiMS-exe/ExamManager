@@ -45,6 +45,7 @@
                         <form  action="{{ url_for('editexam', examiner_id=examgroup.examiner_id, group_id=examgroup.group_id) }}" method="post">
                            <div >
                              <input class = "examgroupname" type="submit" value="{{examgroup.group_name}}" > </input>
+                            </form>
                               <div class = "columns" >
                                 <div >
                                     <p class= "examgroupinfo">Examiner  </p>
@@ -63,7 +64,7 @@
                              <!-- <p class= "examgroupinforight">{{examgroup.totalParticipants}}Participants</p>
                              <p class= "examgroupinforight">{{examgroup.totalExams}}Exams Set</p> -->
                            </div>
-                        </form>
+                       
                     
                     </div>
                     
