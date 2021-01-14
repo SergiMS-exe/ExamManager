@@ -70,11 +70,14 @@ def teacher(examiner_id):
     return render_template('teacherpage.html', user=user, examGroup=groups)
 
 
-@app.route('/teacherpage/<examiner_id>/<group_id>/editexam')
-def editexam():
-    """  user= 
-     group_id=
-     exam_id = """
+@app.route('/teacherpage/<examiner_id>/<group_id>/editexam', methods=['GET', 'POST'])
+def editexam(examiner_id, group_id):
+    if request.method == 'POST':
+        print(examiner_id, group_id)
+        user = Examiner.query.filter_by(examiner_id=examiner_id).first()
+        """ user= 
+        group_id=
+         exam_id = """
     return render_template('editexam.html')
 
 

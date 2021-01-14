@@ -42,10 +42,9 @@
                      
                      {% for examgroup in examGroup %}
                     <div class = "exam-group">
-                        <a href = "{{ url_for('editexam', examiner_id=examgroup.examiner_id, group_id=examgroup.group_id) }}">
-                        
+                        <form  action="{{ url_for('editexam', examiner_id=examgroup.examiner_id, group_id=examgroup.group_id) }}" method="post">
                            <div >
-                             <p class = "examgroupname">{{examgroup.group_name}} </p>
+                             <input class = "examgroupname" type="submit" value="{{examgroup.group_name}}" > </input>
                               <div class = "columns" >
                                 <div >
                                     <p class= "examgroupinfo">Examiner  </p>
@@ -64,7 +63,8 @@
                              <!-- <p class= "examgroupinforight">{{examgroup.totalParticipants}}Participants</p>
                              <p class= "examgroupinforight">{{examgroup.totalExams}}Exams Set</p> -->
                            </div>
-                        </a>
+                        </form>
+                    
                     </div>
                     
                   {% endfor %}
@@ -99,10 +99,9 @@
                        
                         <div class="columns" style=" background-color: #591B31;"> 
                          <button class= "create-button" style= "margin-left: auto">
-                            <!-- <a href="{{ url_for('editexam', examiner_id=user.examiner_id) }}" > -->
                             <!-- clicking add new exam will take you immediately to the editexam.html page-->
                              Add New Exam
-                             <!-- </a> -->
+                            
                          </button>
                      </div> <!-- header for add new exam-->
                      
@@ -129,7 +128,9 @@
                              <button class = "delete">x</button> 
                              <p class= "edata" style="margin-left: auto;">12:00</p>
                              <div  style= "flex-grow: 1"></div>
-                             <button class="edit-exam-button"><a href = 'editexam'> EDIT EXAM</a></button>
+                            
+                             <button class="edit-exam-button" type="submit">=EDIT EXAM" </button>
+                            
                            </div>
                         
                     </div>
