@@ -9,9 +9,10 @@
          <div class="columns">
              
             <div class = "profile-tab">
-                <span></span>
-                <p style = "padding: 5px; font-size: 0.7em;"> studentname studentid  </p>
-
+              {% block content %}
+                  <span></span>
+                  <p style = "padding: 5px; font-size: 0.7em;"> {{user.student_name}} {{user.student_surname}} </p>
+              {% endblock %}
             </div>
         
          </div>
@@ -84,38 +85,7 @@
                     
          <!-----------------------------------------------------------START OF UPCOMING EXAM DIV-->
                     <div id = "upcomingexams-div"> <!-- toggle visibility for this div tag -->
-                       
-                       
-                     
-                     
-                    <!--EXAMPLE NEW EXAM BOX to delete-->
-                     <div class = "exam" >
-                        
-                           <div class= "vertical-column" >
-                             <p class = "examtime">12 OCT</p>
-                             <p class = "edata" >ENTRY EXAM</p>
-                              <div  style= "flex-grow: 1"></div>
-                              
-                              <div class = "columns" >
-                                <div >
-                                    <p class= "examinfo">points</p>
-                                </div>
-                                <div class = "edata">
-                                    <p class= "edata"> 12</p>
-                                </div>
-                              </div> 
-                           </div>
-                            
-                           <div class = "vertical-column" style ="margin-left: auto; padding-right: 5px; ">
-                            
-                             <p class= "edata" style="margin-left: auto;">12:00</p>
-                             <div  style= "flex-grow: 1"></div>
-                             <button class="edit-exam-button-inactive"> TAKE EXAM</button><!--INACTIVE STYLE for when exam is not open yet-->
-                           </div>
-                        
-                    </div>
                     
-                    <!--END OF EXAMPLE BOX to delete -->
                     
                  
                     <!--for loop to be used officially below-->

@@ -1,21 +1,127 @@
 # pylint: disable=no-member
 from app import db, models
+from .models import ExamGroup, Exam, StudentExamGroup, Student
 import datetime
+from flask import Flask, render_template, request, redirect, url_for, flash
+from .models import Examiner, Student
+import re
+from app import db, app
 
 
-def addNewGroup():
-    # to be implemented by someone else than edouard for now i am off tired lol
-    pass
+def register(name, surname, email, password, radioT):
+    # check if that the user is already registered
+    student = Student.query.filter_by(
+        student_email=request.form['email']).all()
+    examiner = Examiner.query.filter_by(
+        examiner_email=request.form['email']).all()
+
+    if len(student) > 0 or len(examiner) > 0:
+        error = 'This email is already registered'
+        return 'reg.html', error
+
+    # radioT decides whether user data goes to examiner or student please send data respectively and a assign
+    # unique id , please give that id into a variable so that students can know their ids and we can later work
+    # with groups
+
+    if radioT == "examiner":
+        last_id = Examiner.query.all()[-1].examiner_id
+        my_examiner = Examiner(examiner_id=last_id+1, examiner_name=name,
+                            examiner_surname=surname, examiner_email=email, examiner_password=password)
+        db.session.add(my_examiner)
+        db.session.commit()
+
+        return '/teacherpage', None
+    elif radioT == "student":
+        last_id = Student.query.all()[-1].student_id
+        my_student = Student(student_id=last_id+1, student_name=name,
+                            student_surname=surname, student_email=email, student_password=password)
+        db.session.add(my_student)
+        db.session.commit()
+
+        return '/studentpage', None
+    else:
+        error = 'Invalid data. Please try again.'
+        return 'reg.html', error
+
+def login(email, password):
+    student = Student.query.filter_by(student_email=email).first()
+    examiner = Examiner.query.filter_by(examiner_email=email).first()
+    if student!=None:
+        if student.student_password==password:
+            return '/studentpage/'+str(student.student_id), None
+        elif examiner!=None:
+            if examiner.examiner_password==password:
+                return '/teacherpage/'+str(examiner.examiner_id), None
+    
+    error = 'Invalid Credentials. Please try again.'
+    return 'index.html', error
+
+def addNewGroup(group_name, examiner_id):
+    # Function to add a new examgroup object to the db
+    last_id = ExamGroup.query.all()[-1].group_id
+    temp = models.ExamGroup(
+        group_id=last_id+1,
+        group_name=group_name,
+        examiner_id=examiner_id,
+        exam_id=0   # Dummy variable for exam id, should be replaced at some point
+    )
+    db.session.add(temp)
+    db.session.commit()
 
 
-def getGroups():
-    # to be implemented by someone else than edouard for now i am off tired lol
-    pass
+def getGroups(examiner_id):
+    # Function that returns a list of exam group objects which has the provided examiner_id
+    listGroups = []
+    query = db.session.query(models.ExamGroup).filter(
+        models.ExamGroup.examiner_id == examiner_id)
+    for groups in query:
+        temp = models.ExamGroup(
+            group_id=groups.group_id,
+            group_name=groups.group_name,
+            examiner_id=groups.examiner_id,
+            exam_id=groups.exam_id
+        )
+        listGroups.append(temp)
+        db.session.close()
+    return listGroups
+# getGroups(2021010)
+
+# add new group linking
 
 
-def getParticipants():
-    # to be implemented by someone else than edouard for now i am off tired lol
-    pass
+#@app.route('/newGroup', methods=['GET', 'POST'])
+def newGroup():
+    groupName = request.form["inp-groupname"]
+    print(groupName)
+    examinerID = ""
+    # please get the right examiner id of the current user
+    # uncomment the bottom lines
+    #addNewGroup(groupName , examinerID)
+    #examGroup = getGroups(examinerID)
+
+    # there is for loop inside the html file that will show groupinstance divs
+    # return redirect('teacherpage', examGroup)
+    # divs as soon as they are passed in here , check their attribues please
+
+
+def getParticipants(my_group_id):
+    # Function that returns a list of student objects which is participants of the given exam group
+    listParticipants = []
+    listIds = []
+    groups = StudentExamGroup.query.filter_by(group_id=my_group_id).all()
+    for group in groups:
+        listIds.append(group.student_id)
+    for id in listIds:
+        s = Student.query.filter_by(student_id=id).all()[0]
+        temp = models.Student(student_id=s.student_id,
+                              student_name=s.student_name,
+                              student_surname=s.student_surname,
+                              student_email=s.student_email,
+                              student_password=s.student_password
+                              )
+        listParticipants.append(temp)
+    return listParticipants
+# getParticipants(1)
 
 
 def getQuestions(exam_id):
@@ -83,11 +189,19 @@ def editExam(exam_id):
     return [exam, listQuestions, listAnswers]
 
 
-def addParticipantToExam(student_id):
-    pass
+def addParticipantToExam(group_id, student_id):
+    # Function to add a new student to the StudentExamGroup
+    temp = models.StudentExamGroup(group_id=group_id, student_id=student_id)
+    db.session.add(temp)
+    """query = db.session.query(models.StudentExamGroup).filter(
+        models.StudentExamGroup.group_id == group_id)
+    for groups in query:
+        print(groups.student_id)"""
+    db.session.close()
+# addParticipantToExam(student_id=251566, group_id=1)
 
 
-def test():
+"""def test():
     questions = [models.ExamQuestion(question_text="who is the president of USA?", exam_id=1202100009),
                  models.ExamQuestion(
         question_id=15, question_text="who is Chloe Malujlo Jr?", exam_id=1202100009)]
@@ -97,11 +211,11 @@ def test():
                models.ExamAnswer(answer_text="Andrzej Duda ", question_id=13),
                models.ExamAnswer(answer_text="CEO of IBM", question_id=15),
                models.ExamAnswer(
-                   answer_text="Great PM in Project Software Eng.", question_id=15., correct=True),
-               models.ExamAnswer(answer_text="Teacher at PWR", question_id=15),
-               models.ExamAnswer(
-                   answer_text="Great PM in Project Software Eng.", question_id=15),
-               models.ExamAnswer(
+        answer_text="Great PM in Project Software Eng.", question_id=15., correct=True),
+        models.ExamAnswer(answer_text="Teacher at PWR", question_id=15),
+        models.ExamAnswer(
+        answer_text="Great PM in Project Software Eng.", question_id=15),
+        models.ExamAnswer(
         answer_id=100, answer_text="Cleaning Lady in mercure Hotel", question_id=2)]
     group_id = 12
     saveExam(exam_id=1202100009, exam_name="Math Test", exam_date=datetime.date(year=2022, month=8, day=14,), exam_time=datetime.time(
@@ -116,3 +230,4 @@ def test():
 
 
 test()
+"""

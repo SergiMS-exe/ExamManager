@@ -9,8 +9,10 @@
          <div class="columns">
              
             <div class = "profile-tab">
-                <span></span>
-                <p style = "padding: 5px; font-size: 0.7em;"> Teacher Profile </p>
+                {% block content %}
+                    <span></span>
+                    <p style = "padding: 5px; font-size: 0.7em;"> {{user.examiner_name}} {{user.examiner_surname}} </p>
+                {% endblock %}
             </div>
         
          </div>
@@ -25,18 +27,20 @@
                  
                  <div style = "width: 60%">
                      <div class="columns" style=" background-color: white;"> 
-                         <form style = "margin-bottom: 0px; width: 100%; display: flex;">
+                         <form style = "margin-bottom: 0px; width: 100%; display: flex;" action="{{ url_for('teacher', examiner_id=user.examiner_id) }}" method="post">
                              <p style = "margin: auto 5px; width: 300px;">Exam Groups You Manage</p>
-                             <input type = "text" class = "inputstyletwo" placeholder="Enter a Group Name" name = "inp-groupname"  style= "margin-left: auto; width: 200px;"></input>
+                             
+                             <input type = "text" class = "inputstyletwo" placeholder="Enter a Group Name" name = "inp-groupname"  style= "margin-left: auto; width: 200px;" required></input>
 
-                             <button class= "create-button" name = "btn-creategroup">
-                                 Add New Group
-                             </button>
+                             <input class= "create-button" type='submit' name = "btn-creategroup" value="Add New Group">>
+                         </input>
+      
+                        
 			            </form>	
                      </div>
                      
                      
-                     {% for examgroup in groups %}
+                     {% for examgroup in examGroup %}
                     <div class = "exam-group">
                         
                            <div >
@@ -121,7 +125,7 @@
                              <button class = "delete">x</button> 
                              <p class= "edata" style="margin-left: auto;">12:00</p>
                              <div  style= "flex-grow: 1"></div>
-                             <button class="edit-exam-button"> EDIT EXAM</button>
+                             <button class="edit-exam-button"><a href = 'editexam'> EDIT EXAM</a></button>
                            </div>
                         
                     </div>
