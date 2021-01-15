@@ -18,7 +18,7 @@
              
             <div class = "profile-tab">
                 <span></span>
-                <p style = "padding: 5px; font-size: 0.7em;"> {{teachername}} </p>
+                <p style = "padding: 5px; font-size: 0.7em;"> {{user.examiner_name}} </p>
             </div>
          </div>
          </div>
@@ -32,7 +32,7 @@
                 <div class= "innerdiv">
                   
 		 <div>
-                    <p class = "loginlabel"> Edit Exam</p>
+                    <p class = "loginlabel"> New Exam</p>
 		    
 		    
 			<input class ="inputstyle" type="text" placeholder="Exam Name" name = "examname"></input>
@@ -65,7 +65,7 @@
                      </div>  
                 
                
-              <form>     
+              <form action="{{ url_for('editexam', examiner_id=user.examiner_id, group_id=examgroup.group_id) }}" method="post">     
        
                    <div class = "questionbox">
                     <button class = "delete">x</button> 

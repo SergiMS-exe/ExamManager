@@ -1,9 +1,8 @@
 # pylint: disable=no-member
 from app import db, models
-from .models import ExamGroup, Exam, StudentExamGroup, Student
+from .models import *
 import datetime
 from flask import Flask, render_template, request, redirect, url_for, flash
-from .models import Examiner, Student
 import re
 from app import db, app
 
@@ -56,6 +55,41 @@ def login(email, password):
 
     error = 'Invalid Credentials. Please try again.'
     return 'index.html', error
+
+def addExam(group_id, name, date, time): #I think we won't need exam duration, so complicated
+    last_id = ExamGroup.query.all()[-1].group_id
+    exam = models.Exam(
+        exam_id=last_id+1, 
+        exam_name = name,
+        exam_date=date,
+        exam_time = time,
+        group_id=group_id
+        )
+    db.session.add(exam)
+    db.session.commit()
+
+def addQuestion(exam_id, text, answers):
+    my_question_id = ExamQuestion.query.all()[-1].question_id+1
+    question = models.ExamQuestion(
+        question_id = my_question_id,
+        question_text = text,
+        exam_id = exam_id
+    )
+    db.session.add(question)
+    last_answer_id = ExamAnswer.query.all()[-1].answer_id
+
+    for key, value in answers.items():
+        last_answer_id+=1
+        
+        answer = models.ExamAnswer(
+            answer_id = last_answer_id+1,
+            answer_text = key,
+            question_id = my_question_id,
+            correct = value
+        )    
+        db.session.add(answer)
+    
+    db.session.commit()
 
 
 def addNewGroup(group_name, examiner_id):
@@ -170,6 +204,7 @@ def saveExam(exam_name, exam_date, exam_time, duration, group_id, questions, ans
         except Exception as e:
             print(e)
     db.session.commit()
+
 
 
 def editExam(exam_id):

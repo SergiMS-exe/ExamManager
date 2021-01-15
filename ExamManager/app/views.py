@@ -74,11 +74,12 @@ def teacher(examiner_id):
 def editexam(examiner_id, group_id):
     if request.method == 'POST':
         print(examiner_id, group_id)
-        user = Examiner.query.filter_by(examiner_id=examiner_id).first()
-        """ user= 
-        group_id=
-         exam_id = """
-    return render_template('editexam.html')
+    user = Examiner.query.filter_by(examiner_id=examiner_id).first()
+    group = ExamGroup.query.filter_by(group_id=group_id).first()
+    """ user= 
+    group_id=
+        exam_id = """
+    return render_template('editexam.html', user=user)
 
 
 @app.route('/studentpage/<student_id>/<group_id>/exam')
@@ -89,14 +90,14 @@ def exam():
 @app.route('/studentpage/<student_id>', methods=['POST', 'GET'])
 def student(student_id):
     user = Student.query.filter_by(student_id=student_id).first()
-    """ studentExamGroups = StudentExamGroup.query.filter_by(
+    studentExamGroups = StudentExamGroup.query.filter_by(
         student_id=student_id).all()
     examgroups = []
     for examGroup in studentExamGroups:
         examgroups.append(ExamGroup.query.filter_by(
             group_id=examGroup.group_id).first())
     groups = []
-    for i in examgroups:
+    """for i in examgroups:
         Examiner.query.filter_by
         groups.append(Template_Group(i.group_id, i.group_name, )) """
     return render_template('studentpage.html', user=user)

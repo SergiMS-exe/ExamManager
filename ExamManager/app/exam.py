@@ -31,7 +31,7 @@ def shuffle(q):
     return selected_keys
 
 
-@app.route('/studentpage/<student_id>/exam')
+@app.route('/studentpage/<student_id>')# I have to add exam_id
 def quiz():
     questions_shuffled = shuffle(questions)
     for i in questions.keys():

@@ -69,16 +69,16 @@ def run():
                  2021, 8, 14), group_id=4),
              models.Exam(exam_id=1202100006, exam_date=datetime.date(2021, 8, 14), group_id=6)]
 
-    ExamGroups = [models.ExamGroup(group_id=1, group_name="G--1", examiner_id=2021010, exam_id=1202100001),
+    ExamGroups = [models.ExamGroup(group_id=1, group_name="G--1", examiner_id=2021010),
                   models.ExamGroup(group_id=2, group_name="G--2",
-                                   examiner_id=2021010, exam_id=1202100002),
+                                   examiner_id=2021010),
                   models.ExamGroup(group_id=3, group_name="G--3",
-                                   examiner_id=2021009, exam_id=1202100003),
+                                   examiner_id=2021009),
                   models.ExamGroup(group_id=4, group_name="G--4",
-                                   examiner_id=2021004, exam_id=1202100006),
+                                   examiner_id=2021004),
                   models.ExamGroup(group_id=5, group_name="G--5",
-                                   examiner_id=2021011, exam_id=1202100003),
-                  models.ExamGroup(group_id=6, group_name="G--6", examiner_id=2021010, exam_id=1202100004)]
+                                   examiner_id=2021011),
+                  models.ExamGroup(group_id=6, group_name="G--6", examiner_id=2021010)]
     ExamStudents = [models.ExamStudent(student_id=251567, exam_id=1202100001, grade=5),
                     models.ExamStudent(student_id=251452,
                                        exam_id=1202100002, grade=4),
