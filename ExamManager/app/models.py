@@ -32,7 +32,7 @@ class Exam(db.Model):
     exam_id = db.Column(db.Integer,autoincrement=True, primary_key=True)
     exam_name = db.Column(db.String(255),unique=False, default='Exam')
     exam_date = db.Column(db.DateTime)
-    duration = db.Column(db.Time,default=datetime.time(1, 30, 0))
+    exam_time = db.Column(db.Time,default=datetime.time(1, 30, 0))
     group_id = None
     # children = None
     def __repr__(self):

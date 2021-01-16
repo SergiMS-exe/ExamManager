@@ -12,6 +12,7 @@
               {% block content %}
                   <span></span>
                   <p style = "padding: 5px; font-size: 0.7em;"> {{user.student_name}} {{user.student_surname}} </p>
+                  <p style = "padding: 5px; font-size: 0.7em;"> {{user.student_id}}</p>
               {% endblock %}
             </div>
         
@@ -33,22 +34,24 @@
                      
                      
                     {% for group in examgroups %}
-                    <div class = "exam-group" name= "div-examgroup"> <!-- click on this div to show the data for this exam group on the right-->
-                        
-                           <div >
-                             <p class = "examgroupname">{{group.name}} </p>
-                              <div class = "columns" >
-                                <div >
-                                    <p class= "examgroupinfo">Examiner  </p>
-                                    <p class= "examgroupinfo">Group ID </p>
-                                </div>
-                                <div class = "egdata">
-                                    <p class= "examgroupinfo">  {{group.Examiner}} </p>
-                                    <p class= "examgroupinfo">  {{group.id}} </p>
-                                </div>
-                              </div> 
-                           </div>
-                            
+                    <div class="exam-group">
+                      <form
+                          action="{{ url_for('student', student_id=group.student_id, group_id=group.group_id) }}"
+                          method="post">
+                          <div>
+                              <input class="examgroupinfo" name=GroupButton type="submit"
+                                  value="{{group.group_name}}"> </input>
+                      </form>
+                      <div class="columns">
+                          <div>
+                              <p class="examgroupinfo">Examiner </p>
+                              <p class="examgroupinfo">Group ID </p>
+                          </div>
+                          <div class="egdata">
+                              <p class="examgroupinfo"> {{group.examiner_id}} {{group.examiner_name}} </p>
+                              <p class="examgroupinfo"> {{group.group_id}}</p>
+                          </div>
+                      </div>                            
                            <div class = "vertical-column" style ="margin-left: auto; padding-right: 5px; ">
                              
                              <div  style= "flex-grow: 1"></div>
@@ -60,10 +63,7 @@
                     {% endfor %}
                  </div>   
                      
- 
- 
- 
- 
+
                  
                  <div class="vertical-column" style= "width: 40%" > <!--right hand column-->
                      

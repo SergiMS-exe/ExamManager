@@ -64,7 +64,7 @@ def run():
              models.Exam(exam_id=1202100003, exam_date=datetime.date(
                  2021, 1, 14), group_id=3),
              models.Exam(exam_id=1202100004, exam_date=datetime.date(
-                 2021, 7, 14), group_id=5),
+                 2021, 7, 14), group_id=2),
              models.Exam(exam_id=1202100005, exam_date=datetime.date(
                  2021, 8, 14), group_id=4),
              models.Exam(exam_id=1202100006, exam_date=datetime.date(2021, 8, 14), group_id=6)]

@@ -7,7 +7,7 @@ import re
 from app import db, app
 
 
-def register(name, surname, email, password, radioT):
+def register(name, surname, email, password, radioT): #FUNCTIONAL
     # check if that the user is already registered
     student = Student.query.filter_by(
         student_email=request.form['email']).all()
@@ -29,7 +29,7 @@ def register(name, surname, email, password, radioT):
         db.session.add(my_examiner)
         db.session.commit()
 
-        return '/teacherpage', None
+        return '/teacherpage/'+str(last_id+1)+'/-1', None
     elif radioT == "student":
         last_id = Student.query.all()[-1].student_id
         my_student = Student(student_id=last_id+1, student_name=name,
@@ -37,13 +37,13 @@ def register(name, surname, email, password, radioT):
         db.session.add(my_student)
         db.session.commit()
 
-        return '/studentpage', None
+        return '/studentpage'+str(last_id+1)+'/-1', None
     else:
         error = 'Invalid data. Please try again.'
         return 'reg.html', error
 
 
-def login(email, password):
+def login(email, password): # FUNCTIONAL
     student = Student.query.filter_by(student_email=email).first()
     examiner = Examiner.query.filter_by(examiner_email=email).first()
     if student != None:
@@ -51,7 +51,11 @@ def login(email, password):
             return '/studentpage/'+str(student.student_id), None
     elif examiner != None:
         if examiner.examiner_password == password:
-            return '/teacherpage/'+str(examiner.examiner_id), None
+            try:
+                group_id=getGroups(examiner.examiner_id)[0].group_id
+            except:
+                group_id=-1
+            return '/teacherpage/'+str(examiner.examiner_id)+"/"+str(group_id), None
 
     error = 'Invalid Credentials. Please try again.'
     return 'index.html', error
@@ -99,10 +103,11 @@ def addNewGroup(group_name, examiner_id):
         group_id=last_id+1,
         group_name=group_name,
         examiner_id=examiner_id,
-        exam_id=0   # Dummy variable for exam id, should be replaced at some point
+        #exam_id=0   # Dummy variable for exam id, should be replaced at some point
     )
     db.session.add(temp)
     db.session.commit()
+    return last_id+1
 
 
 def getGroups(examiner_id):
@@ -115,7 +120,7 @@ def getGroups(examiner_id):
             group_id=groups.group_id,
             group_name=groups.group_name,
             examiner_id=groups.examiner_id,
-            exam_id=groups.exam_id
+            #exam_id=groups.exam_id
         )
         listGroups.append(temp)
         db.session.close()
