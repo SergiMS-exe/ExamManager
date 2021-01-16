@@ -9,8 +9,10 @@
          <div class="columns">
              
             <div class = "profile-tab">
-                <span></span>
-                <p style = "padding: 5px; font-size: 0.7em;"> Teacher Profile </p>
+                {% block content %}
+                    <span></span>
+                    <p style = "padding: 5px; font-size: 0.7em;"> {{user.examiner_name}} {{user.examiner_surname}} </p>
+                {% endblock %}
             </div>
         
          </div>
@@ -25,30 +27,33 @@
                  
                  <div style = "width: 60%">
                      <div class="columns" style=" background-color: white;"> 
-                         <form style = "margin-bottom: 0px; width: 100%; display: flex;">
+                         <form style = "margin-bottom: 0px; width: 100%; display: flex;" action="{{ url_for('teacher', examiner_id=user.examiner_id) }}" method="post">
                              <p style = "margin: auto 5px; width: 300px;">Exam Groups You Manage</p>
-                             <input type = "text" class = "inputstyletwo" placeholder="Enter a Group Name" name = "inp-groupname"  style= "margin-left: auto; width: 200px;"></input>
+                             
+                             <input type = "text" class = "inputstyletwo" placeholder="Enter a Group Name" name = "inp-groupname"  style= "margin-left: auto; width: 200px;" required></input>
 
-                             <button class= "create-button" name = "btn-creategroup">
-                                 Add New Group
-                             </button>
+                             <input class= "create-button" type='submit' name = "btn-creategroup" value="Add New Group">>
+                         </input>
+      
+                        
 			            </form>	
                      </div>
                      
                      
-                     {% for examgroup in groups %}
+                     {% for examgroup in examGroup %}
                     <div class = "exam-group">
-                        
+                        <form  action="{{ url_for('editexam', examiner_id=examgroup.examiner_id, group_id=examgroup.group_id) }}" method="post">
                            <div >
-                             <p class = "examgroupname">{{examgroup.name}} </p>
+                             <input class = "examgroupname" name=GroupButton type="submit" value="{{examgroup.group_name}}" > </input>
+                            </form>
                               <div class = "columns" >
                                 <div >
                                     <p class= "examgroupinfo">Examiner  </p>
                                     <p class= "examgroupinfo">Group ID </p>
                                 </div>
                                 <div class = "egdata">
-                                    <p class= "examgroupinfo">  {{examgroup.examiner}} </p>
-                                    <p class= "examgroupinfo">  {{examgroup.id}} </p>
+                                    <p class= "examgroupinfo">  {{examgroup.examiner_id}} {{examgroup.examiner_name}} </p>
+                                    <p class= "examgroupinfo">  {{examgroup.group_id}} </p>
                                 </div>
                               </div> 
                            </div>
@@ -56,10 +61,11 @@
                            <div class = "vertical-column" style ="margin-left: auto; padding-right: 5px; ">
                              <button class = "delete">x</button> 
                              <div  style= "flex-grow: 1"></div>
-                             <p class= "examgroupinforight">{{examgroup.totalParticipants}}Participants</p>
-                             <p class= "examgroupinforight">{{examgroup.totalExams}}Exams Set</p>
+                             <!-- <p class= "examgroupinforight">{{examgroup.totalParticipants}}Participants</p>
+                             <p class= "examgroupinforight">{{examgroup.totalExams}}Exams Set</p> -->
                            </div>
-                        
+                       
+                    
                     </div>
                     
                   {% endfor %}
@@ -93,8 +99,10 @@
                     <div id = "upcomingexams-div"> <!-- !!toggle visibility for this div tag!! -->
                        
                         <div class="columns" style=" background-color: #591B31;"> 
-                         <button class= "create-button" style= "margin-left: auto"> <!-- clicking add new exam will take you immediately to the editexam.html page-->
+                         <button class= "create-button" style= "margin-left: auto">
+                            <!-- clicking add new exam will take you immediately to the editexam.html page-->
                              Add New Exam
+                            
                          </button>
                      </div> <!-- header for add new exam-->
                      
@@ -121,7 +129,9 @@
                              <button class = "delete">x</button> 
                              <p class= "edata" style="margin-left: auto;">12:00</p>
                              <div  style= "flex-grow: 1"></div>
-                             <button class="edit-exam-button"> EDIT EXAM</button>
+                            
+                             <button class="edit-exam-button" type="submit">EDIT EXAM </button>
+                            
                            </div>
                         
                     </div>
@@ -154,7 +164,9 @@
                              <button class = "delete">x</button> <!--button to delete the current exam from the database, should have an 'are you sure you wish to delete' pop up-->
                              <p class= "edata" style="margin-left: auto;">{{exam.time}}</p>
                              <div  style= "flex-grow: 1"></div>
-                             <button class="edit-exam-button"> EDIT EXAM</button> <!-- button to edit the current exam-->
+                             <form  action="{{ url_for('editexam', examiner_id=examgroup.examiner_id, group_id=examgroup.group_id) }}" method="post">
+                                <input class="edit-exam-button"> EDIT EXAM</button> <!-- button to edit the current exam-->
+                            </form>
                            </div>
                         
                     </div>

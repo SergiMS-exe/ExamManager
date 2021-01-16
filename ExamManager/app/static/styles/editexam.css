@@ -21,7 +21,11 @@ header {
     text-align: center;
 }
 
+a{
+    color: #591B31;
+    text-decoration: none;
 
+}
 
 button{
     margin: 7px auto;
@@ -66,9 +70,7 @@ label{
     display: flex;
     background-color: #724F5B;
     padding: auto 30px;
-    margin: 0px;
-   
-    
+    margin: 0px;    
 }
 
 .backtab{
@@ -77,6 +79,7 @@ label{
     margin: 0px;
     color: #591B31;
      transition: 0.3s;
+    border: 0px;	
 }
 .backtab:hover{
     background-color: #E1E1E1;
@@ -97,6 +100,7 @@ label{
     text-align: center;
     padding: 1.7em;
     align-items: center;
+    width: 200px;
 }
 .examname{
      margin: 10px auto;
@@ -127,7 +131,6 @@ label{
      margin-bottom: 20px; 
 }
 
-
 .inputstyle{
     margin: 7px auto;
     background-color: #C4C4C4 ;
@@ -139,8 +142,6 @@ label{
     height: 40px;
     width: 200px;
     text-align: left;
-    
-    
 }
 
 
@@ -163,14 +164,11 @@ label{
      width:20vw;
      transition: 0.3s
 }
-.answerbox:hover{
-     background-color: #CDCDCD;
-}
+
 .answerletterstyle{
     color: #959595;
     margin: auto 5px;
     font-size: 20px;
-
 }
 
 .lefttab{
@@ -180,6 +178,7 @@ label{
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 .loginlabel{
@@ -202,6 +201,7 @@ label{
     
     
 }
+
 .create-button:hover {
   background-color: #591B31;
 }
@@ -209,4 +209,60 @@ label{
 .labels{
     color: #591B31;
     margin: 3px
+}
+
+.questioninput{
+     margin: 7px auto;
+    background-color: #C4C4C4 ;
+    border: 0px #591B31 solid;
+    border-radius: 4px;
+    color: white;
+    font-family: 'Montserrat';
+    padding: 0px 10px;
+    height: 40px;
+    width: 90%;
+    text-align: left;
+}
+.delete{
+    background-color: #CC8282;
+    border: 0px;
+    color: white;
+    margin-top: 5px;
+    height:20px;
+    width:20px;
+    margin-left: auto;
+    border-radius: 0px;
+    transition: 0.3s;
+}
+.delete:hover{
+    background-color: #AF5A5A;
+}
+
+.save{
+    background-color: #66D485;
+    border: 0px;
+    color: white;
+    margin-top: 5px;
+    height:20px;
+    width:50px;
+    margin-left: auto;
+    border-radius: 0px;
+    transition: 0.3s;
+    
+}
+.save:hover{
+    background-color: #591B31;
+}
+
+.submitbutton{
+    margin: 7px auto;
+    background-color: #591B31 ;
+    border: 2px #591B31 solid;
+    border-radius: 4px;
+    color: #F2F2F2;
+    font-family: 'Montserrat';
+    
+    height: 40px;
+    width: 200px;
+    transition: 0.3s;
 }

@@ -1,6 +1,8 @@
 <html>
     <head>
-        <link rel="stylesheet" href="exam.css">
+        <!--<link rel="stylesheet" href="{{ url_for('static', filename='styles/exam.css') }}">-->
+	<link rel="stylesheet" href="{{ url_for('static', filename='styles/exam.css')  }}">
+  
     </head>
     <body>
         
@@ -17,74 +19,91 @@
              
             <div class = "profile-tab">
                 <span></span>
-                <p style = "padding: 5px; font-size: 0.7em;"> Teacher Profile </p>
+                <p style = "padding: 5px; font-size: 0.7em;"> {{student.name}} #{{student.id}} </p>
             </div>
          </div>
          </div>
      </header>
+
+
      <div class = "examnameholder">
         <p class = "examname"> Exam Name </p>
      </div>
      
+
+
+     <p style = "color: #959595; text-align: center;"> {{timeleft}} remaining </p>
+
+{% for question in quiz %}	
+
      <div class = "questionbox">
          <div >
             <div class = "question">
-                <p>1. What is the velocity of an unladen swallow?</p>
+                <p>{{question.number}}. {{question.question}}</p>
             </div>
+	 <form>
             <div class = "columns" style = "margin: 0px auto; padding: 5px;" >
-                            <div style = "flex: 1;"></div>
+                           <div style = "flex: 1;"></div>
+
                             <div class = "vertical-column">
                                 
                                 
                                 <div class = "columns">
                                     <p class = "answerletterstyle">a</p>
                                     <div class = "answerbox">
-                                        <p>African or European?</p>
+                                        <p>{{question.answerA}}</p>
                                     </div>   
-                                    <input type="radio" id="answer-a" name="a" value="a" class = "radiostyle">
+                                    <input type="radio" id="answer-a" name="foo" value="a" class = "radiostyle">
                                 </div>
+
                                 <div>
-                                    <div class = "columns">
-                                    <p class = "answerletterstyle">a</p>
-                                    <div class = "answerbox">
-                                        <p>African or European?</p>
-                                    </div>   
-                                    <input type="radio" id="answer-a" name="a" value="a" class = "radiostyle">
+                                       <div class = "columns">
+                                       <p class = "answerletterstyle">b</p>
+                                       <div class = "answerbox">
+                                         <p>{{question.answerB}}</p>
+                                       </div>   
+                                       <input type="radio" id="answer-b" name="foo" value="b" class = "radiostyle">
+                                       </div>
                                 </div>
-                                </div>
+                           
                             </div>
-                            
-                            <div style = "width: 5vw;"></div>
-                    <div class = "vertical-column" style = "flex: 1;">
+                    		<div style = "width: 5vw;"></div>        
+                       <div class = "vertical-column" style = "flex: 1;">
                             <div>
                                     <div class = "columns">
-                                        <p class = "answerletterstyle">a</p>
+                                        <p class = "answerletterstyle">c</p>
                                         <div class = "answerbox">
-                                            <p>African or European?</p>
+                                            <p>{{question.answerC}}</p>
                                         </div>   
-                                        <input type="radio" id="answer-a" name="a" value="a" class = "radiostyle">
+                                        <input type="radio" id="answer-c" name="foo" value="c" class = "radiostyle">
                                     </div>
                             </div>
+
                             <div>
                                     <div class = "columns">
-                                        <p class = "answerletterstyle">a</p>
+                                        <p class = "answerletterstyle">d</p>
                                         <div class = "answerbox">
-                                            <p>African or European?</p>
+                                            <p>{{question.answerD}}</p>
                                         </div>   
-                                        <input type="radio" id="answer-a" name="a" value="a" class = "radiostyle">
+                                        <input type="radio" id="answer-d" name="foo" value="d" class = "radiostyle">
                                     </div>
                             </div> 
                         
                     </div>
+
                     <div style = "flex: 1;"></div>
                 </div>
+	      </form>	 
             </div>
          </div>
+
+
      </div>
+{% endfor %}
      
      <div class = "columns" style = "padding-bottom: 20px;">
-     <button>BACK</button>
-     <button>NEXT QUESTION</button> 
+     <button>SUBMIT QUIZ</button>
+     
      </div>  
     </body>
 </html>

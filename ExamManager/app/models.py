@@ -45,7 +45,7 @@ class ExamGroup(db.Model):
     group_name = db.Column(db.String(255))
     examiner_id = db.Column(
         db.Integer, db.ForeignKey(Examiner.examiner_id))
-    exam_id = db.Column(db.Integer, db.ForeignKey(Exam.exam_id,ondelete='cascade'))
+    #exam_id = db.Column(db.Integer, db.ForeignKey(Exam.exam_id,ondelete='cascade'))
     # exam = db.relationship("Exam", back_populates="children")
     def __repr__(self):
         return  # add representation

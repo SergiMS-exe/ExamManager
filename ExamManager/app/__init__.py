@@ -7,14 +7,9 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import *
 
-
 app = Flask(__name__)
 app.config.from_object('config')
 db = SQLAlchemy(app=app)
-
-#from app import actions
-#actions.addNewGroup("name", 2021007)
-
 
 from app import views, models
 from app import db_create, default

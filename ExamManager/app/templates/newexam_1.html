@@ -1,0 +1,65 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/editexam.css') }}">
+    </head>
+    <body>
+        
+        <header>
+            <div class="columns">
+            <div class="columns">
+                
+            <div class = "backtab">
+                <button  class = 'backtab' style = "padding: 5px; font-size: 0.7em; margin: auto; height: 47px;"> <a href= "teacherpage"> BACK TO HOME PAGE </a></button >
+            
+            </div>
+            </div>
+            <div style = "flex: 1;"></div>
+            <div class="columns">
+                
+            <div class = "profile-tab">
+                <span></span>
+                <p style = "padding: 5px; font-size: 0.7em;"> {{user.examiner_name}} </p>
+            </div>
+            </div>
+            </div>
+        </header>
+
+        <form>  
+            <div class = "columns">
+                
+                    <div class = "lefttab">
+                        <div class= "innerdiv">
+                          
+                 <div>
+                            <p class = "loginlabel"> New Exam</p>
+                    
+                    
+                    <input class ="inputstyle" type="text" placeholder="Exam Name" name = "examname"></input>
+        
+                            <p class ="labels"> Exam Date</p>
+                       
+                                <input class ="inputstyle" type="date" placeholder="Exam Date"  name = "examdate"></input>
+                   
+        
+                            <p class ="labels"> Exam Time</p>
+                  
+                               <input class ="inputstyle" type="time" placeholder="Exam Time"  name = "examtime"></input>
+                    
+            
+                            <p class ="labels"> Exam Duration</p>
+                    
+                              <input class ="inputstyle" type="time" placeholder="Duration"  name = "examlength"></input>
+                   
+                            <input type='submit' class = "submitbutton" name="SaveExam " value="CREATE EXAM"> </input>
+                         </div>
+                
+                        </div>    
+                    </div>
+            </div>
+        </form>
+
+    </body>
+
+
+
+</html>

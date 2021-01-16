@@ -1,0 +1,190 @@
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC|Montserrat:400,700|Seymour+One&display=swap');
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat';
+    background-color: #F2F2F2;
+}
+span {
+    width: 35px;
+    height: 35px;
+    display: block;
+    background: #E5E5E5;
+    border-radius: 50%;
+    margin: auto 5px;
+}
+header {
+    background-color: #929292;
+    color: white;
+    padding: 0;
+    text-align: center;
+}
+
+
+
+button{
+    margin: 7px auto;
+    background-color: #591B31 ;
+    border: 2px #591B31 solid;
+    border-radius: 4px;
+    color: #F2F2F2;
+    font-family: 'Montserrat';
+    
+    height: 40px;
+    width: 220px;
+    transition: 0.3s;
+    
+}
+label{
+    color: #591B31;
+     text-align: center;
+}
+
+.columns {
+    display: flex;
+    
+}
+.columns:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.vertical-column{
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.column {
+    margin: 10px ;
+}
+
+
+.profile-tab{
+    display: flex;
+    background-color: #724F5B;
+    padding: auto 30px;
+    margin: 0px;
+   
+    
+}
+
+.backtab{
+    background-color: #C4C4C4;
+    padding: auto 30px;
+    margin: 0px;
+    color: #591B31;
+     transition: 0.3s;
+}
+.backtab:hover{
+    background-color: #E1E1E1;
+}
+
+
+.centertab{
+    height: 80vh;
+    width: 80%;
+    background-color: #DEDEDE;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.innerdiv{
+    margin: auto auto;
+    display: flex;
+    flex-direction: column;
+    
+    padding: 1.7em;
+}
+.examname{
+     margin: 10px auto;
+     font-size: 3em;
+     color: #AD4268;
+     text-align: center;
+}
+.examnameholder{
+    border-bottom: 1px #BFBFBF solid;
+    width: 70%;
+    margin: auto;
+}
+
+.questionbox{
+    background-color: #EAEAEA;
+    width: 85%;
+    margin: 50px auto;
+    margin-bottom: 10px;
+    padding: 30px;
+    border-radius: 4px;
+}
+
+.question{
+    background-color: #E1E1E1;
+     border-radius: 4px;
+     color:#724F5B;
+     padding: 10px;
+     margin-bottom: 20px; 
+}
+
+
+.inputstyle{
+    margin: 7px auto;
+    background-color: #C4C4C4 ;
+    border: 0px #591B31 solid;
+    border-radius: 4px;
+    color: white;
+    font-family: 'Montserrat';
+    padding: 0px 10px;
+    height: 40px;
+    width: 200px
+    
+}
+
+
+::placeholder { 
+  color: white;
+  
+}
+
+.radiostyle{
+    margin: auto 0px;
+    margin-right: 0px;
+    margin-left: 5px;
+}
+.answerbox{
+     background-color: #E1E1E1;
+     border-radius: 4px;
+     color:#724F5B;
+     padding: 10px;
+     margin: 10px 0px;
+     width:35vw;
+     transition: 0.3s
+}
+.answerbox:hover{
+     background-color: #CDCDCD;
+}
+.answerletterstyle{
+    color: #959595;
+    margin: auto 5px;
+    font-size: 20px;
+
+}
+
+.participantbox{
+    background-color: #E5E5E5;
+    border-bottom: 1px #FFF;
+    display: flex;
+    padding: 3px;
+}
+.examgroupinfo{
+    font-size: 15px;
+    margin-left: 5px;
+    
+}
+
+.egdata{
+    color: #591B31;
+    margin-left: 5px;
+}
