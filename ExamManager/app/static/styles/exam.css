@@ -162,9 +162,7 @@ label{
      width:35vw;
      transition: 0.3s
 }
-.answerbox:hover{
-     background-color: #CDCDCD;
-}
+
 .answerletterstyle{
     color: #959595;
     margin: auto 5px;

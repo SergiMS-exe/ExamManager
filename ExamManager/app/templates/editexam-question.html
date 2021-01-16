@@ -1,0 +1,143 @@
+<html>
+
+<head>
+    <!--<link rel="stylesheet" href="{{ url_for('static', filename='styles/editexam.css') }}">-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/editexam.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <div class="columns">
+            <div class="columns">
+
+                <div class="backtab">
+                    <button class='backtab' style="padding: 5px; font-size: 0.7em; margin: auto; height: 47px;"> <a
+                            href="teacherpage"> BACK TO HOME PAGE </a></button>
+
+                </div>
+            </div>
+            <div style="flex: 1;"></div>
+            <div class="columns">
+
+                <div class="profile-tab">
+                    <span></span>
+                    <p style="padding: 5px; font-size: 0.7em;"> {{teachername}} </p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <form action="{{ url_for('editQuestions', examiner_id=user.examiner_id, group_id=exam.group_id, exam_id=exam.exam_id) }}" method="post">
+        <div class="columns">
+            <p> Add a Question to {{exam.name}}</p>
+
+
+            <div style="margin: auto;">
+
+                <div style="width: 100%">
+                    <div class="columns" style=" background-color: white;">
+                        <div style="flex: 1;"></div>
+
+                    </div>
+
+
+                    <form>
+
+                        <div class="questionbox">
+                            <input class="delete" name="delete" type="submit" value="x"></input>
+
+                            <input class="save" type="submit" name="saveQuestion" value="Save and exit" style="width: auto;"></input>
+                            <input class="save" type="submit" name="saveQuestion" value="Save and next" style="width: auto; background-color: rgb(80, 132, 228) ;"></input>
+                            <div>
+                                <div class="question">
+
+
+                                    <input class="questioninput" type="text" placeholder="Enter a question"
+                                        name="question"></input>
+
+                                </div>
+                                <div class="columns" style="margin: 0px auto; padding: 5px;">
+                                    <div style="flex: 1;"></div>
+                                    <div class="vertical-column">
+
+
+                                        <div class="columns">
+                                            <p class="answerletterstyle">a</p>
+                                            <div class="answerbox">
+
+                                                <input class="questioninput" type="text" placeholder="Enter an answer"
+                                                    name="in-answerA"></input>
+
+                                            </div>
+                                            <input type="radio" id="answer-a" name="foo" value="a" class="radiostyle">
+                                        </div>
+                                        <div>
+                                            <div class="columns">
+                                                <p class="answerletterstyle">b</p>
+                                                <div class="answerbox">
+
+                                                    <input class="questioninput" type="text"
+                                                        placeholder="Enter an answer" name="in-answerB"></input>
+
+                                                </div>
+                                                <input type="radio" id="answer-a" name="foo" value="b"
+                                                    class="radiostyle">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div style="width: 5vw;"></div>
+                                    <div class="vertical-column" style="flex: 1;">
+                                        <div>
+                                            <div class="columns">
+                                                <p class="answerletterstyle">c</p>
+                                                <div class="answerbox">
+
+                                                    <input class="questioninput" type="text"
+                                                        placeholder="Enter an answer" name="in-answerC"></input>
+
+                                                </div>
+                                                <input type="radio" id="answer-a" name="foo" value="c"
+                                                    class="radiostyle">
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="columns">
+                                                <p class="answerletterstyle">d</p>
+                                                <div class="answerbox">
+
+                                                    <input class="questioninput" type="text"
+                                                        placeholder="Enter an answer" name="in-answerD"></input>
+
+                                                </div>
+                                                <input type="radio" id="answer-a" name="foo" value="d"
+                                                    class="radiostyle">
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div style="flex: 1;"></div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+    </form>
+
+
+
+
+
+    </div>
+
+
+    </div>
+    </form>
+
+
+
+</body>
+
+</html>

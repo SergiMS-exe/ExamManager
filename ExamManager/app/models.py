@@ -10,7 +10,7 @@ class Examiner(db.Model):
     examiner_surname = db.Column(db.String(255))
     examiner_email = db.Column(db.String(255), unique=True)
     examiner_password = db.Column(db.String(255))
-
+    examiner_dateOfBirth = db.Column(db.DateTime,default= datetime.date.today())
     def __repr__(self):
         return  # add representation
 
@@ -21,6 +21,7 @@ class Student(db.Model):
     student_surname = db.Column(db.String(255))
     student_email = db.Column(db.String(255), unique=True)
     student_password = db.Column(db.String(255))
+    student_dateOfBirth = db.Column(db.DateTime,default= datetime.date.today())
 
     def __repr__(self):
         return  # add representation
@@ -31,7 +32,7 @@ class Exam(db.Model):
     exam_id = db.Column(db.Integer,autoincrement=True, primary_key=True)
     exam_name = db.Column(db.String(255),unique=False, default='Exam')
     exam_date = db.Column(db.DateTime)
-    duration = db.Column(db.Time,default=datetime.time(1, 30, 0))
+    exam_time = db.Column(db.Time,default=datetime.time(1, 30, 0))
     group_id = None
     # children = None
     def __repr__(self):
@@ -44,7 +45,7 @@ class ExamGroup(db.Model):
     group_name = db.Column(db.String(255))
     examiner_id = db.Column(
         db.Integer, db.ForeignKey(Examiner.examiner_id))
-    exam_id = db.Column(db.Integer, db.ForeignKey(Exam.exam_id,ondelete='cascade'))
+    #exam_id = db.Column(db.Integer, db.ForeignKey(Exam.exam_id,ondelete='cascade'))
     # exam = db.relationship("Exam", back_populates="children")
     def __repr__(self):
         return  # add representation
@@ -65,7 +66,7 @@ class ExamQuestion(db.Model):
     question_id = db.Column(db.Integer,autoincrement=True, primary_key=True)
     question_text = db.Column(db.String)
     exam_id = db.Column(db.Integer, db.ForeignKey(Exam.exam_id))
-
+    question_point = db.Column(db.Float,default=0)
     def __repr__(self):
         return  # add representation
 

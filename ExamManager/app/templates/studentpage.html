@@ -9,9 +9,11 @@
          <div class="columns">
              
             <div class = "profile-tab">
-                <span></span>
-                <p style = "padding: 5px; font-size: 0.7em;"> studentname studentid  </p>
-
+              {% block content %}
+                  <span></span>
+                  <p style = "padding: 5px; font-size: 0.7em;"> {{user.student_name}} {{user.student_surname}} </p>
+                  <p style = "padding: 5px; font-size: 0.7em;"> {{user.student_id}}</p>
+              {% endblock %}
             </div>
         
          </div>
@@ -32,37 +34,36 @@
                      
                      
                     {% for group in examgroups %}
-                    <div class = "exam-group" name= "div-examgroup"> <!-- click on this div to show the data for this exam group on the right-->
-                        
-                           <div >
-                             <p class = "examgroupname">{{group.name}} </p>
-                              <div class = "columns" >
-                                <div >
-                                    <p class= "examgroupinfo">Examiner  </p>
-                                    <p class= "examgroupinfo">Group ID </p>
-                                </div>
-                                <div class = "egdata">
-                                    <p class= "examgroupinfo">  {{group.Examiner}} </p>
-                                    <p class= "examgroupinfo">  {{group.id}} </p>
-                                </div>
-                              </div> 
-                           </div>
-                            
+                    <div class="exam-group">
+                      <form
+                          action="{{ url_for('student', student_id=group.student_id, group_id=group.group_id) }}"
+                          method="post">
+                          <div>
+                              <input class="examgroupinfo" name=GroupButton type="submit"
+                                  value="{{group.group_name}}"> </input>
+                      </form>
+                      <div class="columns">
+                          <div>
+                              <p class="examgroupinfo">Examiner </p>
+                              <p class="examgroupinfo">Group ID </p>
+                          </div>
+                          <div class="egdata">
+                              <p class="examgroupinfo"> {{group.examiner_id}} {{group.examiner_name}} </p>
+                              <p class="examgroupinfo"> {{group.group_id}} </p>
+                          </div>
+                      </div>                            
                            <div class = "vertical-column" style ="margin-left: auto; padding-right: 5px; ">
                              
                              <div  style= "flex-grow: 1"></div>
-                             <p class= "examgroupinforight">{{group.totalparticipants}} Participants</p>
-                             <p class= "examgroupinforight">{{group.totalexams}} Exams Set</p>
+                             <!-- <p class= "examgroupinforight">{{group.totalparticipants}} Participants</p>
+                             <p class= "examgroupinforight">{{group.totalexams}} Exams Set</p> -->
                            </div>
                         
                     </div>
                     {% endfor %}
                  </div>   
                      
- 
- 
- 
- 
+
                  
                  <div class="vertical-column" style= "width: 40%" > <!--right hand column-->
                      
@@ -84,49 +85,18 @@
                     
          <!-----------------------------------------------------------START OF UPCOMING EXAM DIV-->
                     <div id = "upcomingexams-div"> <!-- toggle visibility for this div tag -->
-                       
-                       
-                     
-                     
-                    <!--EXAMPLE NEW EXAM BOX to delete-->
-                     <div class = "exam" >
-                        
-                           <div class= "vertical-column" >
-                             <p class = "examtime">12 OCT</p>
-                             <p class = "edata" >ENTRY EXAM</p>
-                              <div  style= "flex-grow: 1"></div>
-                              
-                              <div class = "columns" >
-                                <div >
-                                    <p class= "examinfo">points</p>
-                                </div>
-                                <div class = "edata">
-                                    <p class= "edata"> 12</p>
-                                </div>
-                              </div> 
-                           </div>
-                            
-                           <div class = "vertical-column" style ="margin-left: auto; padding-right: 5px; ">
-                            
-                             <p class= "edata" style="margin-left: auto;">12:00</p>
-                             <div  style= "flex-grow: 1"></div>
-                             <button class="edit-exam-button-inactive"> TAKE EXAM</button><!--INACTIVE STYLE for when exam is not open yet-->
-                           </div>
-                        
-                    </div>
                     
-                    <!--END OF EXAMPLE BOX to delete -->
                     
                  
                     <!--for loop to be used officially below-->
                     
-                    {% for exam in exams %}
+                    <!-- {% for exam in exams %} -->
                 
                      <div class = "exam">
                         
                            <div class= "vertical-column" >
-                             <p class = "examtime">{{exam.date}}</p>
-                             <p class = "edata" >{{exam.name}}</p>
+                             <!-- <p class = "examtime">{{exam.date}}</p> -->
+                             <!-- <p class = "edata" >{{exam.name}}</p> -->
                               <div  style= "flex-grow: 1"></div>
                               
                               <div class = "columns" >
@@ -134,21 +104,21 @@
                                     <p class= "examinfo">points</p>
                                 </div>
                                 <div class = "edata">
-                                    <p class= "edata">{{exam.points}}</p>
+                                    <!-- <p class= "edata">{{exam.points}}</p> -->
                                 </div>
                               </div> 
                            </div>
                             
                            <div class = "vertical-column" style ="margin-left: auto; padding-right: 5px; ">
                              
-                             <p class= "edata" style="margin-left: auto;">{{exam.time}}</p>
+                             <!-- <p class= "edata" style="margin-left: auto;">{{exam.time}}</p> -->
                              <div  style= "flex-grow: 1"></div>
                              <button class="edit-exam-button" name ="btn-takeexam"> TAKE EXAM</button> <!-- button to edit the current exam-->
                            </div>
                         
                     </div>
                     
-                    {% endfor %}
+                    <!-- {% endfor %} -->
                     </div>
        <!---------------------------------------END OF ADD NEW EXAM DIV-->
                     
@@ -186,7 +156,8 @@
                              
                              <p class= "edata" style="margin-left: auto;">12:00</p>
                              <div  style= "flex-grow: 1"></div>
-                             <button class="edit-exam-button"> REVIEW EXAM</button>
+                             <p class= "edata" style="margin-left: auto;" >Score </p>
+                             <!-- <button class="edit-exam-button"> REVIEW EXAM</button> -->
                            </div>
                         
                     </div>

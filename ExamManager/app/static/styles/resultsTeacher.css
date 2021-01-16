@@ -4,7 +4,7 @@ html, body {
     margin: 0;
     padding: 0;
     font-family: 'Montserrat';
-    background-color: #DEDEDE;
+    background-color: #F2F2F2;
 }
 span {
     width: 35px;
@@ -32,7 +32,7 @@ button{
     font-family: 'Montserrat';
     
     height: 40px;
-    width: 200px;
+    width: 220px;
     transition: 0.3s;
     
 }
@@ -93,10 +93,11 @@ label{
 }
 
 .innerdiv{
-    margin: auto;
-    text-align: center;
+    margin: auto auto;
+    display: flex;
+    flex-direction: column;
+    
     padding: 1.7em;
-    align-items: center;
 }
 .examname{
      margin: 10px auto;
@@ -112,11 +113,11 @@ label{
 
 .questionbox{
     background-color: #EAEAEA;
-    width: 60vw;
-    
+    width: 85%;
+    margin: 50px auto;
+    margin-bottom: 10px;
     padding: 30px;
     border-radius: 4px;
-    border-bottom: 1px #BFBFBF solid;
 }
 
 .question{
@@ -137,9 +138,7 @@ label{
     font-family: 'Montserrat';
     padding: 0px 10px;
     height: 40px;
-    width: 200px;
-    text-align: left;
-    
+    width: 200px
     
 }
 
@@ -160,7 +159,7 @@ label{
      color:#724F5B;
      padding: 10px;
      margin: 10px 0px;
-     width:20vw;
+     width:35vw;
      transition: 0.3s
 }
 .answerbox:hover{
@@ -173,40 +172,19 @@ label{
 
 }
 
-.lefttab{
-    height: 100%;
-    width: 40%;
-    background-color: #DEDEDE;
+.participantbox{
+    background-color: #E5E5E5;
+    border-bottom: 1px #FFF;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 3px;
 }
-
-.loginlabel{
-    font-size: 2em;
-    margin: 20px auto;
-    color:#AD4268;
-}
-
-.create-button{
-    background-color: #66D485 ;
-    border: 0px;
-    border-radius: 0px;
-    color: #FFF;
-    font-family: 'Montserrat';
-    padding: 0px 10px;
-    height: 40px;
-    margin: auto 0px;
-    margin: 5px;
-    transition: 0.3s;
-    
+.examgroupinfo{
+    font-size: 15px;
+    margin-left: 5px;
     
 }
-.create-button:hover {
-  background-color: #591B31;
-}
 
-.labels{
+.egdata{
     color: #591B31;
-    margin: 3px
+    margin-left: 5px;
 }
