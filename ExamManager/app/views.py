@@ -65,8 +65,8 @@ def teacher(examiner_id, group_id):  # FUNTIONAL
         try:
             if request.form['btn-creategroup'] == 'Add New Group':
                 groupName = request.form['inp-groupname']
-                actions.addNewGroup(groupName, examiner_id)
-                return redirect('/teacherpage/'+str(examiner_id)+"/"+str(group_id))
+                last_id=actions.addNewGroup(groupName, examiner_id)
+                return redirect('/teacherpage/'+str(examiner_id)+"/"+str(last_id))
             for group in groups:
                 if request.form['GroupButton'] == group.group_name:
                     return redirect('/teacherpage/'+str(examiner_id)+"/"+str(group.group_id))
@@ -86,15 +86,21 @@ def teacher(examiner_id, group_id):  # FUNTIONAL
 
 @app.route('/teacherpage/<examiner_id>/<group_id>/editexam', methods=['GET', 'POST'])
 def editexam(examiner_id, group_id):  # FUNTIONAL
+    print(1)
     if request.method == 'POST':
         try:
+            print(2)
             if request.form['SaveExam'] == 'SUBMIT EXAM':
+                print(3)
                 name = request.form['examname']
+                print(4)
                 date = request.form['examdate']
+                print(5)
                 time = request.form['examtime']
-                actions.addExam(group_id=7, name="mispelotas", date=datetime.date(
-                    2021, 7, 14), time=datetime.time(1, 30, 0))
-                return redirect("/teacherpage/"+str(examiner_id)+"/"+str(group_id))
+                print(6)
+                actions.addExam(group_id=group_id, name=name, date=date, time=time)
+                print('Im ok')
+                return redirect(url_for("teacher",examiner_id=examiner_id,group_id=group_id))
         except:
             pass
     user = Examiner.query.filter_by(examiner_id=examiner_id).first()

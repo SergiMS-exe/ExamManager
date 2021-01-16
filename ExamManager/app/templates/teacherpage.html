@@ -113,6 +113,7 @@
                     <form action="{{ url_for('editexam', examiner_id=user.examiner_id, group_id=group_id) }}"
                         method="get">
                         <div class="columns" style=" background-color: #591B31;">
+                            <p>Exams for group ID: {{group_id}}</p>
                             <input class="create-button" type="submit" name="buttonExam" value='Add New Exam'
                                 style="margin-left: auto"></input>
                             <!-- clicking add new exam will take you immediately to the editexam.html page-->
