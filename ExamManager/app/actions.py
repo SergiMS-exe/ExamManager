@@ -7,7 +7,7 @@ import re
 from app import db, app
 
 
-def register(name, surname, email, password, radioT): #FUNCTIONAL
+def register(name, surname, email, password, radioT):  # FUNCTIONAL
     # check if that the user is already registered
     student = Student.query.filter_by(
         student_email=request.form['email']).all()
@@ -43,7 +43,7 @@ def register(name, surname, email, password, radioT): #FUNCTIONAL
         return 'reg.html', error
 
 
-def login(email, password): # FUNCTIONAL
+def login(email, password):  # FUNCTIONAL
     student = Student.query.filter_by(student_email=email).first()
     examiner = Examiner.query.filter_by(examiner_email=email).first()
     if student != None:
@@ -52,47 +52,49 @@ def login(email, password): # FUNCTIONAL
     elif examiner != None:
         if examiner.examiner_password == password:
             try:
-                group_id=getGroups(examiner.examiner_id)[0].group_id
+                group_id = getGroups(examiner.examiner_id)[0].group_id
             except:
-                group_id=-1
+                group_id = -1
             return '/teacherpage/'+str(examiner.examiner_id)+"/"+str(group_id), None
 
     error = 'Invalid Credentials. Please try again.'
     return 'index.html', error
 
-def addExam(group_id, name, date, time): #I think we won't need exam duration, so complicated
+
+def addExam(group_id, name, date, time):  # I think we won't need exam duration, so complicated
     last_id = ExamGroup.query.all()[-1].group_id
     exam = models.Exam(
-        exam_id=last_id+1, 
-        exam_name = name,
+        exam_id=last_id+1,
+        exam_name=name,
         exam_date=date,
-        exam_time = time,
+        exam_time=time,
         group_id=group_id
-        )
+    )
     db.session.add(exam)
     db.session.commit()
+
 
 def addQuestion(exam_id, text, answers):
     my_question_id = ExamQuestion.query.all()[-1].question_id+1
     question = models.ExamQuestion(
-        question_id = my_question_id,
-        question_text = text,
-        exam_id = exam_id
+        question_id=my_question_id,
+        question_text=text,
+        exam_id=exam_id
     )
     db.session.add(question)
     last_answer_id = ExamAnswer.query.all()[-1].answer_id
 
     for key, value in answers.items():
-        last_answer_id+=1
-        
+        last_answer_id += 1
+
         answer = models.ExamAnswer(
-            answer_id = last_answer_id+1,
-            answer_text = key,
-            question_id = my_question_id,
-            correct = value
-        )    
+            answer_id=last_answer_id+1,
+            answer_text=key,
+            question_id=my_question_id,
+            correct=value
+        )
         db.session.add(answer)
-    
+
     db.session.commit()
 
 
@@ -103,7 +105,7 @@ def addNewGroup(group_name, examiner_id):
         group_id=last_id+1,
         group_name=group_name,
         examiner_id=examiner_id,
-        #exam_id=0   # Dummy variable for exam id, should be replaced at some point
+        # exam_id=0   # Dummy variable for exam id, should be replaced at some point
     )
     db.session.add(temp)
     db.session.commit()
@@ -120,7 +122,7 @@ def getGroups(examiner_id):
             group_id=groups.group_id,
             group_name=groups.group_name,
             examiner_id=groups.examiner_id,
-            #exam_id=groups.exam_id
+            # exam_id=groups.exam_id
         )
         listGroups.append(temp)
         db.session.close()
@@ -211,7 +213,6 @@ def saveExam(exam_name, exam_date, exam_time, duration, group_id, questions, ans
     db.session.commit()
 
 
-
 def editExam(exam_id):
     query = db.session.query(models.Exam).filter(
         models.Exam.exam_id == exam_id)
@@ -241,6 +242,39 @@ def addParticipantToExam(group_id, student_id):
         print(groups.student_id)"""
     db.session.close()
 # addParticipantToExam(student_id=251566, group_id=1)
+
+
+def deleteParticipantFromExam(group_id, student_id):
+    participant = StudentExamGroup.query.filter_by(
+        group_id=group_id, student_id=student_id).first()
+    db.session.delete(participant)
+    db.session.commit()
+    db.session.close()
+
+
+def deleteExam(group_id, exam_id):
+    exam = Exam.query.filter_by(group_id=group_id, exam_id=exam_id).first()
+    db.session.delete(exam)
+    db.session.commit()
+    db.session.close()
+
+
+def deleteGroup(group_id):
+
+    group = ExamGroup.query.filter_by(group_id=group_id).first()
+
+    exams = Exam.query.filter_by(group_id=group_id).all()
+    participants = getParticipants(group_id)
+
+    for exam in exams:
+        db.session.delete(exam)
+
+    for participant in participants:
+        db.session.delete(participant)
+
+    db.session.delete(group)
+    db.session.commit()
+    db.session.close()
 
 
 """def test():
