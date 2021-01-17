@@ -1,15 +1,8 @@
 #!/usr/bin/env python
 # pylint: disable=no-member
-from PIL import Image
-import glob
-import os, os.path
-from app import *
 
+from app import *
 import datetime
-from flask_wtf import Form
-from wtforms import StringField, FileField, SubmitField
-  
- 
 
 class Examiner(db.Model):
     examiner_id = db.Column(db.Integer,autoincrement=True, primary_key=True)
@@ -18,11 +11,9 @@ class Examiner(db.Model):
     examiner_email = db.Column(db.String(255), unique=True)
     examiner_password = db.Column(db.String(255))
     examiner_dateOfBirth = db.Column(db.DateTime,default= datetime.date.today())
-    pic =  db.Column(db.LargeBinary(length=2048))
+    pic=db.Column(db.LargeBinary(length=2048), nullable=True)
     def __repr__(self):
         return  # add representation
-
-
 
 
 class Student(db.Model):
@@ -32,7 +23,7 @@ class Student(db.Model):
     student_email = db.Column(db.String(255), unique=True)
     student_password = db.Column(db.String(255))
     student_dateOfBirth = db.Column(db.DateTime,default= datetime.date.today())
-    pic =  db.Column(db.LargeBinary(length=2048))
+    pic=db.Column(db.LargeBinary(length=2048), nullable=True)
     def __repr__(self):
         return  # add representation
 
@@ -41,8 +32,8 @@ class Exam(db.Model):
     __tablename__ = 'Exam'
     exam_id = db.Column(db.Integer,autoincrement=True, primary_key=True)
     exam_name = db.Column(db.String(255),unique=False, default='Exam')
-    exam_date = db.Column(db.DateTime)
-    exam_time = db.Column(db.Time,default=datetime.time(1, 30, 0))
+    exam_date = db.Column(db.Date)
+    exam_time = db.Column(db.Time,default=datetime.time(1, 30,0))
     group_id = None
     # children = None
     def __repr__(self):
@@ -50,7 +41,7 @@ class Exam(db.Model):
 
 
 class ExamGroup(db.Model):
-    __tablename__ = 'ExamGroup' 
+    __tablename__ = 'ExamGroup'
     group_id = db.Column(db.Integer, primary_key=True)
     group_name = db.Column(db.String(255))
     examiner_id = db.Column(

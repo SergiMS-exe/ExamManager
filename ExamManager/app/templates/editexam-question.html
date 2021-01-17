@@ -13,7 +13,7 @@
 
                 <div class="backtab">
                     <button class='backtab' style="padding: 5px; font-size: 0.7em; margin: auto; height: 47px;"> <a
-                            href="teacherpage"> BACK TO HOME PAGE </a></button>
+                            href="{{ url_for('teacher', examiner_id=user.examiner_id, group_id=exam.group_id) }}"> BACK TO HOME PAGE </a></button>
 
                 </div>
             </div>
@@ -46,10 +46,10 @@
                     <form>
 
                         <div class="questionbox">
-                            <input class="delete" name="delete" type="submit" value="x"></input>
+                            <input class="delete" name="questionAction" type="submit" value="x"></input>
 
-                            <input class="save" type="submit" name="saveQuestion" value="Save and exit" style="width: auto;"></input>
-                            <input class="save" type="submit" name="saveQuestion" value="Save and next" style="width: auto; background-color: rgb(80, 132, 228) ;"></input>
+                            <input class="save" type="submit" name="questionAction" value="Save and exit" style="width: auto;"></input>
+                            <input class="save" type="submit" name="questionAction" value="Save and next" style="width: auto; background-color: rgb(80, 132, 228) ;"></input>
                             <div>
                                 <div class="question">
 
