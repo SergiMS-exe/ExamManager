@@ -11,7 +11,7 @@
          <div class="columns">
              
             <div class = "backtab">
-                <p style = "padding: 5px; font-size: 0.7em;"> BACK TO HOME PAGE</p>
+                <p style = "padding: 5px; font-size: 0.7em;" href="{{ url_for('student', student_id=user.student_id, group_id=-1) }}"> BACK TO HOME PAGE</p>
             </div>
          </div>
          <div style = "flex: 1;"></div>
@@ -19,7 +19,7 @@
              
             <div class = "profile-tab">
                 <span></span>
-                <p style = "padding: 5px; font-size: 0.7em;"> {{student.name}} #{{student.id}} </p>
+                <p style = "padding: 5px; font-size: 0.7em;"> {{user.student_name}} #{{user.student_id}} </p>
             </div>
          </div>
          </div>
@@ -30,9 +30,6 @@
         <p class = "examname"> Exam Name </p>
      </div>
      
-
-
-     <p style = "color: #959595; text-align: center;"> {{timeleft}} remaining </p>
 
 {% for question in quiz %}	
 

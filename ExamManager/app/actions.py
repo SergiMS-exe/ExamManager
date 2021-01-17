@@ -7,7 +7,7 @@ import re
 from app import db, app
 
 
-def register(name, surname, email, password, radioT): #FUNCTIONAL
+def register(name, surname, email, password, radioT):
     # check if that the user is already registered
     student = Student.query.filter_by(
         student_email=request.form['email']).all()
@@ -29,7 +29,7 @@ def register(name, surname, email, password, radioT): #FUNCTIONAL
         db.session.add(my_examiner)
         db.session.commit()
 
-        return '/teacherpage/'+str(last_id+1)+'/-1', None
+        return '/teacherpage/'+str(last_id+1)+"/-1", None
     elif radioT == "student":
         last_id = Student.query.all()[-1].student_id
         my_student = Student(student_id=last_id+1, student_name=name,
@@ -37,22 +37,25 @@ def register(name, surname, email, password, radioT): #FUNCTIONAL
         db.session.add(my_student)
         db.session.commit()
 
-        return '/studentpage'+str(last_id+1)+'/-1', None
+        return '/studentpage'+str(last_id+1)+"/-1", None
     else:
         error = 'Invalid data. Please try again.'
         return 'reg.html', error
 
-
-def login(email, password): # FUNCTIONAL
+def login(email, password):
     student = Student.query.filter_by(student_email=email).first()
     examiner = Examiner.query.filter_by(examiner_email=email).first()
     if student != None:
         if student.student_password == password:
-            return '/studentpage/'+str(student.student_id), None
+            try:
+                group_id=StudentExamGroup.query.filter_by(student_id=student.student_id).first().group_id
+            except:
+                group_id=-1
+            return '/studentpage/'+str(student.student_id)+"/"+str(group_id), None
     elif examiner != None:
         if examiner.examiner_password == password:
             try:
-                group_id=getGroups(examiner.examiner_id)[0].group_id
+                group_id=getGroupsExaminer(examiner.examiner_id)[0].group_id
             except:
                 group_id=-1
             return '/teacherpage/'+str(examiner.examiner_id)+"/"+str(group_id), None
@@ -95,7 +98,6 @@ def addQuestion(exam_id, text, answers):
     
     db.session.commit()
 
-
 def addNewGroup(group_name, examiner_id):
     # Function to add a new examgroup object to the db
     last_id = ExamGroup.query.all()[-1].group_id
@@ -107,10 +109,8 @@ def addNewGroup(group_name, examiner_id):
     )
     db.session.add(temp)
     db.session.commit()
-    return last_id+1
 
-
-def getGroups(examiner_id):
+def getGroupsExaminer(examiner_id):
     # Function that returns a list of exam group objects which has the provided examiner_id
     listGroups = []
     query = db.session.query(models.ExamGroup).filter(
@@ -125,25 +125,16 @@ def getGroups(examiner_id):
         listGroups.append(temp)
         db.session.close()
     return listGroups
-# getGroups(2021010)
 
-# add new group linking
-
-
-# @app.route('/newGroup', methods=['GET', 'POST'])
-def newGroup():
-    groupName = request.form["inp-groupname"]
-    print(groupName)
-    examinerID = ""
-    # please get the right examiner id of the current user
-    # uncomment the bottom lines
-    #addNewGroup(groupName , examinerID)
-    #examGroup = getGroups(examinerID)
-
-    # there is for loop inside the html file that will show groupinstance divs
-    # return redirect('teacherpage', examGroup)
-    # divs as soon as they are passed in here , check their attribues please
-
+def getGroupsStudent(student_id):       #added to do more cohesive code
+    group=[]
+    group_ids=StudentExamGroup.query.filter_by(student_id=student_id).all()
+    for group_id in group_ids:
+        group.append(ExamGroup.query.filter_by(group_id=group_id.group_id).first())
+    return group
+    
+def getGroupById(group_id):     #added to do more cohesive code
+    return ExamGroup.query.filter_by(group_id=group_id).first()
 
 def getParticipants(my_group_id):
     # Function that returns a list of student objects which is participants of the given exam group
@@ -162,8 +153,6 @@ def getParticipants(my_group_id):
                               )
         listParticipants.append(temp)
     return listParticipants
-# getParticipants(1)
-
 
 def getQuestions(exam_id):
     listQuestions = []
@@ -176,7 +165,6 @@ def getQuestions(exam_id):
         db.session.close()
     return listQuestions
 
-
 def getAnswers(question_id):
     listAnswers = []
     query = db.session.query(models.ExamAnswer).filter(
@@ -188,6 +176,13 @@ def getAnswers(question_id):
         db.session.close()
     return listAnswers
 
+def getQuiz(exam_id):
+    questions=getQuestions(exam_id)
+    quiz={}
+    for question in questions:
+        answers=getAnswers(question.question_id)
+        quiz[question]=answers
+    return quiz
 
 def saveExam(exam_name, exam_date, exam_time, duration, group_id, questions, answers, exam_id=None):
     myExam = None
@@ -210,8 +205,6 @@ def saveExam(exam_name, exam_date, exam_time, duration, group_id, questions, ans
             print(e)
     db.session.commit()
 
-
-
 def editExam(exam_id):
     query = db.session.query(models.Exam).filter(
         models.Exam.exam_id == exam_id)
@@ -230,7 +223,6 @@ def editExam(exam_id):
 
     return [exam, listQuestions, listAnswers]
 
-
 def addParticipantToExam(group_id, student_id):
     # Function to add a new student to the StudentExamGroup
     temp = models.StudentExamGroup(group_id=group_id, student_id=student_id)
@@ -240,7 +232,32 @@ def addParticipantToExam(group_id, student_id):
     for groups in query:
         print(groups.student_id)"""
     db.session.close()
-# addParticipantToExam(student_id=251566, group_id=1)
+
+def getUserExaminer(examiner_id):   #added to do more cohesive code
+    return Examiner.query.filter_by(examiner_id=examiner_id).first()
+
+def getUserStudent(student_id):     #added to do more cohesive code
+    return Student.query.filter_by(student_id=student_id).first()
+
+def getExams(group_id):     #added to do more cohesive code
+    exams=Exam.query.filter_by(group_id=group_id)
+    upcoming=[]
+    done=[]
+    for exam in exams:
+        if exam.exam_date>=datetime.datetime.now():
+            upcoming.append(exam)
+        else:
+            done.append(exam)
+    return done, upcoming
+
+def getExamById(exam_id):   #added to do more cohesive code
+    return Exam.query.filter_by(exam_id=exam_id).first()
+
+def deleteGroup(group_id):  #Complete pls
+    print("deleted"+str(group_id))
+
+def deleteExam(exam_id):    #Complete pls
+    print("deleted"+str(exam_id))
 
 
 """def test():

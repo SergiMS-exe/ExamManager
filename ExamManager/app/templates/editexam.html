@@ -30,7 +30,7 @@
     </header>
 
 
-    <form action="{{ url_for('editexam', examiner_id=user.examiner_id, group_id=group_id) }}" method="post">
+    <form action="{{ url_for('editexam', examiner_id=user.examiner_id, group_id=examgroup.group_id) }}" method="post">
         <div class="columns">
             <div class="lefttab">
                 <div class="innerdiv">
