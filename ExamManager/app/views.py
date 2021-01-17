@@ -1,17 +1,18 @@
 # pylint: disable=no-member
 from flask import Flask, render_template, request, redirect, url_for, flash
-from .models import Examiner, Student, ExamGroup, StudentExamGroup, Exam
-import re
+from .models import Examiner, ExamStudent, Student, ExamGroup, StudentExamGroup, Exam
 from app import db, app, actions
+from app.actions import studentUpcomingExams,teacherUpcomingExams
 from .extra_classes import Template_Group
-
 
 import datetime
 
 
 @app.route('/')
+
 @app.route('/login', methods=['GET', 'POST'])
 # check if email/in examiner  table or student table and change redirect
+
 def login():  # FUNTIONAL
     error = None
     if request.method == 'POST':
@@ -61,12 +62,13 @@ def register():  # FUNTIONAL
 @app.route('/teacherpage/<examiner_id>/<group_id>', methods=['GET', 'POST'])
 def teacher(examiner_id, group_id):  # FUNTIONAL
     groups = actions.getGroups(examiner_id)
+    upcoming =teacherUpcomingExams(examiner_id)
     if request.method == 'POST':
         try:
             if request.form['btn-creategroup'] == 'Add New Group':
                 groupName = request.form['inp-groupname']
-                actions.addNewGroup(groupName, examiner_id)
-                return redirect('/teacherpage/'+str(examiner_id)+"/"+str(group_id))
+                last_id = actions.addNewGroup(groupName, examiner_id)
+                return redirect('/teacherpage/'+str(examiner_id)+"/"+str(last_id))
             for group in groups:
                 if request.form['GroupButton'] == group.group_name:
                     return redirect('/teacherpage/'+str(examiner_id)+"/"+str(group.group_id))
@@ -75,10 +77,9 @@ def teacher(examiner_id, group_id):  # FUNTIONAL
             if request.form['AddParticipant'] == "Add":
                 student_id = request.form['ParticipantId']
                 actions.addParticipantToExam(group_id, student_id)
-                return redirect('/teacherpage/'+str(examiner_id)+"/"+str(group_id))    
+                return redirect('/teacherpage/'+str(examiner_id)+"/"+str(group_id))
         except:
             pass
-
     user = Examiner.query.filter_by(examiner_id=examiner_id).first()
     exams = Exam.query.filter_by(group_id=group_id)
     return render_template('teacherpage.html', user=user, examGroup=groups, exams=exams, group_id=group_id)
@@ -86,32 +87,40 @@ def teacher(examiner_id, group_id):  # FUNTIONAL
 
 @app.route('/teacherpage/<examiner_id>/<group_id>/editexam', methods=['GET', 'POST'])
 def editexam(examiner_id, group_id):  # FUNTIONAL
+    print(1)
     if request.method == 'POST':
         try:
+            print(2)
             if request.form['SaveExam'] == 'SUBMIT EXAM':
+                print(3)
                 name = request.form['examname']
+                print(4)
                 date = request.form['examdate']
+                print(5)
                 time = request.form['examtime']
-                actions.addExam(group_id=7, name="mispelotas", date=datetime.date(
-                    2021, 7, 14), time=datetime.time(1, 30, 0))
-                return redirect("/teacherpage/"+str(examiner_id)+"/"+str(group_id))
+                print(6)
+                actions.addExam(group_id=group_id, name=name,
+                                date=date, time=time)
+                print('Im ok')
+                return redirect(url_for("teacher", examiner_id=examiner_id, group_id=group_id))
         except:
             pass
     user = Examiner.query.filter_by(examiner_id=examiner_id).first()
     group = ExamGroup.query.filter_by(group_id=group_id).first()
+
     return render_template('editexam.html', user=user, examgroup=group)
 
 
 @app.route('/teacherpage/<examiner_id>/<group_id>/<exam_id>/editexam_questions', methods=['GET', 'POST'])
-def editQuestions(examiner_id, group_id, exam_id): #FUNTIONAL
+def editQuestions(examiner_id, group_id, exam_id):  # FUNTIONAL
     if request.method == 'POST':
         try:
-            if request.form["delete"]=="x":
+            if request.form["delete"] == "x":
                 return redirect('/teacherpage/'+str(examiner_id)+"/"+str(group_id))
             answer = ord(request.form['foo'])
-            answer=int(answer)-97
+            answer = int(answer)-97
             question = request.form['question']
-            options=[]
+            options = []
             optionA = request.form['in-answerA']
             options.append(optionA)
             optionB = request.form['in-answerB']
@@ -120,16 +129,16 @@ def editQuestions(examiner_id, group_id, exam_id): #FUNTIONAL
             options.append(optionC)
             optionD = request.form['in-answerD']
             options.append(optionD)
-            answers={}
+            answers = {}
             for i in range(4):
-                if(i==answer):
-                    answers[options[i]]=True
+                if(i == answer):
+                    answers[options[i]] = True
                 else:
-                    answers[options[i]]=False
-            actions.addQuestion(exam_id,question,answers)
-            if request.form['saveQuestion']=="Save and exit":
+                    answers[options[i]] = False
+            actions.addQuestion(exam_id, question, answers)
+            if request.form['saveQuestion'] == "Save and exit":
                 return redirect('/teacherpage/'+str(examiner_id)+"/"+str(group_id))
-            if request.form['saveQuestion']=="Save and next":
+            if request.form['saveQuestion'] == "Save and next":
                 return redirect('/teacherpage/'+str(examiner_id)+"/"+str(group_id)+"/"+str(exam_id)+"/editexam_questions")
         except:
             pass
@@ -153,6 +162,8 @@ def student(student_id):
         examgroups.append(ExamGroup.query.filter_by(
             group_id=examGroup.group_id).first())
     groups = []
+    upcoming = studentUpcomingExams(student_id)
+
     """for i in examgroups:
         Examiner.query.filter_by
         groups.append(Template_Group(i.group_id, i.group_name, )) """

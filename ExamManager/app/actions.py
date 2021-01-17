@@ -7,8 +7,9 @@ import re
 from app import db, app
 
 
-def register(name, surname, email, password, radioT):
+def register(name, surname, email, password, radioT):  # FUNCTIONAL
     # check if that the user is already registered
+
     student = Student.query.filter_by(
         student_email=request.form['email']).all()
     examiner = Examiner.query.filter_by(
@@ -29,7 +30,7 @@ def register(name, surname, email, password, radioT):
         db.session.add(my_examiner)
         db.session.commit()
 
-        return '/teacherpage/'+str(last_id+1), None
+        return '/teacherpage/'+str(last_id+1)+'/-1', None
     elif radioT == "student":
         last_id = Student.query.all()[-1].student_id
         my_student = Student(student_id=last_id+1, student_name=name,
@@ -37,13 +38,13 @@ def register(name, surname, email, password, radioT):
         db.session.add(my_student)
         db.session.commit()
 
-        return '/studentpage'+str(last_id+1), None
+        return '/studentpage'+str(last_id+1)+'/-1', None
     else:
         error = 'Invalid data. Please try again.'
         return 'reg.html', error
 
 
-def login(email, password):
+def login(email, password):  # FUNCTIONAL
     student = Student.query.filter_by(student_email=email).first()
     examiner = Examiner.query.filter_by(examiner_email=email).first()
     if student != None:
@@ -51,45 +52,50 @@ def login(email, password):
             return '/studentpage/'+str(student.student_id), None
     elif examiner != None:
         if examiner.examiner_password == password:
-            group_id=getGroups(examiner.examiner_id)[0].group_id
+            try:
+                group_id = getGroups(examiner.examiner_id)[0].group_id
+            except:
+                group_id = -1
             return '/teacherpage/'+str(examiner.examiner_id)+"/"+str(group_id), None
 
     error = 'Invalid Credentials. Please try again.'
     return 'index.html', error
 
-def addExam(group_id, name, date, time): #I think we won't need exam duration, so complicated
+
+def addExam(group_id, name, date, time):  # I think we won't need exam duration, so complicated
     last_id = ExamGroup.query.all()[-1].group_id
     exam = models.Exam(
-        exam_id=last_id+1, 
-        exam_name = name,
+        exam_id=last_id+1,
+        exam_name=name,
         exam_date=date,
-        exam_time = time,
+        exam_time=time,
         group_id=group_id
-        )
+    )
     db.session.add(exam)
     db.session.commit()
+
 
 def addQuestion(exam_id, text, answers):
     my_question_id = ExamQuestion.query.all()[-1].question_id+1
     question = models.ExamQuestion(
-        question_id = my_question_id,
-        question_text = text,
-        exam_id = exam_id
+        question_id=my_question_id,
+        question_text=text,
+        exam_id=exam_id
     )
     db.session.add(question)
     last_answer_id = ExamAnswer.query.all()[-1].answer_id
 
     for key, value in answers.items():
-        last_answer_id+=1
-        
+        last_answer_id += 1
+
         answer = models.ExamAnswer(
-            answer_id = last_answer_id+1,
-            answer_text = key,
-            question_id = my_question_id,
-            correct = value
-        )    
+            answer_id=last_answer_id+1,
+            answer_text=key,
+            question_id=my_question_id,
+            correct=value
+        )
         db.session.add(answer)
-    
+
     db.session.commit()
 
 
@@ -100,10 +106,11 @@ def addNewGroup(group_name, examiner_id):
         group_id=last_id+1,
         group_name=group_name,
         examiner_id=examiner_id,
-        #exam_id=0   # Dummy variable for exam id, should be replaced at some point
+        # exam_id=0   # Dummy variable for exam id, should be replaced at some point
     )
     db.session.add(temp)
     db.session.commit()
+    return last_id+1
 
 
 def getGroups(examiner_id):
@@ -116,7 +123,7 @@ def getGroups(examiner_id):
             group_id=groups.group_id,
             group_name=groups.group_name,
             examiner_id=groups.examiner_id,
-            #exam_id=groups.exam_id
+            # exam_id=groups.exam_id
         )
         listGroups.append(temp)
         db.session.close()
@@ -207,7 +214,6 @@ def saveExam(exam_name, exam_date, exam_time, duration, group_id, questions, ans
     db.session.commit()
 
 
-
 def editExam(exam_id):
     query = db.session.query(models.Exam).filter(
         models.Exam.exam_id == exam_id)
@@ -226,6 +232,24 @@ def editExam(exam_id):
 
     return [exam, listQuestions, listAnswers]
 
+def studentUpcomingExams(student_id):
+    upcoming = []
+
+    query1 = db.session.query(ExamStudent.exam_id).filter_by(student_id=student_id).subquery()
+    query2 = Exam.query.filter(Exam.exam_date >= datetime.datetime.now()).filter(Exam.exam_id.in_(query1)).all()
+    for exam in query2:
+        upcoming.append(exam)
+
+    return upcoming
+
+def teacherUpcomingExams(examiner_id):
+    upcoming = []
+
+    query1 = db.session.query(ExamGroup.group_id).filter_by(examiner_id=examiner_id).subquery()
+    query2 = Exam.query.filter(Exam.exam_date >= datetime.datetime.now()).filter(Exam.group_id.in_(query1)).all()
+    for exam in query2:
+        upcoming.append(exam)
+    return upcoming
 
 def addParticipantToExam(group_id, student_id):
     # Function to add a new student to the StudentExamGroup
@@ -239,33 +263,32 @@ def addParticipantToExam(group_id, student_id):
 # addParticipantToExam(student_id=251566, group_id=1)
 
 
-"""def test():
-    questions = [models.ExamQuestion(question_text="who is the president of USA?", exam_id=1202100009),
-                 models.ExamQuestion(
-        question_id=15, question_text="who is Chloe Malujlo Jr?", exam_id=1202100009)]
-    answers = [models.ExamAnswer(answer_text="Donald Trump", question_id=13, correct=True),
-               models.ExamAnswer(answer_text="Andrzej Dupa", question_id=13),
-               models.ExamAnswer(answer_text="Marvin Gerald", question_id=13),
-               models.ExamAnswer(answer_text="Andrzej Duda ", question_id=13),
-               models.ExamAnswer(answer_text="CEO of IBM", question_id=15),
-               models.ExamAnswer(
-        answer_text="Great PM in Project Software Eng.", question_id=15., correct=True),
-        models.ExamAnswer(answer_text="Teacher at PWR", question_id=15),
-        models.ExamAnswer(
-        answer_text="Great PM in Project Software Eng.", question_id=15),
-        models.ExamAnswer(
-        answer_id=100, answer_text="Cleaning Lady in mercure Hotel", question_id=2)]
-    group_id = 12
-    saveExam(exam_id=1202100009, exam_name="Math Test", exam_date=datetime.date(year=2022, month=8, day=14,), exam_time=datetime.time(
-        hour=14, minute=25, second=0), duration=datetime.time(1, 30, 0), group_id=group_id, questions=questions, answers=answers)
+# def test():
+    # questions = [models.ExamQuestion(question_text="who is the president of USA?", exam_id=1202100009),
+    #              models.ExamQuestion(
+    #     question_id=15, question_text="who is Chloe Malujlo Jr?", exam_id=1202100009)]
+    # answers = [models.ExamAnswer(answer_text="Donald Trump", question_id=13, correct=True),
+    #            models.ExamAnswer(answer_text="Andrzej Dupa", question_id=13),
+    #            models.ExamAnswer(answer_text="Marvin Gerald", question_id=13),
+    #            models.ExamAnswer(answer_text="Andrzej Duda ", question_id=13),
+    #            models.ExamAnswer(answer_text="CEO of IBM", question_id=15),
+    #            models.ExamAnswer(
+    #     answer_text="Great PM in Project Software Eng.", question_id=15., correct=True),
+    #     models.ExamAnswer(answer_text="Teacher at PWR", question_id=15),
+    #     models.ExamAnswer(
+    #     answer_text="Great PM in Project Software Eng.", question_id=15),
+    #     models.ExamAnswer(
+    #     answer_id=100, answer_text="Cleaning Lady in mercure Hotel", question_id=2)]
+    # group_id = 12
+    # saveExam(exam_id=1202100009, exam_name="Math Test", exam_date=datetime.date(year=2022, month=8, day=14,), exam_time=datetime.time(
+    #     hour=14, minute=25, second=0), duration=datetime.time(1, 30, 0), group_id=group_id, questions=questions, answers=answers)
 
-    values = editExam(1202100001)
-    exam = values[0]
-    saveExam(exam_id=exam.exam_id, exam_name=exam.exam_name, exam_date=exam.exam_date, exam_time=exam.exam_date.time(
-    ), duration=exam.duration, group_id=exam.group_id, questions=values[1], answers=values[2])
-    saveExam(exam_id=exam.exam_id, exam_name=exam.exam_name, exam_date=exam.exam_date, exam_time=exam.exam_date.time(
-    ), duration=exam.duration, group_id=exam.group_id, questions=values[1], answers=values[2])
+    # values = editExam(1202100001)
+    # exam = values[0]
+    # saveExam(exam_id=exam.exam_id, exam_name=exam.exam_name, exam_date=exam.exam_date, exam_time=exam.exam_date.time(
+    # ), duration=exam.duration, group_id=exam.group_id, questions=values[1], answers=values[2])
+    # saveExam(exam_id=exam.exam_id, exam_name=exam.exam_name, exam_date=exam.exam_date, exam_time=exam.exam_date.time(
+    # ), duration=exam.duration, group_id=exam.group_id, questions=values[1], answers=values[2])
 
 
-test()
-"""
+# test()
