@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css?family=Amatic+SC|Montserrat:400,700|Seymour+One&display=swap');
 
 html, body {
@@ -96,7 +95,7 @@ html, body {
     font-family: 'Montserrat';
     
     height: 40px;
-    width: 220px;
+    width: 200px;
     transition: 0.3s;
     
 }
@@ -125,4 +124,10 @@ html, body {
 ::placeholder { 
   color: white;
   
+}
+
+.buttonlink{
+  text-decoration: none;
+  color: #591B31;
+
 }

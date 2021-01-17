@@ -1,9 +1,9 @@
 <html>
-
-<head>
-    <title>HTML & CSS</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/teacherpage.css')  }}">
-</head>
+    <head>
+        <title>HTML & CSS</title>
+        <Href(url_for ( static, 'styles\teacherpage.css')>
+	<!--<link rel="stylesheet" href="teacherpage.css">-->
+    </head>
 
 <body>
 
@@ -17,13 +17,14 @@
                 <p style="padding: 5px; font-size: 0.7em;"> {{user.examiner_id}}</p>
                 {% endblock %}
             </div>
+            <input class="logoutbutton" type="submit" name="buttonlougout" value='logout'
+                                style="margin-left: auto"></input>
 
         </div>
 
     </header>
 
     <main>
-
 
         <div class="my-skills">
             <div class="columns">
@@ -49,12 +50,10 @@
 
                     {% for examgroup in examGroup %}
                     <div class="exam-group">
-                        <form
-                            action="{{ url_for('teacher', examiner_id=examgroup.examiner_id, group_id=examgroup.group_id) }}"
+                       <div>
+			<form action="{{ url_for('teacher', examiner_id=examgroup.examiner_id, group_id=examgroup.group_id) }}"
                             method="post">
-                            <div>
-                                <input class="examgroupname" name=GroupButton type="submit"
-                                    value="{{examgroup.group_name}}"> </input>
+                                <input class="examgroupname" name=GroupButton type="submit" value="{{examgroup.group_name}}"> </input>
                         </form>
                         <div class="columns">
                             <div>
@@ -111,7 +110,7 @@
                 <div id="upcomingexams-div">
                     <!-- !!toggle visibility for this div tag!! -->
                     <form action="{{ url_for('editexam', examiner_id=user.examiner_id, group_id=group_id) }}"
-                        method="get">
+                        method="get" style = "margin: 0px;">
                         <div class="columns" style=" background-color: #591B31;">
                             <p>Exams for group ID: {{group_id}}</p>
                             <input class="create-button" type="submit" name="buttonExam" value='Add New Exam'
@@ -135,12 +134,10 @@
 
                         <div class="vertical-column">
                             <p class="examtime">{{exam.exam_date}}</p>
+		            <div style="flex-grow: 1"></div>
                             <p class="edata">{{exam.exam_name}}</p>
-                            <div style="flex-grow: 1"></div>
-                            <form action="{{ url_for('editQuestions', examiner_id=user.examiner_id, group_id=group_id, exam_id=exam.exam_id) }}" method="get">
-                                <input class="edit-exam-button" name="edit" type="submit" value="Edit Exam"></input>
-                                <!-- button to edit the current exam-->
-                            </form>
+                            
+                            
                         </div>
 
                         <div class="vertical-column" style="margin-left: auto; padding-right: 5px; ">
@@ -148,8 +145,11 @@
                             <input class="delete" name="delete" type="submit" value="x"></input>
                             <!--button to delete the current exam from the database, should have an 'are you sure you wish to delete' pop up-->
                             <p class="edata" style="margin-left: auto;">{{exam.time}}</p>
-                            <div style="flex-grow: 1"></div>
-
+                            <div style="flex: 1"></div>
+			    <form action="{{ url_for('editQuestions', examiner_id=user.examiner_id, group_id=group_id, exam_id=exam.exam_id) }}" method="get" style ="margin: 0px">
+                                <input class="edit-exam-button" name="edit" type="submit" value="Edit Exam"></input>
+                                <!-- button to edit the current exam-->
+                            </form>
                         </div>
 
                     </div>
