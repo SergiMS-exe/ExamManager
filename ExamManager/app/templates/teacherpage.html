@@ -1,9 +1,9 @@
 <html>
 
 <head>
-    <title>HTML & CSS</title>
-    <!--<Href(url_for ( static, 'styles\teacherpage.css')>-->
+    <title>Teacher Page</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/teacherpage.css')  }}">
+    <!-- <link rel="stylesheet" href="../templates/static/styles/teacherpage.css"> -->
 </head>
 
 <body>
@@ -18,11 +18,11 @@
                 <p style="padding: 5px; font-size: 0.7em;"> {{user.examiner_id}}</p>
                 {% endblock %}
             </div>
-            <input class="logoutbutton" type="submit" name="buttonlougout" value='logout'
-                style="margin-left: auto"></input>
+            <button class="logoutbutton" name="buttonlougout" style="margin-left: auto">
+                <a style="text-decoration: none; align-items: center;" href="/login">Log out</a>
+            </button>
 
         </div>
-
     </header>
 
     <main>
@@ -32,7 +32,7 @@
                 <!--left hand column-->
 
                 <div style="width: 60%">
-                    <div class="columns" style=" background-color: white;">
+                    <div class="columns" style="background-color: white;">
                         <form style="margin-bottom: 0px; width: 100%; display: flex;"
                             action="{{ url_for('teacher', examiner_id=user.examiner_id, group_id=group_id) }}"
                             method="post">
@@ -71,12 +71,8 @@
                         </div>
 
                         <div class="vertical-column" style="margin-left: auto; padding-right: 5px; ">
-                            <form action="{{ url_for('teacher', examiner_id=examgroup.examiner_id, group_id=-1) }}"
-                                method="post">
-                                <button class="delete" name="deleteGroup" type="submit"
-                                    value="{{examgroup.group_name}}">x</button>
-                                <div style="flex-grow: 1"></div>
-                            </form>
+                            <button class="delete">x</button>
+                            <div style="flex-grow: 1"></div>
                             <!-- <p class= "examgroupinforight">{{examgroup.totalParticipants}}Participants</p>
                              <p class= "examgroupinforight">{{examgroup.totalExams}}Exams Set</p> -->
                         </div>
@@ -98,10 +94,12 @@
 
                     <div class="tab">
                         <form action="{{ url_for('teacher', examiner_id=user.examiner_id, group_id=group_id) }}"
-                                method="post">
+                            method="post" style="width: 100%; display: flex; margin: auto;">
                             <!--tab buttons-->
-                            <button type="submit" class="tablinks" name="filter" value="Upcoming Exams">Upcoming Exams</button>
-                            <button type="submit" class="tablinks" name="filter" value="Participants">Participants</button>
+                            <button type="submit" class="tablinks" name="filter" value="Upcoming Exams">Upcoming
+                                Exams</button>
+                            <button type="submit" class="tablinks" name="filter"
+                                value="Participants">Participants</button>
                             <button type="submit" class="tablinks" name="filter" value="Results">Results</button>
                         </form>
                     </div>
@@ -122,9 +120,7 @@
                         <form action="{{ url_for('editexam', examiner_id=user.examiner_id, group_id=group_id) }}"
                             method="get" style="margin: 0px;">
                             <div class="columns" style=" background-color: #591B31;">
-                                {% if group_id!="-1" %}
-                                <p>Exams for group: {{group_name}}</p>
-                                {% endif %}
+                                <p>Group name: {{group_name}}</p>
                                 <input class="create-button" type="submit" name="buttonExam" value='Add New Exam'
                                     style="margin-left: auto"></input>
                                 <!-- clicking add new exam will take you immediately to the editexam.html page-->
@@ -132,10 +128,16 @@
                         </form>
 
 
-                        <!--EXAMPLE NEW EXAM BOX to delete-->
-
-
-                        <!--END OF EXAMPLE BOX to delete -->
+                        <div class="columns" style="background-color: #591B31;">
+                            <form action="{{ url_for('teacher', examiner_id=user.examiner_id, group_id=group_id) }}"
+                                method="post">
+                                <input type="text" class="inputstyle" name="ParticipantId"
+                                    placeholder="Add Participant by ID" required></input>
+                                <!--inputs the participant id here and presses button to add, if not found show error message-->
+                                <input class="create-button" name="AddParticipant" value="Add" style="margin-left: auto"
+                                    type="submit"></input>
+                            </form>
+                        </div> <!-- ADD NEW PARTICIPANT HEADER-->
 
 
                         <!--for loop to be used officially below-->
@@ -145,21 +147,19 @@
                         <div class="exam">
 
                             <div class="vertical-column">
-                                <p class="examtime">{{exam.exam_date}}</p>
+                                <p class="examtime">{{exam.exam_date}} ({{exam.exam_time.strftime("%H:%M")}})</p>
                                 <div style="flex-grow: 1"></div>
                                 <p class="edata">{{exam.exam_name}}</p>
-
 
                             </div>
 
                             <div class="vertical-column" style="margin-left: auto; padding-right: 5px; ">
                                 <form action="{{ url_for('teacher', examiner_id=user.examiner_id, group_id=group_id) }}"
-                                    method="post" style="margin-left: auto; padding-right: 5px; ">
-                                    <button class="delete" name="delete" type="submit"
-                                        value="{{exam.exam_name}}">x</button>
+                                    method="post">
+                                    <button class="delete" name="delete" type="submit" value="{{exam.exam_id}}"
+                                        style="float:right;">x</button>
                                 </form>
                                 <!--button to delete the current exam from the database, should have an 'are you sure you wish to delete' pop up-->
-                                <p class="edata" style="margin-left: auto;">{{exam.time}}</p>
                                 <div style="flex: 1"></div>
                                 <form
                                     action="{{ url_for('editQuestions', examiner_id=user.examiner_id, group_id=group_id, exam_id=exam.exam_id) }}"
@@ -186,39 +186,31 @@
                     <div id="participants-div">
                         <!-- toggle visibility for this div tag -->
 
-                        <div class="columns" style=" background-color: #591B31;">
-                            <form action="{{ url_for('teacher', examiner_id=user.examiner_id, group_id=group_id) }}"
-                                method="post">
-                                <input type="text" class="inputstyle" name="ParticipantId"
-                                    placeholder="Add Participant by ID"></input>
-                                <!--inputs the participant id here and presses button to add, if not found show error message-->
-                                <input class="create-button" name="AddParticipant" value="Add" style="margin-left: auto"
-                                    type="submit"></input>
-                            </form>
-                        </div> <!-- ADD NEW PARTICIPANT HEADER-->
 
-                        <!--EXAMPLE PARTICIPANT BOX to delete -->
-
-                        <!-- END OF EXAMPLE BOX to delete-->
-                        {% if participants is iterable %}
                         {% for examParticipant in participants %}
                         <div class="participantbox">
                             <span style="background-color: white"></span>
+
                             <div class="columns">
                                 <div>
-                                    <p class="examgroupinfo" style="line-height: 3px;">{{examParticipant.student_id}}</p>
-                                <p class= " examgroupinfo" style="line-height: 3px;">{{examParticipant.student_name}}</p>
+                                    <p class="examgroupinfo" style="line-height: 3px;"">id</p>
+                                <p class= " examgroupinfo" style="line-height: 3px;">Name</p>
                                 </div>
+                                <div class="egdata">
+                                    <p class="examgroupinfo" style="line-height: 3px;"">{{examParticipant.student_id}}</p>
+                                <p class= " examgroupinfo" style="line-height: 3px;">{{examParticipant.student_name}}
+                                    </p>
+                                </div>
+
+
                             </div>
                             <button class="delete" style="margin-left: auto;">x</button>
                         </div>
                         {% endfor %}
-                        {% endif %}
+
 
                     </div>
                     <!--------------------------------END OF ADD PARTICIPANT DIV-->
-
-
 
 
 
@@ -235,28 +227,20 @@
                         {% for exam in results %}
                         <div class="exam">
                             <div class="vertical-column">
-                                <p class="examtime">{{exam.date}}</p>
-                                <p class="edata">{{exam.name}}</p>
+                                <p class="examtime">{{exam.exam_date}} ({{exam.exam_time.strftime("%H:%M")}})</p>
+                                <p class="edata">{{exam.exam_name}}</p>
                                 <div style="flex-grow: 1"></div>
+                            </div>
 
-                                <div class="columns">
-                                    <div>
-                                        <p class="examinfo">points</p>
-                                    </div>
-                                    <div class="edata">
-                                        <p class="edata"> {{exam.points}}</p>
-                                    </div>
+                            <form action="{{ url_for('examScores', examiner_id=user.examiner_id, group_id=group_id, exam_id=exam.exam_id) }}"
+                            method="get">
+                                <div class="vertical-column" style="margin-left: auto; padding-right: 5px; ">
+                                    <div style="flex-grow: 1"></div>
+                                    <button class="edit-exam-button" name="scores" value="PARTICIPANTS SCORES" 
+                                        type=submit> PARTICIPANTS SCORES</button>
+                                    <!--opens a pop up box with participants and their scores (see design for details), if possible make it so that when a participant is clicked on in this pop up page, they can go to a 'review exam' page.-->
                                 </div>
-                            </div>
-
-                            <div class="vertical-column" style="margin-left: auto; padding-right: 5px; ">
-                                <button class="delete">x</button>
-                                <p class="edata" style="margin-left: auto;">{{exam.time}}</p>
-                                <div style="flex-grow: 1"></div>
-                                <button class="edit-exam-button"> PARTICIPANT SCORES</button>
-                                <!--opens a pop up box with participants and their scores (see design for details), if possible make it so that when a participant is clicked on in this pop up page, they can go to a 'review exam' page.-->
-                            </div>
-
+                            </form>
                         </div>
 
                         {% endfor %}
@@ -266,14 +250,10 @@
 
 
 
-
-
-
                 </div>
 
             </div> <!-- / columns -->
         </div> <!-- / my-skills -->
-
     </main>
 
 </body>

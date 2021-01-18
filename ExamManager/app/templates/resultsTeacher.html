@@ -1,55 +1,65 @@
 <html>
-    <head>
-        <link rel="stylesheet" href="{{ url_for('static', filename='styles/resultsTeacher.css')  }}">
-    </head>
-    <body>
-        
-     <header>
-         <div class="columns">
-         <div class="columns">
-             
-            <div class = "backtab">
-                <p style = "padding: 5px; font-size: 0.7em;"> BACK TO HOME PAGE</p>
-            </div>
-         </div>
-         <div style = "flex: 1;"></div>
-         <div class="columns">
-             
-            <div class = "profile-tab">
-                <span></span>
-                <p style = "padding: 5px; font-size: 0.7em;"> {{teacher.name}} </p>
-            </div>
-         </div>
-         </div>
-     </header>
-     <div class = "examnameholder">
-        <p class = "examname"> {{exam.examName}} Results </p>
-     </div>
 
-     <div class = "questionbox">
-         <div >
-             
-         {% for examParticipant in examResult %}    
-            <div class = "participantbox">
-                        <span style = "background-color: white"></span>
-                        
-                        <div class = "columns">
-                            <div >
-                                <p class= "examgroupinfo"  style = "line-height: 3px;"" >id</p>
-                                <p class= "examgroupinfo"  style = "line-height: 3px;">Name</p>
-                            </div>    
-                            <div class= "egdata">
-                                <p class= "examgroupinfo"  style = "line-height: 3px;">{{examParticipant.id}}</p>
-                                <p class= "examgroupinfo"  style = "line-height: 3px;">{{examParticipant.name}} </p>
-                            </div>  
-                            
-                            
-                        </div>    
-                            
-                            <p style ="margin-left: auto; color: #593E48"> Score: {{examParticipant.score}}/{{exam.total}}</p>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/resultsTeacher.css')  }}">
+</head>
+
+<body>
+
+    <header>
+        <div class="columns">
+            <div class="columns">
+
+                <div class="backtab">
+                    <p style="padding: 5px; font-size: 0.7em;"> BACK TO HOME PAGE</p>
+                </div>
+            </div>
+            <div style="flex: 1;"></div>
+            <div class="columns">
+
+                <div class="profile-tab">
+                    <span></span>
+                    <p style="padding: 5px; font-size: 0.7em;"> {{user.examiner_name}} {{user.examiner_surname}}</p>
+                    <p style="padding: 5px; font-size: 0.7em;"> {{user.examiner_id}}</p>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="examnameholder">
+        <p class="examname"> {{exam.exam_name}} Results </p>
+    </div>
+
+    <div class="questionbox">
+        {% if examresult is iterable%}
+            {% for examParticipant in examResult %}
+        <div>
+            <div class="participantbox">
+                <span style="background-color: white"></span>
+
+                <div class="columns">
+                    <div>
+                        <p class="examgroupinfo" style="line-height: 3px;"" >id</p>
+                                <p class= " examgroupinfo" style="line-height: 3px;">Name</p>
                     </div>
-         </div>
-         {% endfor %}
+                    <div class="egdata">
+                        <p class="examgroupinfo" style="line-height: 3px;">{{examParticipant.student_id}}</p>
+                        <p class="examgroupinfo" style="line-height: 3px;">{{names[examParticipant.student_id]}} </p>
+                    </div>
+
+
+                </div>
+
+                <p style="margin-left: auto; color: #593E48"> Score: {{examParticipant.grade}}</p>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="participantbox">
+            <div class="columns">
+                <p class="examgroupinfo" style="line-height: 3px;"" >No participants scores availables</p>
+                    </div>
+                </div>
+            {% endif %}
          
          
          

@@ -162,14 +162,18 @@ header {
     display: flex;
     border-bottom: 2px solid white;
 }
-.exam-group:hover{
+.examgroupname:hover{
     background-color: #DEDEDE;
 }
 .examgroupname{
     font-size: 2em;
+    background-color: #E8E8E8;
     color: #AD4268; 
     font-weight:400;
-    margin: 5px
+    margin: 5px;
+    border: 0px;
+    transition: 0.3s;
+    border-radius: 5px;	
 }
 .examgroupinfo{
     font-size: 15px;
@@ -295,3 +299,23 @@ header {
 .inputstyletwo::placeholder{
     color:#929292;
 }
+
+
+.logoutbutton{
+    background-color: #929292;
+    display: flex;
+    transition: 0.3s;
+    border: 0px;
+    font-family: "Montserrat";
+    font-size: 15px;
+    align-items: center;
+}
+.logoutbutton:hover{
+    background-color: #DEDEDE;
+}
+
+
+.logoutbutton a {
+    color: #390F1E;
+}
+

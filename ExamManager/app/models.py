@@ -11,6 +11,7 @@ class Examiner(db.Model):
     examiner_email = db.Column(db.String(255), unique=True)
     examiner_password = db.Column(db.String(255))
     examiner_dateOfBirth = db.Column(db.DateTime,default= datetime.date.today())
+    pic=db.Column(db.LargeBinary(length=2048), nullable=True)
     def __repr__(self):
         return  # add representation
 
@@ -22,7 +23,7 @@ class Student(db.Model):
     student_email = db.Column(db.String(255), unique=True)
     student_password = db.Column(db.String(255))
     student_dateOfBirth = db.Column(db.DateTime,default= datetime.date.today())
-
+    pic=db.Column(db.LargeBinary(length=2048), nullable=True)
     def __repr__(self):
         return  # add representation
 
@@ -31,8 +32,8 @@ class Exam(db.Model):
     __tablename__ = 'Exam'
     exam_id = db.Column(db.Integer,autoincrement=True, primary_key=True)
     exam_name = db.Column(db.String(255),unique=False, default='Exam')
-    exam_date = db.Column(db.DateTime)
-    exam_time = db.Column(db.Time,default=datetime.time(1, 30, 0))
+    exam_date = db.Column(db.Date)
+    exam_time = db.Column(db.Time,default=datetime.time(1, 30,0))
     group_id = None
     # children = None
     def __repr__(self):

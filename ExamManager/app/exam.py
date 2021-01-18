@@ -37,15 +37,3 @@ def quiz():
     for i in questions.keys():
         random.shuffle(questions[i])
     return render_template("/exam", q=questions_shuffled, o=questions)
-
-
-@app.route('studentpage/<student_id>/<group_id>/<exam_id>', methods=['POST'])
-def exam_answers():
-    correct = 0
-    for i in questions.keys():
-        answered = request.form[i]
-        if original_questions[i][0] == answered:
-            correct = correct+1
-            result = "{} / {}".format(correct, len(questions))
-
-    return render_template("/studentpage/<student_id>", result=result)

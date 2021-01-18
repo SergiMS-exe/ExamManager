@@ -1,8 +1,9 @@
 <html>
 
 <head>
-  <title>HTML & CSS</title>
+  <title>Student Page</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/studentpage.css')  }}">
+  <!-- <link rel="stylesheet" href="../static/styles/studentpage.css"> -->
 </head>
 
 <body>
@@ -17,7 +18,9 @@
         <p style="padding: 5px; font-size: 0.7em;"> {{user.student_id}}</p>
         {% endblock %}
       </div>
-
+      <button class="logoutbutton" name="buttonlougout" style="margin-left: auto">
+        <a style="text-decoration: none; align-items: center;" href="/login">Log out</a>
+      </button>
     </div>
 
   </header>
@@ -37,18 +40,24 @@
 
           {% for group in examgroups %}
           <div class="exam-group">
-            <form action="{{ url_for('student', student_id=user.student_id, group_id=group.group_id) }}" method="post">
-              <div>
-                <input class="examgroupinfo" name="GroupButton" type="submit" value="{{group.group_name}}"> </input>
-            </form>
-            <div class="columns">
-              <div>
-                <p class="examgroupinfo">Examiner </p>
-                <p class="examgroupinfo">Group ID </p>
-              </div>
-              <div class="egdata">
-                <p class="examgroupinfo"> {{group.examiner_id}} {{group.examiner_name}} </p>
-                <p class="examgroupinfo"> {{group.group_id}} </p>
+            <div>
+              <form
+                action="{{ url_for('student', student_id=user.student_id, group_id=group.group_id, option=option) }}"
+                method="post" style="margin: 0px;">
+
+                <input class="examgroupname" name="GroupButton" type="submit" value="{{group.group_name}}"> </input>
+
+              </form>
+              <div class="columns">
+
+                <div>
+                  <p class="examgroupinfo">Examiner </p>
+                  <p class="examgroupinfo">Group ID </p>
+                </div>
+                <div class="egdata">
+                  <p class="examgroupinfo"> {{group.examiner_id}} {{group.examiner_name}} </p>
+                  <p class="examgroupinfo"> {{group.group_id}} </p>
+                </div>
               </div>
             </div>
             <div class="vertical-column" style="margin-left: auto; padding-right: 5px; ">
@@ -66,17 +75,17 @@
 
         <div class="vertical-column" style="width: 40%">
           <!--right hand column-->
-          <form action="{{ url_for('student', student_id=user.student_id, group_id=group_id) }}" method="post">
-            <div class="tab">
+
+          <div class="tab">
+            <form action="{{ url_for('student', student_id=user.student_id, group_id=group_id, option=option) }}"
+              method="post" style="width: 100%; display: flex; margin: auto;">
               <!--tab buttons-->
 
               <button class="tablinks" type="submit" value="Upcoming Exams" name="btn-futureexams">Upcoming
                 Exams</button>
               <button class="tablinks" type="submit" value="Results" name="btn-futureexams">Results</button>
-
-            </div>
-          </form>
-
+            </form>
+          </div>
 
 
           <!--EXPLANATION FOR TAB BUTTONS:
@@ -95,32 +104,25 @@
 
 
             <!--for loop to be used officially below-->
-            {% if exams is iterable%}
+            {% if exams is iterable %}
             {% for exam in exams %}
             <div class="exam">
 
               <div class="vertical-column">
-                <!-- <p class = "examtime">{{exam.date}}</p> -->
-                <!-- <p class = "edata" >{{exam.name}}</p> -->
+                <p class="examtime">{{exam.exam_date}} ({{exam.exam_time.strftime("%H:%M")}})</p>
+                <p class="edata">{{exam.exam_name}}</p>
                 <div style="flex-grow: 1"></div>
 
-                <div class="columns">
-                  <div>
-                    <p class="examinfo">points</p>
-                  </div>
-                  <div class="edata">
-                    <!-- <p class= "edata">{{exam.points}}</p> -->
-                  </div>
-                </div>
               </div>
+
               <div class="vertical-column" style="margin-left: auto; padding-right: 5px; ">
-                <form action="{{ url_for('exam', student_id=user.student_id, exam_id=exam.exam_id) }}" method="post">
-                  <!-- <p class= "edata" style="margin-left: auto;">{{exam.time}}</p> -->
-                  <div style="flex-grow: 1"></div>
-                  <button class="edit-exam-button" name="btn-takeexam" type="submit" value="{{exam.examiner_name}}">
-                    TAKE
-                    EXAM</button>
-                  <!-- button to edit the current exam-->
+
+                <!-- <p class= "edata" style="margin-left: auto;">{{exam.time}}</p> -->
+                <div style="flex-grow: 1"></div>
+                <form
+                  action="{{ url_for('exam', student_id=user.student_id, exam_id=exam-exam_id) }}"
+                  method="post" style="margin: 0px;">
+                  <button class="edit-exam-button" name="btn-takeexam" value="TAKE EXAM"> TAKE EXAM</button>
                 </form>
               </div>
 
@@ -144,25 +146,24 @@
             <div class="exam">
 
               <div class="vertical-column">
-                <p class="examtime">{{exam.date}}</p>
-                <p class="edata">{{exam.name}}</p>
+                <p class="examtime">{{exam.exam_date}} ({{exam.exam_time.strftime("%H:%M")}})</p>
+                <p class="edata">{{exam.exam_name}}</p>
                 <div style="flex-grow: 1"></div>
 
                 <div class="columns">
-                  <div>
-                    <p class="examinfo">points</p>
-                  </div>
-                  <div class="edata">
-                    <p class="edata"> {{exam.points}}</p>
-                  </div>
+
+
                 </div>
               </div>
 
               <div class="vertical-column" style="margin-left: auto; padding-right: 5px; ">
-
-                <p class="edata" style="margin-left: auto;">{{exam.time}}</p>
+                <div>
+                  <p class="examinfo">Points </p>
+                </div>
+                <div class="edata">
+                  <p class="edata">{{grades[exam.exam_id]}}</p>
+                </div>
                 <div style="flex-grow: 1"></div>
-                <button class="edit-exam-button" name="btn-reviewexam"> REVIEW EXAM </button>
                 <!--opens a pop up box with participants and their scores (see design for details), if possible make it so that when a participant is clicked on in this pop up page, they can go to a 'review exam' page.-->
               </div>
 
@@ -173,11 +174,6 @@
 
           </div>
           <!-----------------------------END OF RESULTS DIV-->
-
-
-
-
-
 
         </div>
 
