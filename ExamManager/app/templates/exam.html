@@ -34,16 +34,15 @@
     </div>
     {% set counter=0 %}
     {% if quiz is iterable %}
-
+    <form action="{{url_for('exam', exam_id=exam.exam_id, student_id=user.student_id)}}" method='post'>
     {% for question, answers in quiz.items() %}
 
     {% set counter=counter+1 %}
     <div class="questionbox">
         <div>
             <div class="question">
-                <p>{{counter}}. {{question.question_text}}</p>
+                <p name="question" value="{{question.question_id}}">{{counter}}. {{question.question_text}}</p>
             </div>
-            <form>
                 <div class="columns" style="margin: 0px auto; padding: 5px;">
                     <div style="flex: 1;"></div>
 
@@ -54,7 +53,7 @@
                             <div class="answerbox">
                                 <p>{{answers[0].answer_text}}</p>
                             </div>
-                            <input type="radio" id="answer-a" name="foo" value="{{answers[0].answer_id}}" class="radiostyle">
+                            <input type="radio" id="answer-a" name={{question.question_id}} value="{{answers[0].answer_id}}" class="radiostyle"required>
                         </div>
 
                         <div>
@@ -63,7 +62,7 @@
                                 <div class="answerbox">
                                     <p>{{answers[1].answer_text}}</p>
                                 </div>
-                                <input type="radio" id="answer-b" name="foo" value="b" class="radiostyle">
+                                <input type="radio" id="answer-b" name={{question.question_id}} value="{{answers[1].answer_id}}" class="radiostyle"required>
                             </div>
                         </div>
 
@@ -76,7 +75,7 @@
                                 <div class="answerbox">
                                     <p>{{answers[2].answer_text}}</p>
                                 </div>
-                                <input type="radio" id="answer-c" name="foo" value="c" class="radiostyle">
+                                <input type="radio" id="answer-c" name={{question.question_id}} value="{{answers[2].answer_id}}" class="radiostyle"required>
                             </div>
                         </div>
 
@@ -86,7 +85,7 @@
                                 <div class="answerbox">
                                     <p>{{answers[3].answer_text}}</p>
                                 </div>
-                                <input type="radio" id="answer-d" name="foo" value="d" class="radiostyle">
+                                <input type="radio" id="answer-d" name={{question.question_id}} value="{{answers[3].answer_id}}" class="radiostyle"required>
                             </div>
                         </div>
 
@@ -94,7 +93,7 @@
 
                     <div style="flex: 1;"></div>
                 </div>
-            </form>
+
         </div>
     </div>
 
@@ -103,7 +102,7 @@
     {% endfor %}
     {% endif %}
 
-    <form action="{{url_for('student', student_id=user.student_id, group_id=exam.group_id)}}" method='post'>
+    
         <div class="columns" style="padding-bottom: 20px;" >
             <button name='submit' value='SUBMIT QUIZ'>SUBMIT QUIZ</button>
 

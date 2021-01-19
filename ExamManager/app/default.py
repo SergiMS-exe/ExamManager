@@ -204,15 +204,15 @@ def run():
             answer_id=47, answer_text="Windos comand", question_id=12),
         models.ExamAnswer(answer_id=48, answer_text="Java IDE", question_id=12)]
 
-    StudentAnswers = [models.StudentAnswer(
-        student_id=251567, exam_id=1202100001, question_id=1, answer_id=4),
-        models.StudentAnswer(
-            student_id=251567, exam_id=1202100001, question_id=2, answer_id=8),
-        models.StudentAnswer(
-            student_id=251567, exam_id=1202100001, question_id=3, answer_id=10),
-        models.StudentAnswer(
-            student_id=251567, exam_id=1202100001, question_id=4, answer_id=1),
-        models.StudentAnswer(student_id=251452, exam_id=1202100001, question_id=1, answer_id=1)]
+    # StudentAnswers = [models.StudentAnswer(
+    #     student_id=251567, exam_id=1202100001, question_id=1, answer_id=4),
+    #     models.StudentAnswer(
+    #         student_id=251567, exam_id=1202100001, question_id=2, answer_id=8),
+    #     models.StudentAnswer(
+    #         student_id=251567, exam_id=1202100001, question_id=3, answer_id=10),
+    #     models.StudentAnswer(
+    #         student_id=251567, exam_id=1202100001, question_id=4, answer_id=1),
+    #     models.StudentAnswer(student_id=251452, exam_id=1202100001, question_id=1, answer_id=1)]
 
     StudentExamGroups = [models.StudentExamGroup(student_id=251567, group_id=1),
                          models.StudentExamGroup(student_id=251452, group_id=1)]
@@ -240,8 +240,8 @@ def run():
 
     for examAnswer in ExamAnswers:
         db.session.add(examAnswer)
-    for studentAnswer in StudentAnswers:
-        db.session.add(studentAnswer)
+    # for studentAnswer in StudentAnswers:
+    #     db.session.add(studentAnswer)
 
     for studentExamGroup in StudentExamGroups:
         db.session.add(studentExamGroup)

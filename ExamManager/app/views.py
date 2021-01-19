@@ -12,16 +12,17 @@ import datetime
 # check if email/in examiner  table or student table and change redirect
 def login():  # FUNTIONAL
     error = None
-    if request.method == 'POST':     #This part does the actions when you click a button of a form
+    if request.method == 'POST':
         next_page, error = actions.login(
             request.form['email'], request.form['password'])
         if error == None:
             return redirect(next_page)
     return render_template('index.html', error=error)
 
+
 @app.route('/register', methods=['POST', 'GET'])
 def register():  # FUNTIONAL
-    if request.method == 'POST':     #This part does the actions when you click a button of a form
+    if request.method == 'POST':
         name = request.form['Name']
         surname = request.form['Surname']
         password = request.form['Password']
@@ -176,23 +177,21 @@ def editQuestions(examiner_id, group_id, exam_id):  # FUNTIONAL
     return render_template('editexam-question.html', user=user, exam=exam)
 
 @app.route('/exam/<exam_id>/<student_id>', methods=['POST', 'GET'])
-def exam(exam_id,student_id):
-    user=actions.getUserStudent(student_id)
-    return render_template('exam.html', user=user)
-
-@app.route('/exam/<exam_id>/<student_id>', methods=['POST', 'GET'])
 def exam(exam_id, student_id):
     exam = actions.getExamById(exam_id)
     user = actions.getUserStudent(student_id)
     quiz=actions.getQuiz(exam_id)
     if request.method=="POST":
         try:
-            print('1234')
             if request.form['submit']=='SUBMIT QUIZ':
-                
-                print("hey")
+                answers=[]    
+                for question in quiz.keys():
+                    the_question=str(question.question_id)
+                    button=request.form[the_question]
+                    answers.append(button)
                 #TODO: take the radiobuttons answers and convert it to a quiz to save student answers to the db
-                actions.saveAnswersFromStudents(exam_id, quiz, student_id)
+                actions.saveAnswersFromStudents(exam_id, answers, student_id)
+                print("done")
                 actions.calculateGrade(student_id, exam_id)
                 print('done')
                 return redirect('/studentpage/'+str(student_id)+'/'+str(exam.group_id))
@@ -226,8 +225,10 @@ def student(student_id, group_id):  # FUNTIONAL
             group_id=examGroup.group_id).first())  # complete
         if str(examGroup.group_id) == str(group_id):
             results, exams = actions.getExams(group_id)
-            for exam in exams:    
-                if actions.getPoints(exam.exam_id, student_id)!=-1: #checks if thet exam wasalready done
+            for exam in exams:   
+                points=actions.getPoints(exam.exam_id, student_id)
+                print(points)
+                if points!=-1.0: #checks if thet exam wasalready done
                     results.append(exam)
                     exams.remove(exam)
     grades = {}

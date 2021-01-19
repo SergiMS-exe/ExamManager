@@ -19,11 +19,7 @@
                 {% endblock %}
             </div>
             <button class="logoutbutton" name="buttonlougout" style="margin-left: auto">
-<<<<<<< HEAD
                 <a style="text-decoration: none; align-items: center;" href="/login">Log out</a>
-=======
-                <a style="text-decoration: none;" href="/login">Log out</a>
->>>>>>> 96d368a8554869674531f0f29ae78aad7f08b0de
             </button>
 
         </div>
@@ -136,11 +132,7 @@
                             <form action="{{ url_for('teacher', examiner_id=user.examiner_id, group_id=group_id) }}"
                                 method="post">
                                 <input type="text" class="inputstyle" name="ParticipantId"
-<<<<<<< HEAD
                                     placeholder="Add Participant by ID" required></input>
-=======
-                                    placeholder="Add Participant by ID"></input>
->>>>>>> 96d368a8554869674531f0f29ae78aad7f08b0de
                                 <!--inputs the participant id here and presses button to add, if not found show error message-->
                                 <input class="create-button" name="AddParticipant" value="Add" style="margin-left: auto"
                                     type="submit"></input>
@@ -162,16 +154,11 @@
                             </div>
 
                             <div class="vertical-column" style="margin-left: auto; padding-right: 5px; ">
-<<<<<<< HEAD
                                 <form action="{{ url_for('teacher', examiner_id=user.examiner_id, group_id=group_id) }}"
                                     method="post">
                                     <button class="delete" name="delete" type="submit" value="{{exam.exam_id}}"
                                         style="float:right;">x</button>
                                 </form>
-=======
-
-                                <input class="delete" name="delete" type="submit" value="x"></input>
->>>>>>> 96d368a8554869674531f0f29ae78aad7f08b0de
                                 <!--button to delete the current exam from the database, should have an 'are you sure you wish to delete' pop up-->
                                 <div style="flex: 1"></div>
                                 <form
@@ -188,31 +175,16 @@
                         {% endif %}
                     </div>
                     <!---------------------------------------END OF ADD NEW EXAM DIV-->
-<<<<<<< HEAD
-=======
-
->>>>>>> 96d368a8554869674531f0f29ae78aad7f08b0de
 
 
 
 
 
 
-<<<<<<< HEAD
 
                     <!--------------------------------------------------ADD NEW PARTICIPANT DIV-->
                     <div id="participants-div">
                         <!-- toggle visibility for this div tag -->
-=======
-                    <!--------------------------------------------------ADD NEW PARTICIPANT DIV-->
-                    <div id="participants-div">
-                        <!-- toggle visibility for this div tag -->
-
->>>>>>> 96d368a8554869674531f0f29ae78aad7f08b0de
-
-                        {% for examParticipant in participants %}
-                        <div class="participantbox">
-                            <span style="background-color: white"></span>
 
                         {% for examParticipant in participants %}
                         <div class="participantbox">
@@ -253,26 +225,26 @@
 
                         <!--END of EXAMPLE BOX to delete-->
                         {% if results is iterable %}
-                        {% for exam in results %}
-                        <div class="exam">
-                            <div class="vertical-column">
-                                <p class="examtime">{{exam.exam_date}} ({{exam.exam_time.strftime("%H:%M")}})</p>
-                                <p class="edata">{{exam.exam_name}}</p>
-                                <div style="flex-grow: 1"></div>
+                            {% for exam in results %}
+                            <div class="exam">
+                                <div class="vertical-column">
+                                    <p class="examtime">{{exam.exam_date}} ({{exam.exam_time.strftime("%H:%M")}})</p>
+                                    <p class="edata">{{exam.exam_name}}</p>
+                                    <div style="flex-grow: 1"></div>
+                                </div>
+
+                                <form action="{{ url_for('examScores', examiner_id=user.examiner_id, group_id=group_id, exam_id=exam.exam_id) }}"
+                                method="get">
+                                    <div class="vertical-column" style="margin-left: auto; padding-right: 5px; ">
+                                        <div style="flex-grow: 1"></div>
+                                        <button class="edit-exam-button" name="scores" value="PARTICIPANTS SCORES" 
+                                            type=submit> PARTICIPANTS SCORES</button>
+                                        <!--opens a pop up box with participants and their scores (see design for details), if possible make it so that when a participant is clicked on in this pop up page, they can go to a 'review exam' page.-->
+                                    </div>
+                                </form>
                             </div>
 
-                            <form action="{{ url_for('examScores', examiner_id=user.examiner_id, group_id=group_id, exam_id=exam.exam_id) }}"
-                            method="get">
-                                <div class="vertical-column" style="margin-left: auto; padding-right: 5px; ">
-                                    <div style="flex-grow: 1"></div>
-                                    <button class="edit-exam-button" name="scores" value="PARTICIPANTS SCORES" 
-                                        type=submit> PARTICIPANTS SCORES</button>
-                                    <!--opens a pop up box with participants and their scores (see design for details), if possible make it so that when a participant is clicked on in this pop up page, they can go to a 'review exam' page.-->
-                                </div>
-                            </form>
-                        </div>
-
-                        {% endfor %}
+                            {% endfor %}
                         {% endif %}
                     </div>
                     <!-----------------------------END OF RESULTS DIV-->

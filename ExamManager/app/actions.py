@@ -48,17 +48,16 @@ def login(email, password):
     if student != None:
         if student.student_password == password:
             try:
-                group_id = StudentExamGroup.query.filter_by(
-                    student_id=student.student_id).first().group_id
+                group_id=StudentExamGroup.query.filter_by(student_id=student.student_id).first().group_id
             except:
-                group_id = -1
+                group_id=-1
             return '/studentpage/'+str(student.student_id)+"/"+str(group_id), None
     elif examiner != None:
         if examiner.examiner_password == password:
             try:
-                group_id = getGroupsExaminer(examiner.examiner_id)[0].group_id
+                group_id=getGroupsExaminer(examiner.examiner_id)[0].group_id
             except:
-                group_id = -1
+                group_id=-1
             return '/teacherpage/'+str(examiner.examiner_id)+"/"+str(group_id), None
 
     error = 'Invalid Credentials. Please try again.'
@@ -143,16 +142,7 @@ def getGroupsStudent(student_id):  # added to do more cohesive code
 
 def getGroupById(group_id):  # added to do more cohesive code
     return ExamGroup.query.filter_by(group_id=group_id).first()
-
-def getGroupsStudent(student_id):       #added to do more cohesive code
-    group=[]
-    group_ids=StudentExamGroup.query.filter_by(student_id=student_id).all()
-    for group_id in group_ids:
-        group.append(ExamGroup.query.filter_by(group_id=group_id.group_id).first())
-    return group
     
-def getGroupById(group_id):     #added to do more cohesive code
-    return ExamGroup.query.filter_by(group_id=group_id).first()
 
 def getParticipants(my_group_id):
     # Function that returns a list of student objects which is participants of the given exam group
@@ -196,13 +186,6 @@ def getAnswers(question_id):
         db.session.close()
     return listAnswers
 
-def getQuiz(exam_id):
-    questions=getQuestions(exam_id)
-    quiz={}
-    for question in questions:
-        answers=getAnswers(question.question_id)
-        quiz[question]=answers
-    return quiz
 
 def getQuiz(exam_id):
     questions = getQuestions(exam_id)
@@ -330,7 +313,7 @@ def getPoints(exam_id, student_id):
     try:
         return exam_student.grade
     except:
-        return -1
+        return -1.0
 
 
 def deleteParticipantFromExam(group_id, student_id):
@@ -366,12 +349,22 @@ def deleteGroup(group_id):
     db.session.close()
 
 
-def saveAnswersFromStudents(exam_id, quiz, student_id):
-    for question, answers in quiz.items():
-        for answer in answers:
-            studentAns = models.StudentAnswer(
-                exam_id=exam_id, student_id=student_id, answer_id=answer, question_id=question)
-            db.session.add(studentAns)
+def saveAnswersFromStudents(exam_id, answers, student_id):
+    my_answers = []
+    for answer in answers:
+        ans = ExamAnswer.query.filter_by(answer_id=answer).first()
+        my_answers.append(ans)
+    questions=getQuestions(exam_id)
+
+    dictionary = {}
+    for question in questions:
+        for answer in my_answers:
+            if answer.question_id==question.question_id:
+                dictionary[question]=answer
+    for question, answer in dictionary.items():
+        studentAns = models.StudentAnswer(
+            exam_id=exam_id, student_id=student_id, answer_id=answer.answer_id, question_id=question.question_id)
+        db.session.add(studentAns)
 
     db.session.commit()
     db.session.close()
@@ -380,16 +373,17 @@ def saveAnswersFromStudents(exam_id, quiz, student_id):
 def calculateGrade(student_id, exam_id):
     correct = 0
     quiz=getQuiz(exam_id)
-    for question, answers in quiz:
+    for question, answers in quiz.items():
         answerSwtudent = StudentAnswer.query.filter_by(question_id=question.question_id).first()
         for answer in answers:
             if answer.correct and answer.answer_id==answerSwtudent.answer_id:
-                correct+=1
-    grade = "{}/ {}".format(correct, len(quiz))
+                correct=correct+5
+    gradeStr = "{}/ {}".format(correct, len(quiz))
 
-    gradeFloat = correct/len(quiz)*5
+    gradeFloat = float(correct/len(quiz))
     print(gradeFloat)
+    student = models.ExamStudent(student_id=student_id, exam_id=exam_id, grade=gradeFloat)
+    db.session.add(student)
+    db.session.commit()
 
-    ExamStudent.update().where(student_id=student_id).values(grade=gradeFloat)
-
-    return grade , gradeFloat
+    return gradeStr , gradeFloat

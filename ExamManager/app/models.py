@@ -78,19 +78,25 @@ class ExamAnswer(db.Model):
     question_id = db.Column(
         db.Integer, db.ForeignKey(ExamQuestion.question_id))
     correct = db.Column(db.Boolean,unique=False, default=False)
-    def __repr__(self):
-        return  # add representation
+    def repr(self):
+        return self.answer_id + " " + self.answer_text +  " " + self.question_id + " " + self.correct
+
 
 
 class StudentAnswer(db.Model):
     student_id = db.Column(db.Integer, db.ForeignKey(
-        ExamStudent.student_id), primary_key=True)
+        ExamStudent.student_id) )
     exam_id = db.Column(db.Integer, db.ForeignKey(
-        ExamStudent.exam_id), primary_key=True)
+        ExamStudent.exam_id) )
     question_id = db.Column(db.Integer, db.ForeignKey(
-        ExamQuestion.question_id), primary_key=True)
+        ExamQuestion.question_id) )
     answer_id = db.Column(db.Integer, db.ForeignKey(
-        ExamAnswer.answer_id), primary_key=True)
+        ExamAnswer.answer_id) )
+    
+    __table_args__ = (
+        PrimaryKeyConstraint('student_id', 'exam_id', "question_id", "answer_id"),
+        {},
+    )
 
     def __repr__(self):
         return  # add representation
