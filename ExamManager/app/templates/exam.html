@@ -1,106 +1,114 @@
 <html>
-    <head>
-        <!--<link rel="stylesheet" href="{{ url_for('static', filename='styles/exam.css') }}">-->
-	<link rel="stylesheet" href="{{ url_for('static', filename='styles/exam.css')  }}">
-  
-    </head>
-    <body>
-        
-     <header>
-         <div class="columns">
-         <div class="columns">
-             
-            <div class = "backtab">
-                <p style = "padding: 5px; font-size: 0.7em;" href="{{ url_for('student', student_id=user.student_id, group_id=-1) }}"> BACK TO HOME PAGE</p>
+
+<head>
+    <!--<link rel="stylesheet" href="{{ url_for('static', filename='styles/exam.css') }}">-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/exam.css')  }}">
+
+</head>
+
+<body>
+
+    <header>
+        <div class="columns">
+            <div class="columns">
+
+                <div class="backtab">
+                    <p style="padding: 5px; font-size: 0.7em;"
+                        href="{{ url_for('student', student_id=user.student_id, group_id=-1) }}"> BACK TO HOME PAGE</p>
+                </div>
             </div>
-         </div>
-         <div style = "flex: 1;"></div>
-         <div class="columns">
-             
-            <div class = "profile-tab">
-                <span></span>
-                <p style = "padding: 5px; font-size: 0.7em;"> {{user.student_name}} #{{user.student_id}} </p>
+            <div style="flex: 1;"></div>
+            <div class="columns">
+
+                <div class="profile-tab">
+                    <span></span>
+                    <p style="padding: 5px; font-size: 0.7em;"> {{user.student_name}} #{{user.student_id}} </p>
+                </div>
             </div>
-         </div>
-         </div>
-     </header>
+        </div>
+    </header>
 
 
-     <div class = "examnameholder">
-        <p class = "examname"> Exam Name </p>
-     </div>
-     
+    <div class="examnameholder">
+        <p class="examname"> {{exam.exam_name}} </p>
+    </div>
+    {% set counter=0 %}
+    {% if quiz is iterable %}
 
-{% for question in quiz %}	
+    {% for question, answers in quiz.items() %}
 
-     <div class = "questionbox">
-         <div >
-            <div class = "question">
-                <p>{{question.number}}. {{question.question}}</p>
+    {% set counter=counter+1 %}
+    <div class="questionbox">
+        <div>
+            <div class="question">
+                <p>{{counter}}. {{question.question_text}}</p>
             </div>
-	 <form>
-            <div class = "columns" style = "margin: 0px auto; padding: 5px;" >
-                           <div style = "flex: 1;"></div>
+            <form>
+                <div class="columns" style="margin: 0px auto; padding: 5px;">
+                    <div style="flex: 1;"></div>
 
-                            <div class = "vertical-column">
-                                
-                                
-                                <div class = "columns">
-                                    <p class = "answerletterstyle">a</p>
-                                    <div class = "answerbox">
-                                        <p>{{question.answerA}}</p>
-                                    </div>   
-                                    <input type="radio" id="answer-a" name="foo" value="a" class = "radiostyle">
-                                </div>
+                    <div class="vertical-column">
 
-                                <div>
-                                       <div class = "columns">
-                                       <p class = "answerletterstyle">b</p>
-                                       <div class = "answerbox">
-                                         <p>{{question.answerB}}</p>
-                                       </div>   
-                                       <input type="radio" id="answer-b" name="foo" value="b" class = "radiostyle">
-                                       </div>
-                                </div>
-                           
+                        <div class="columns">
+                            <p class="answerletterstyle">a</p>
+                            <div class="answerbox">
+                                <p>{{answers[0].answer_text}}</p>
                             </div>
-                    		<div style = "width: 5vw;"></div>        
-                       <div class = "vertical-column" style = "flex: 1;">
-                            <div>
-                                    <div class = "columns">
-                                        <p class = "answerletterstyle">c</p>
-                                        <div class = "answerbox">
-                                            <p>{{question.answerC}}</p>
-                                        </div>   
-                                        <input type="radio" id="answer-c" name="foo" value="c" class = "radiostyle">
-                                    </div>
-                            </div>
+                            <input type="radio" id="answer-a" name="foo" value="{{answers[0].answer_id}}" class="radiostyle">
+                        </div>
 
-                            <div>
-                                    <div class = "columns">
-                                        <p class = "answerletterstyle">d</p>
-                                        <div class = "answerbox">
-                                            <p>{{question.answerD}}</p>
-                                        </div>   
-                                        <input type="radio" id="answer-d" name="foo" value="d" class = "radiostyle">
-                                    </div>
-                            </div> 
-                        
+                        <div>
+                            <div class="columns">
+                                <p class="answerletterstyle">b</p>
+                                <div class="answerbox">
+                                    <p>{{answers[1].answer_text}}</p>
+                                </div>
+                                <input type="radio" id="answer-b" name="foo" value="b" class="radiostyle">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div style="width: 5vw;"></div>
+                    <div class="vertical-column" style="flex: 1;">
+                        <div>
+                            <div class="columns">
+                                <p class="answerletterstyle">c</p>
+                                <div class="answerbox">
+                                    <p>{{answers[2].answer_text}}</p>
+                                </div>
+                                <input type="radio" id="answer-c" name="foo" value="c" class="radiostyle">
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="columns">
+                                <p class="answerletterstyle">d</p>
+                                <div class="answerbox">
+                                    <p>{{answers[3].answer_text}}</p>
+                                </div>
+                                <input type="radio" id="answer-d" name="foo" value="d" class="radiostyle">
+                            </div>
+                        </div>
+
                     </div>
 
-                    <div style = "flex: 1;"></div>
+                    <div style="flex: 1;"></div>
                 </div>
-	      </form>	 
-            </div>
-         </div>
+            </form>
+        </div>
+    </div>
 
 
-     </div>
-{% endfor %}
-     
-     <div class = "columns" style = "padding-bottom: 20px;">
-     <button>SUBMIT QUIZ</button>
-     
-     </div>  
-    </body>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    <form action="{{url_for('student', student_id=user.student_id, group_id=exam.group_id)}}" method='post'>
+        <div class="columns" style="padding-bottom: 20px;" >
+            <button name='submit' value='SUBMIT QUIZ'>SUBMIT QUIZ</button>
+
+        </div>
+    </form>
+</body>
+
 </html>

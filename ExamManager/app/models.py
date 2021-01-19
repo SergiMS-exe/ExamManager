@@ -57,7 +57,7 @@ class ExamStudent(db.Model):
         Student.student_id), primary_key=True)
     exam_id = db.Column(db.Integer, db.ForeignKey(
         Exam.exam_id), primary_key=True)
-    grade = db.Column(db.Float)
+    grade = db.Column(db.Float, default=-1.0)
 
     def __repr__(self):
         return  # add representation

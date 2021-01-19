@@ -127,7 +127,7 @@ def run():
                    models.ExamAnswer(
                        answer_id=8, answer_text=" Great PM in Project Software Eng.", question_id=2, correct=True),
                    models.ExamAnswer(
-                       answer_id=9, answer_text="Cleaning Lady in mercure Hotel", question_id=2),
+                       answer_id=9, answer_text="Cleaning Lady in mercure Hotel", question_id=3),
                    models.ExamAnswer(
                        answer_id=10, answer_text="Programming Language", question_id=3, correct=True),
                    models.ExamAnswer(
@@ -135,7 +135,7 @@ def run():
                    models.ExamAnswer(
                        answer_id=12, answer_text="Streaming Video website", question_id=3),
                    models.ExamAnswer(
-                       answer_id=13, answer_text="Computer HardWare", question_id=3),
+                       answer_id=13, answer_text="Computer HardWare", question_id=4),
                    models.ExamAnswer(
                        answer_id=14, answer_text="Programming Language", question_id=4, correct=True),
                    models.ExamAnswer(
@@ -150,8 +150,6 @@ def run():
                        answer_id=19, answer_text="Car seller in Poland", question_id=5),
                    models.ExamAnswer(
                        answer_id=20, answer_text=" Great PM in Project Software Eng.", question_id=5),
-                   models.ExamAnswer(
-                       answer_id=21, answer_text="Polish Singer ", question_id=5),
                    models.ExamAnswer(
                        answer_id=22, answer_text="DDR (Double Data Rate) is a type of fast, expensive, volatile Random Access Memory (RAM)", question_id=6 , correct=True),
                    models.ExamAnswer(
@@ -194,6 +192,8 @@ def run():
             answer_id=42, answer_text="Circular Diagram", question_id=11),
         models.ExamAnswer(
             answer_id=43, answer_text="China Direction", question_id=11),
+        models.ExamAnswer(
+            answer_id=49, answer_text="Romania Direction", question_id=11),
         models.ExamAnswer(
             answer_id=44, answer_text="Compact Disk", question_id=11, correct=True),
         models.ExamAnswer(

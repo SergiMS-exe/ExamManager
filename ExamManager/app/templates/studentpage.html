@@ -112,16 +112,14 @@
                 <p class="examtime">{{exam.exam_date}} ({{exam.exam_time.strftime("%H:%M")}})</p>
                 <p class="edata">{{exam.exam_name}}</p>
                 <div style="flex-grow: 1"></div>
-
               </div>
 
               <div class="vertical-column" style="margin-left: auto; padding-right: 5px; ">
 
                 <!-- <p class= "edata" style="margin-left: auto;">{{exam.time}}</p> -->
                 <div style="flex-grow: 1"></div>
-                <form
-                  action="{{ url_for('exam', student_id=user.student_id, exam_id=exam-exam_id) }}"
-                  method="post" style="margin: 0px;">
+                <form action="{{ url_for('exam', student_id=user.student_id, exam_id=exam.exam_id) }}" method="get"
+                  style="margin: 0px;">
                   <button class="edit-exam-button" name="btn-takeexam" value="TAKE EXAM"> TAKE EXAM</button>
                 </form>
               </div>
