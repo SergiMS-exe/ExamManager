@@ -19,7 +19,6 @@ def login():  # FUNTIONAL
             return redirect(next_page)
     return render_template('index.html', error=error)
 
-
 @app.route('/register', methods=['POST', 'GET'])
 def register():  # FUNTIONAL
     if request.method == 'POST':     #This part does the actions when you click a button of a form
@@ -54,7 +53,6 @@ def register():  # FUNTIONAL
 
     else:
         return render_template('reg.html')
-
 
 @app.route('/teacherpage/<examiner_id>/<group_id>', methods=['GET', 'POST'])
 def teacher(examiner_id, group_id):  # FUNTIONAL
@@ -142,7 +140,6 @@ def editexam(examiner_id, group_id):  # FUNTIONAL
     user = actions.getUserExaminer(examiner_id)
     return render_template('editexam.html', user=user, group_id=group_id)
 
-
 @app.route('/teacherpage/<examiner_id>/<group_id>/<exam_id>/editexam_questions', methods=['GET', 'POST'])
 def editQuestions(examiner_id, group_id, exam_id):  # FUNTIONAL
     if request.method == 'POST':     #This part does the actions when you click a button of a form
@@ -178,6 +175,10 @@ def editQuestions(examiner_id, group_id, exam_id):  # FUNTIONAL
     exam = actions.getExamById(exam_id)
     return render_template('editexam-question.html', user=user, exam=exam)
 
+@app.route('/exam/<exam_id>/<student_id>', methods=['POST', 'GET'])
+def exam(exam_id,student_id):
+    user=actions.getUserStudent(student_id)
+    return render_template('exam.html', user=user)
 
 @app.route('/exam/<exam_id>/<student_id>', methods=['POST', 'GET'])
 def exam(exam_id, student_id):

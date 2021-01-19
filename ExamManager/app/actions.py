@@ -42,7 +42,6 @@ def register(name, surname, email, password, radioT):
         error = 'Invalid data. Please try again.'
         return 'reg.html', error
 
-
 def login(email, password):
     student = Student.query.filter_by(student_email=email).first()
     examiner = Examiner.query.filter_by(examiner_email=email).first()
@@ -104,7 +103,6 @@ def addQuestion(exam_id, text, answers):
 
     db.session.commit()
 
-
 def addNewGroup(group_name, examiner_id):
     # Function to add a new examgroup object to the db
     last_id = ExamGroup.query.all()[-1].group_id
@@ -116,7 +114,6 @@ def addNewGroup(group_name, examiner_id):
     )
     db.session.add(temp)
     db.session.commit()
-
 
 def getGroupsExaminer(examiner_id):
     # Function that returns a list of exam group objects which has the provided examiner_id
@@ -147,6 +144,15 @@ def getGroupsStudent(student_id):  # added to do more cohesive code
 def getGroupById(group_id):  # added to do more cohesive code
     return ExamGroup.query.filter_by(group_id=group_id).first()
 
+def getGroupsStudent(student_id):       #added to do more cohesive code
+    group=[]
+    group_ids=StudentExamGroup.query.filter_by(student_id=student_id).all()
+    for group_id in group_ids:
+        group.append(ExamGroup.query.filter_by(group_id=group_id.group_id).first())
+    return group
+    
+def getGroupById(group_id):     #added to do more cohesive code
+    return ExamGroup.query.filter_by(group_id=group_id).first()
 
 def getParticipants(my_group_id):
     # Function that returns a list of student objects which is participants of the given exam group
@@ -169,7 +175,6 @@ def getParticipants(my_group_id):
         listParticipants.append(temp)
     return listParticipants
 
-
 def getQuestions(exam_id):
     listQuestions = []
     query = db.session.query(models.ExamQuestion).filter(
@@ -181,7 +186,6 @@ def getQuestions(exam_id):
         db.session.close()
     return listQuestions
 
-
 def getAnswers(question_id):
     listAnswers = []
     query = ExamAnswer.query.filter_by(question_id=question_id)
@@ -192,6 +196,13 @@ def getAnswers(question_id):
         db.session.close()
     return listAnswers
 
+def getQuiz(exam_id):
+    questions=getQuestions(exam_id)
+    quiz={}
+    for question in questions:
+        answers=getAnswers(question.question_id)
+        quiz[question]=answers
+    return quiz
 
 def getQuiz(exam_id):
     questions = getQuestions(exam_id)
@@ -230,7 +241,6 @@ def saveExam(exam_name, exam_date, exam_time, duration, group_id, questions, ans
             print(e)
     db.session.commit()
 
-
 def editExam(exam_id):
     query = db.session.query(models.Exam).filter(
         models.Exam.exam_id == exam_id)
@@ -248,7 +258,6 @@ def editExam(exam_id):
             listAnswers.append(ans)
 
     return [exam, listQuestions, listAnswers]
-
 
 def addParticipantToExam(group_id, student_id):
     # Function to add a new student to the StudentExamGroup
