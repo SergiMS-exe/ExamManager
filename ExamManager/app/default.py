@@ -1,91 +1,94 @@
 # pylint: disable=no-member
 from app import db, models
+from app.models import *
 import datetime
-
+import random
+import time
+import os
 
 def run():
     Examiners = [models.Examiner(examiner_id=2021001, examiner_name="Chloe Vann der", examiner_surname="Sar", examiner_email="chloe.vann.der.sar@gmail.com", examiner_password="jjjjj"),
-                 models.Examiner(examiner_id=2021002, examiner_name="vassita ", examiner_surname="volgov ",
-                                 examiner_email="vassitavolgov1@gmail.com", examiner_password="jjjjj"),
-                 models.Examiner(examiner_id=2021003, examiner_name="Aleksey ", examiner_surname="Volkov",
-                                 examiner_email="AlekseyVolkov@gmail.com", examiner_password="jjjjj"),
-                 models.Examiner(examiner_id=2021004, examiner_name="Mounim ",
-                                 examiner_surname="Mouani", examiner_email="Mounimmouani@gmail.com", examiner_password="jjjjj"),
-                 models.Examiner(examiner_id=2021005, examiner_name="Monsif ", examiner_surname="Chouini",
-                                 examiner_email="Monsif Chouini@gmail.com", examiner_password="jjjjj"),
-                 models.Examiner(examiner_id=2021006, examiner_name="Edward",
-                                 examiner_surname=" McBell", examiner_email="EdwardMcBell@gmail.com", examiner_password="jjjjj"),
-                 models.Examiner(examiner_id=2021007, examiner_name="Paula ", examiner_surname="Kimberly",
-                                 examiner_email="PaulaKimberly@gmail.com", examiner_password="jjjjj"),
-                 models.Examiner(examiner_id=2021008, examiner_name="Bill ", examiner_surname="Kim",
-                                 examiner_email="BillKim@gmail.com", examiner_password="jjjjj"),
-                 models.Examiner(examiner_id=2021009, examiner_name="Wiiliam ", examiner_surname="GeorgeTown",
-                                 examiner_email="WiiliamGeorgeTown@gmail.com", examiner_password="jjjjj"),
-                 models.Examiner(examiner_id=2021010, examiner_name="Michael ", examiner_surname="Scofield",
-                                 examiner_email="MichaelScofield@gmail.com", examiner_password="jjjjj"),
-                 models.Examiner(examiner_id=20210011, examiner_name="Lincoln ", examiner_surname="Burrows",
-                                 examiner_email="LincolnBurrows@gmail.com", examiner_password="jjjjj"),
-                 models.Examiner(examiner_id=20210012, examiner_name="Aleksander ", examiner_surname="Mahone",
-                                 examiner_email="AleksanderMahone@gmail.com", examiner_password="jjjjj"),
-                 models.Examiner(examiner_id=20210013, examiner_name="Paul ", examiner_surname="Killerman",
-                                 examiner_email="PaulKillerman@gmail.com", examiner_password="jjjjj"),
-                 models.Examiner(examiner_id=20210014, examiner_name="David ",
-                                 examiner_surname="Ballern", examiner_email="DavidBallern@gmail.com"),
-                 models.Examiner(examiner_id=20210015, examiner_name="Sergio ", examiner_surname="Suarez", examiner_email="SergioSuarez@gmail.com", examiner_password="jjjjj")]
+                    models.Examiner(examiner_id=2021002, examiner_name="vassita ", examiner_surname="volgov ",
+                                    examiner_email="vassitavolgov1@gmail.com", examiner_password="jjjjj"),
+                    models.Examiner(examiner_id=2021003, examiner_name="Aleksey ", examiner_surname="Volkov",
+                                    examiner_email="AlekseyVolkov@gmail.com", examiner_password="jjjjj"),
+                    models.Examiner(examiner_id=2021004, examiner_name="Mounim ",
+                                    examiner_surname="Mouani", examiner_email="Mounimmouani@gmail.com", examiner_password="jjjjj"),
+                    models.Examiner(examiner_id=2021005, examiner_name="Monsif ", examiner_surname="Chouini",
+                                    examiner_email="Monsif Chouini@gmail.com", examiner_password="jjjjj"),
+                    models.Examiner(examiner_id=2021006, examiner_name="Edward",
+                                    examiner_surname=" McBell", examiner_email="EdwardMcBell@gmail.com", examiner_password="jjjjj"),
+                    models.Examiner(examiner_id=2021007, examiner_name="Paula ", examiner_surname="Kimberly",
+                                    examiner_email="PaulaKimberly@gmail.com", examiner_password="jjjjj"),
+                    models.Examiner(examiner_id=2021008, examiner_name="Bill ", examiner_surname="Kim",
+                                    examiner_email="BillKim@gmail.com", examiner_password="jjjjj"),
+                    models.Examiner(examiner_id=2021009, examiner_name="Wiiliam ", examiner_surname="GeorgeTown",
+                                    examiner_email="WiiliamGeorgeTown@gmail.com", examiner_password="jjjjj"),
+                    models.Examiner(examiner_id=2021010, examiner_name="Michael ", examiner_surname="Scofield",
+                                    examiner_email="MichaelScofield@gmail.com", examiner_password="jjjjj"),
+                    models.Examiner(examiner_id=20210011, examiner_name="Lincoln ", examiner_surname="Burrows",
+                                    examiner_email="LincolnBurrows@gmail.com", examiner_password="jjjjj"),
+                    models.Examiner(examiner_id=20210012, examiner_name="Aleksander ", examiner_surname="Mahone",
+                                    examiner_email="AleksanderMahone@gmail.com", examiner_password="jjjjj"),
+                    models.Examiner(examiner_id=20210013, examiner_name="Paul ", examiner_surname="Killerman",
+                                    examiner_email="PaulKillerman@gmail.com", examiner_password="jjjjj"),
+                    models.Examiner(examiner_id=20210014, examiner_name="David ",
+                                    examiner_surname="Ballern", examiner_email="DavidBallern@gmail.com"),
+                    models.Examiner(examiner_id=20210015, examiner_name="Sergio ", examiner_surname="Suarez", examiner_email="SergioSuarez@gmail.com", examiner_password="jjjjj")]
 
     Students = [models.Student(student_id=251567, student_name="Edouard Makenga", student_surname="Badibake", student_email="edouardmkakenga0@gmail.com", student_password="kkkkk"),
                 models.Student(student_id=251452, student_name="Maxime ", student_surname="LeBlanc",
-                               student_email="MaximeLeBlanc@gmail.com", student_password="kkkkk"),
+                                student_email="MaximeLeBlanc@gmail.com", student_password="kkkkk"),
                 models.Student(student_id=251230, student_name="Peter", student_surname="LeRusse",
-                               student_email="PeterLeRusse0@gmail.com", student_password="kkkkk"),
+                                student_email="PeterLeRusse0@gmail.com", student_password="kkkkk"),
                 models.Student(student_id=251231, student_name="Avril ", student_surname="Lavigne",
-                               student_email="AvrilLavigne0@gmail.com", student_password="kkkkk"),
+                                student_email="AvrilLavigne0@gmail.com", student_password="kkkkk"),
                 models.Student(student_id=251232, student_name="Marvin ", student_surname="Mcfadden",
-                               student_email="MarvinMcfadden0@gmail.com", student_password="kkkkk"),
+                                student_email="MarvinMcfadden0@gmail.com", student_password="kkkkk"),
                 models.Student(student_id=251233, student_name="Natasha ", student_surname="Kooper",
-                               student_email="NatashaKooper@gmail.com", student_password="kkkkk"),
+                                student_email="NatashaKooper@gmail.com", student_password="kkkkk"),
                 models.Student(student_id=251234, student_name="Ed",
-                               student_surname="Sheeran", student_email="EdSheeran@gmail.com", student_password="kkkkk"),
+                                student_surname="Sheeran", student_email="EdSheeran@gmail.com", student_password="kkkkk"),
                 models.Student(student_id=251235, student_name="Bob ",
-                               student_surname="Marley", student_email="BobMarley@gmail.com", student_password="kkkkk"),
+                                student_surname="Marley", student_email="BobMarley@gmail.com", student_password="kkkkk"),
                 models.Student(student_id=251236, student_name="Piotr ", student_surname="Fabianski",
-                               student_email="PiotrFabianski@gmail.com", student_password="kkkkk"),
+                                student_email="PiotrFabianski@gmail.com", student_password="kkkkk"),
                 models.Student(student_id=251237, student_name="Dead ",
-                               student_surname="Poll", student_email="DeadPoll@gmail.com", student_password="kkkkk"),
+                                student_surname="Poll", student_email="DeadPoll@gmail.com", student_password="kkkkk"),
                 models.Student(student_id=251238, student_name="Luna ",
-                               student_surname="Tuna", student_email="LunaTuna@gmail.com", student_password="kkkkk"),
+                                student_surname="Tuna", student_email="LunaTuna@gmail.com", student_password="kkkkk"),
                 models.Student(student_id=251239, student_name="Carlos ",
-                               student_surname="Moreli", student_email="CarlosMoreli.com", student_password="kkkkk"),
+                                student_surname="Moreli", student_email="CarlosMoreli.com", student_password="kkkkk"),
                 models.Student(student_id=251455, student_name="Xing xi ", student_surname="ji ping", student_email="Xingzijiping@gmail.com", student_password="kkkkk")]
 
     Exams = [models.Exam(exam_id=1202100001, exam_date=datetime.date(2021, 5, 14), group_id=1),
-             models.Exam(exam_id=1202100002, exam_date=datetime.date(
-                 2021, 3, 14), group_id=2),
-             models.Exam(exam_id=1202100003, exam_date=datetime.date(
-                 2021, 1, 14), group_id=3),
-             models.Exam(exam_id=1202100004, exam_date=datetime.date(
-                 2021, 7, 14), group_id=2),
-             models.Exam(exam_id=1202100005, exam_date=datetime.date(
-                 2021, 8, 14), group_id=4),
-             models.Exam(exam_id=1202100006, exam_date=datetime.date(2021, 8, 14), group_id=6)]
+                models.Exam(exam_id=1202100002, exam_date=datetime.date(
+                    2021, 3, 14), group_id=2),
+                models.Exam(exam_id=1202100003, exam_date=datetime.date(
+                    2021, 1, 14), group_id=3),
+                models.Exam(exam_id=1202100004, exam_date=datetime.date(
+                    2021, 7, 14), group_id=2),
+                models.Exam(exam_id=1202100005, exam_date=datetime.date(
+                    2021, 8, 14), group_id=4),
+                models.Exam(exam_id=1202100006, exam_date=datetime.date(2021, 8, 14), group_id=6)]
 
     ExamGroups = [models.ExamGroup(group_id=1, group_name="G--1", examiner_id=2021010),
-                  models.ExamGroup(group_id=2, group_name="G--2",
-                                   examiner_id=2021010),
-                  models.ExamGroup(group_id=3, group_name="G--3",
-                                   examiner_id=2021009),
-                  models.ExamGroup(group_id=4, group_name="G--4",
-                                   examiner_id=2021004),
-                  models.ExamGroup(group_id=5, group_name="G--5",
-                                   examiner_id=2021011),
-                  models.ExamGroup(group_id=6, group_name="G--6", examiner_id=2021010)]
+                    models.ExamGroup(group_id=2, group_name="G--2",
+                                    examiner_id=2021010),
+                    models.ExamGroup(group_id=3, group_name="G--3",
+                                    examiner_id=2021009),
+                    models.ExamGroup(group_id=4, group_name="G--4",
+                                    examiner_id=2021004),
+                    models.ExamGroup(group_id=5, group_name="G--5",
+                                    examiner_id=2021011),
+                    models.ExamGroup(group_id=6, group_name="G--6", examiner_id=2021010)]
     ExamStudents = [models.ExamStudent(student_id=251567, exam_id=1202100001, grade=5),
                     models.ExamStudent(student_id=251452,
-                                       exam_id=1202100002, grade=4),
+                                        exam_id=1202100002, grade=4),
                     models.ExamStudent(student_id=251234,
-                                       exam_id=1202100001, grade=3),
+                                        exam_id=1202100001, grade=3),
                     models.ExamStudent(student_id=251236,
-                                       exam_id=1202100003, grade=4.5),
+                                        exam_id=1202100003, grade=4.5),
                     models.ExamStudent(student_id=251235, exam_id=1202100005, grade=0)]
     ExamQuestions = [models.ExamQuestion(
         question_id=1, question_text="who is the president of poland?", exam_id=1202100001),
@@ -112,59 +115,59 @@ def run():
         models.ExamQuestion(question_id=12, question_text="What is A LED", exam_id=1202100003)]
 
     ExamAnswers = [models.ExamAnswer(answer_id=1, answer_text="Donald Trump", question_id=1),
-                   models.ExamAnswer(
-                       answer_id=2, answer_text="Andrzej Dupa", question_id=1),
-                   models.ExamAnswer(
-                       answer_id=3, answer_text="Marvin Gerald", question_id=1),
-                   models.ExamAnswer(
-                       answer_id=4, answer_text="Andrzej Duda ", question_id=1, correct=True),
-                   models.ExamAnswer(
-                       answer_id=5, answer_text="CEO of IBM", question_id=2),
-                   models.ExamAnswer(
-                       answer_id=6, answer_text="Police Officer", question_id=2),
-                   models.ExamAnswer(
-                       answer_id=7, answer_text="Teacher at PWR", question_id=2),
-                   models.ExamAnswer(
-                       answer_id=8, answer_text=" Great PM in Project Software Eng.", question_id=2, correct=True),
-                   models.ExamAnswer(
-                       answer_id=9, answer_text="Cleaning Lady in mercure Hotel", question_id=3),
-                   models.ExamAnswer(
-                       answer_id=10, answer_text="Programming Language", question_id=3, correct=True),
-                   models.ExamAnswer(
-                       answer_id=11, answer_text="type of Dog", question_id=3),
-                   models.ExamAnswer(
-                       answer_id=12, answer_text="Streaming Video website", question_id=3),
-                   models.ExamAnswer(
-                       answer_id=13, answer_text="Computer HardWare", question_id=4),
-                   models.ExamAnswer(
-                       answer_id=14, answer_text="Programming Language", question_id=4, correct=True),
-                   models.ExamAnswer(
-                       answer_id=15, answer_text="A mailBox name", question_id=4),
-                   models.ExamAnswer(
-                       answer_id=16, answer_text="It is a Company", question_id=4),
-                   models.ExamAnswer(
-                       answer_id=17, answer_text="CEO pwr", question_id=5),
-                   models.ExamAnswer(
-                       answer_id=18, answer_text="Facebook Inventor", question_id=5, correct=True),
-                   models.ExamAnswer(
-                       answer_id=19, answer_text="Car seller in Poland", question_id=5),
-                   models.ExamAnswer(
-                       answer_id=20, answer_text=" Great PM in Project Software Eng.", question_id=5),
-                   models.ExamAnswer(
-                       answer_id=22, answer_text="DDR (Double Data Rate) is a type of fast, expensive, volatile Random Access Memory (RAM)", question_id=6 , correct=True),
-                   models.ExamAnswer(
-                       answer_id=23, answer_text="Digital Directory Register", question_id=6),
-                   models.ExamAnswer(
-                       answer_id=24, answer_text="Doubled Digged Repository ", question_id=6),
-                   models.ExamAnswer(
-                       answer_id=25, answer_text="A Web Browser", question_id=6),
-                   models.ExamAnswer(
-                       answer_id=26, answer_text="Russian Social Network ", question_id=7),
-                   models.ExamAnswer(
-                       answer_id=27, answer_text="elearnmig Platform", question_id=7, correct=True),
-                   models.ExamAnswer(
-                       answer_id=28, answer_text="Ethernet Dx", question_id=7),
-                   models.ExamAnswer(
+                    models.ExamAnswer(
+                        answer_id=2, answer_text="Andrzej Dupa", question_id=1),
+                    models.ExamAnswer(
+                        answer_id=3, answer_text="Marvin Gerald", question_id=1),
+                    models.ExamAnswer(
+                        answer_id=4, answer_text="Andrzej Duda ", question_id=1, correct=True),
+                    models.ExamAnswer(
+                        answer_id=5, answer_text="CEO of IBM", question_id=2),
+                    models.ExamAnswer(
+                        answer_id=6, answer_text="Police Officer", question_id=2),
+                    models.ExamAnswer(
+                        answer_id=7, answer_text="Teacher at PWR", question_id=2),
+                    models.ExamAnswer(
+                        answer_id=8, answer_text=" Great PM in Project Software Eng.", question_id=2, correct=True),
+                    models.ExamAnswer(
+                        answer_id=9, answer_text="Cleaning Lady in mercure Hotel", question_id=3),
+                    models.ExamAnswer(
+                        answer_id=10, answer_text="Programming Language", question_id=3, correct=True),
+                    models.ExamAnswer(
+                        answer_id=11, answer_text="type of Dog", question_id=3),
+                    models.ExamAnswer(
+                        answer_id=12, answer_text="Streaming Video website", question_id=3),
+                    models.ExamAnswer(
+                        answer_id=13, answer_text="Computer HardWare", question_id=4),
+                    models.ExamAnswer(
+                        answer_id=14, answer_text="Programming Language", question_id=4, correct=True),
+                    models.ExamAnswer(
+                        answer_id=15, answer_text="A mailBox name", question_id=4),
+                    models.ExamAnswer(
+                        answer_id=16, answer_text="It is a Company", question_id=4),
+                    models.ExamAnswer(
+                        answer_id=17, answer_text="CEO pwr", question_id=5),
+                    models.ExamAnswer(
+                        answer_id=18, answer_text="Facebook Inventor", question_id=5, correct=True),
+                    models.ExamAnswer(
+                        answer_id=19, answer_text="Car seller in Poland", question_id=5),
+                    models.ExamAnswer(
+                        answer_id=20, answer_text=" Great PM in Project Software Eng.", question_id=5),
+                    models.ExamAnswer(
+                        answer_id=22, answer_text="DDR (Double Data Rate) is a type of fast, expensive, volatile Random Access Memory (RAM)", question_id=6 , correct=True),
+                    models.ExamAnswer(
+                        answer_id=23, answer_text="Digital Directory Register", question_id=6),
+                    models.ExamAnswer(
+                        answer_id=24, answer_text="Doubled Digged Repository ", question_id=6),
+                    models.ExamAnswer(
+                        answer_id=25, answer_text="A Web Browser", question_id=6),
+                    models.ExamAnswer(
+                        answer_id=26, answer_text="Russian Social Network ", question_id=7),
+                    models.ExamAnswer(
+                        answer_id=27, answer_text="elearnmig Platform", question_id=7, correct=True),
+                    models.ExamAnswer(
+                        answer_id=28, answer_text="Ethernet Dx", question_id=7),
+                    models.ExamAnswer(
         answer_id=29, answer_text="Electronic Component", question_id=7),
         models.ExamAnswer(
         answer_id=30, answer_text="No,But allow to write scripts", question_id=8, correct=True),
@@ -204,18 +207,18 @@ def run():
             answer_id=47, answer_text="Windos comand", question_id=12),
         models.ExamAnswer(answer_id=48, answer_text="Java IDE", question_id=12)]
 
-    # StudentAnswers = [models.StudentAnswer(
-    #     student_id=251567, exam_id=1202100001, question_id=1, answer_id=4),
-    #     models.StudentAnswer(
-    #         student_id=251567, exam_id=1202100001, question_id=2, answer_id=8),
-    #     models.StudentAnswer(
-    #         student_id=251567, exam_id=1202100001, question_id=3, answer_id=10),
-    #     models.StudentAnswer(
-    #         student_id=251567, exam_id=1202100001, question_id=4, answer_id=1),
-    #     models.StudentAnswer(student_id=251452, exam_id=1202100001, question_id=1, answer_id=1)]
+    StudentAnswers = [models.StudentAnswer(
+        student_id=251567, exam_id=1202100001, question_id=1, answer_id=4),
+        models.StudentAnswer(
+            student_id=251567, exam_id=1202100001, question_id=2, answer_id=8),
+        models.StudentAnswer(
+            student_id=251567, exam_id=1202100001, question_id=3, answer_id=10),
+        models.StudentAnswer(
+            student_id=251567, exam_id=1202100001, question_id=4, answer_id=1),
+        models.StudentAnswer(student_id=251452, exam_id=1202100001, question_id=1, answer_id=1)]
 
     StudentExamGroups = [models.StudentExamGroup(student_id=251567, group_id=1),
-                         models.StudentExamGroup(student_id=251452, group_id=1)]
+                            models.StudentExamGroup(student_id=251452, group_id=1)]
     for exam in Exams:
         db.session.add(exam)
 
@@ -240,8 +243,8 @@ def run():
 
     for examAnswer in ExamAnswers:
         db.session.add(examAnswer)
-    # for studentAnswer in StudentAnswers:
-    #     db.session.add(studentAnswer)
+    for studentAnswer in StudentAnswers:
+        db.session.add(studentAnswer)
 
     for studentExamGroup in StudentExamGroups:
         db.session.add(studentExamGroup)
@@ -252,3 +255,162 @@ def run():
 
 
 run()
+
+# print("Default data added!")
+
+
+
+# def test_execute():
+#     # pylint: disable=no-member
+
+#     rewrite = False
+#     if os.path.exists('./Exammanager/app.db') and rewrite != True:
+#         os.remove('./Exammanager/app.db')
+#         rewrite = True
+
+#     # Credentials
+#     email = "xxx@gmail.com"
+#     password = "123456"
+
+#     name = "John"
+#     surname = "Smith"
+#     date = "01.01.2021"
+#     email_examiner = "examiner@gmail.com"
+#     group_name = "G--1"
+#     t = 4
+
+#     # test_incorrect_username_login()
+#     test_register_teacher()
+#     db.session.commit()
+#     # test_register_teacher_same_name
+#     # test_register_teacher_same_email()
+#     time.sleep(t)
+#     # correct_login_test()
+#     time.sleep(t)
+#     # incorrect_password_login()
+#     # time.sleep(t)
+#     # # correct_user_type_logged_in()
+#     # register_teacher_test()
+#     # time.sleep(t)
+#     # register_student_test()
+#     # time.sleep(t)
+#     # teacher_adds_exam_group()
+#     # time.sleep(t)
+#     # register_with_existent_email()
+#     # time.sleep(t)
+
+#     # # participant_added_to_group()  # Throws an error if the id is not correct
+#     # time.sleep(10)
+#     # exam_group_shows_up_on_the_student_page()
+#     # time.sleep(t)
+
+# def test_register_teacher():
+#     examiner = models.Examiner(examiner_name="John Mc  ", examiner_surname="Lauren",
+#                     examiner_email="Johnlaure4@gmail.com", examiner_password="jjjjj")
+#     db.session.add(examiner)
+#     # logfile to be added
+# def test_register_teacher_same_name():
+#     examiner = models.Examiner(examiner_name="John Mc  ", examiner_surname="Lauren",
+#                     examiner_email="Johnlaure5@gmail.com", examiner_password="jjjjj")
+#     db.session.add(examiner)
+#     # db.session.commit()
+#     # to log file
+
+# def test_register_teacher_same_email():
+#     examiner = models.Examiner(examiner_name="John Mc  ", examiner_surname="Lauren",
+#                     examiner_email="Johnlaure4@gmail.com", examiner_password="jjjjj")
+#     db.session.add(examiner)
+#     db.session.commit()
+
+# def test_register_student():
+#     student =  models.Student(student_id=251230, student_name="Piotr", student_surname="Krzystanek",
+#                             student_email="PiotrKrzystanek@gmail.com", student_password="kkkkk")
+#     db.session.add(student)
+#     db.session.commit()
+
+# def test_register_student_same_name():
+#     student =  models.Student(student_id=251230, student_name="Piotr", student_surname="Krzystanek",
+#                             student_email="PiotrKrzystanek54@gmail.com", student_password="kkkkk")
+#     db.session.add(student)
+#     db.session.commit()
+
+# def test_register_student_same_email():
+#     student =  models.Student(student_id=251230, student_name="Piotr", student_surname="Krzystanek Bienias",
+#                             student_email="PiotrKrzystanek@gmail.com", student_password="kkkkk")
+#     db.session.add(student)
+#     db.session.commit()
+
+
+# def test_correct_login_test():
+    
+#     student_email="PeterLeRusse0@gmail.com"
+#     student_password="kkkkk"
+#     examiner_email="PaulKillerman@gmail.com"
+#     examiner_password="jjjjj"
+#     student = Student.query.filter_by(student_email=student_email).first()
+#     examiner = Examiner.query.filter_by(examiner_email=examiner_email).first()
+#     if student != None:
+#         if student.student_password == student_password:
+#             # correct login
+#             pass
+#     elif examiner != None:
+#         if examiner.examiner_password == examiner_password:
+#             pass
+#             # correctr login
+#     # close()
+
+# def test_incorrect_password_login():
+
+#     student_email="PeterLeRusse0@gmail.com"
+#     student_password="kkkkkk"
+#     examiner_email="PaulKillerman@gmail.com"
+#     examiner_password="jjjjjj"
+#     student = Student.query.filter_by(student_email=student_email).first()
+#     examiner = Examiner.query.filter_by(examiner_email=examiner_email).first()
+#     if student != None:
+#         if student.student_password == student_password:
+#             # correct login
+#             pass
+#     elif examiner != None:
+#         if examiner.examiner_password == examiner_password:
+#             pass
+#     # close
+
+
+# def test_add_group():
+#     group = models.ExamGroup( group_name="G--1", examiner_id=2021010),
+#     db.session.add(group)
+#     db.session.commit()
+#     # message
+
+#     # close()
+
+# def test_add_participant():
+#     participant = models.StudentExamGroup(student_id=251567, group_id=1 )
+#     db.session.add(participant)
+#     db.session.commit()
+#     # comment 
+
+# def test_add_incorrrect_participant():
+#     try:
+#         participant = models.StudentExamGroup(student_id=251567, group_id=1 )
+#         db.session.add(participant)
+#         db.session.commit()
+#     except Exception as identifier:
+#         # message
+#         pass
+    
+#     # close()
+
+# def exam_group_shows_up_on_the_student_page():
+#     pass
+    
+#     # close()
+# def test_add_exam():
+#     exam  = models.Exam(exam_id=1202100001, exam_date=datetime.date(2021, 5, 14), group_id=1)
+#     db.session.add(exam)
+#     db.session.commit()
+#     # comment
+
+# if __name__ == '__main__':
+#     # test_execute()

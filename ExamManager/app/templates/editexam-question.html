@@ -13,7 +13,8 @@
 
                 <div class="backtab">
                     <button class='backtab' style="padding: 5px; font-size: 0.7em; margin: auto; height: 47px;"> <a
-                            href="{{ url_for('teacher', examiner_id=user.examiner_id, group_id=exam.group_id) }}"> BACK TO HOME PAGE </a></button>
+                            href="{{ url_for('teacher', examiner_id=user.examiner_id, group_id=exam.group_id) }}"> BACK
+                            TO HOME PAGE </a></button>
 
                 </div>
             </div>
@@ -29,7 +30,9 @@
     </header>
 
 
-    <form action="{{ url_for('editQuestions', examiner_id=user.examiner_id, group_id=exam.group_id, exam_id=exam.exam_id) }}" method="post">
+    <form
+        action="{{ url_for('editQuestions', examiner_id=user.examiner_id, group_id=exam.group_id, exam_id=exam.exam_id) }}"
+        method="post">
         <div class="columns">
             <p> Add a Question to {{exam.name}}</p>
 
@@ -48,14 +51,16 @@
                         <div class="questionbox">
                             <input class="delete" name="questionAction" type="submit" value="x"></input>
 
-                            <input class="save" type="submit" name="questionAction" value="Save and exit" style="width: auto;"></input>
-                            <input class="save" type="submit" name="questionAction" value="Save and next" style="width: auto; background-color: rgb(80, 132, 228) ;"></input>
+                            <input class="save" type="submit" name="questionAction" value="Save and exit"
+                                style="width: auto;"></input>
+                            <input class="save" type="submit" name="questionAction" value="Save and next"
+                                style="width: auto; background-color: rgb(80, 132, 228) ;"></input>
                             <div>
                                 <div class="question">
 
 
                                     <input class="questioninput" type="text" placeholder="Enter a question"
-                                        name="question"></input>
+                                        name="question" required></input>
 
                                 </div>
                                 <div class="columns" style="margin: 0px auto; padding: 5px;">
@@ -68,10 +73,10 @@
                                             <div class="answerbox">
 
                                                 <input class="questioninput" type="text" placeholder="Enter an answer"
-                                                    name="in-answerA"></input>
+                                                    name="in-answerA" required></input>
 
                                             </div>
-                                            <input type="radio" id="answer-a" name="foo" value="a" class="radiostyle">
+                                            <input type="radio" id="answer-a" name="foo" value="a" class="radiostyle" required>
                                         </div>
                                         <div>
                                             <div class="columns">
@@ -79,11 +84,11 @@
                                                 <div class="answerbox">
 
                                                     <input class="questioninput" type="text"
-                                                        placeholder="Enter an answer" name="in-answerB"></input>
+                                                        placeholder="Enter an answer" name="in-answerB" required></input>
 
                                                 </div>
                                                 <input type="radio" id="answer-a" name="foo" value="b"
-                                                    class="radiostyle">
+                                                    class="radiostyle" required>
                                             </div>
                                         </div>
                                     </div>
@@ -96,11 +101,11 @@
                                                 <div class="answerbox">
 
                                                     <input class="questioninput" type="text"
-                                                        placeholder="Enter an answer" name="in-answerC"></input>
+                                                        placeholder="Enter an answer" name="in-answerC" required></input>
 
                                                 </div>
                                                 <input type="radio" id="answer-a" name="foo" value="c"
-                                                    class="radiostyle">
+                                                    class="radiostyle" required>
                                             </div>
                                         </div>
                                         <div>
@@ -109,11 +114,11 @@
                                                 <div class="answerbox">
 
                                                     <input class="questioninput" type="text"
-                                                        placeholder="Enter an answer" name="in-answerD"></input>
+                                                        placeholder="Enter an answer" name="in-answerD" required></input>
 
                                                 </div>
                                                 <input type="radio" id="answer-a" name="foo" value="d"
-                                                    class="radiostyle">
+                                                    class="radiostyle" required>
 
                                             </div>
                                         </div>

@@ -70,13 +70,6 @@
                             </div>
                         </div>
 
-                        <div class="vertical-column" style="margin-left: auto; padding-right: 5px; ">
-                            <button class="delete">x</button>
-                            <div style="flex-grow: 1"></div>
-                            <!-- <p class= "examgroupinforight">{{examgroup.totalParticipants}}Participants</p>
-                             <p class= "examgroupinforight">{{examgroup.totalExams}}Exams Set</p> -->
-                        </div>
-
 
                     </div>
 
@@ -154,11 +147,6 @@
                             </div>
 
                             <div class="vertical-column" style="margin-left: auto; padding-right: 5px; ">
-                                <form action="{{ url_for('teacher', examiner_id=user.examiner_id, group_id=group_id) }}"
-                                    method="post">
-                                    <button class="delete" name="delete" type="submit" value="{{exam.exam_id}}"
-                                        style="float:right;">x</button>
-                                </form>
                                 <!--button to delete the current exam from the database, should have an 'are you sure you wish to delete' pop up-->
                                 <div style="flex: 1"></div>
                                 <form
@@ -200,10 +188,7 @@
                                 <p class= " examgroupinfo" style="line-height: 3px;">{{examParticipant.student_name}}
                                     </p>
                                 </div>
-
-
                             </div>
-                            <button class="delete" style="margin-left: auto;">x</button>
                         </div>
                         {% endfor %}
 
