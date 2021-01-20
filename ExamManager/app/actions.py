@@ -288,6 +288,7 @@ def getExamParticipants(exam_id):
 
 
 def getUserStudent(student_id):  # added to do more cohesive code
+    # print(Student.query.filter_by(student_id=student_id).first().student_name)
     return Student.query.filter_by(student_id=student_id).first()
 
 

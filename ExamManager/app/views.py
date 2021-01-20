@@ -206,7 +206,9 @@ def examScores(examiner_id, group_id, exam_id):
     user= actions.getUserExaminer(examiner_id)
     names = {}
     for participant in participants:
+        # print(participant.student_id)
         names[participant.student_id]=actions.getUserStudent(participant.student_id)
+        # print(names[participant.student_id])
     exam=actions.getExamById(exam_id)
     return render_template('resultsTeacher.html', user=user, examResults=participants, exam=exam, names=names)
 
