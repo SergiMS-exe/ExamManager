@@ -295,6 +295,8 @@ def test_execute():
     test_register_student_same_email()
     test_register_student_same_name()
     
+    test_correct_login_test()
+
     
     # correct_login_test()
     # time.sleep(t)
@@ -432,15 +434,26 @@ def test_correct_login_test():
     examiner_password="jjjjj"
     student = Student.query.filter_by(student_email=email).first()
     examiner = Examiner.query.filter_by(examiner_email=email).first()
-    if student != None:
-        if student.student_password == student_password:
-            # correct login
-            pass
-    elif examiner != None:
-        if examiner.examiner_password == examiner_password:
-            pass
-            # correctr login
-    # close()
+
+    failed = False
+    try :
+        student = db.session.query.filter_by(student_email=email).first()
+        examiner = db.session.query.filter_by(examiner_email=email).first()
+        if student != None:
+            if student.student_password == student_password:
+                logger.debug(f"GO TO STUDENT PAGE \t {student.student_name} Correct login credentials, Login = true")
+        elif examiner != None:
+            if examiner.examiner_password == examiner_password:
+                logger.debug(f"GO TO STUDENT PAGE \t {examiner.examiner_name} Correct login credentials, Login = true")
+        db.session.commit()
+   
+    except Exception as e :
+        failures =+ 1
+        failed = True
+        db.session.rollback()
+    finally :
+        if failed ==False:
+            logger.debug(f"GO TO  PAGE FAILED")
 
 def test_incorrect_password_login():
 

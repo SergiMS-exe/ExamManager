@@ -27,7 +27,7 @@ elif chosen == "2":
     from app import db_create
     from app import test
     time.sleep(4)
-    print("Unit test Done!")
+    print("Unit test Done ,Please check the log file!")
     exit(0)
 elif chosen == "0":
     exit(0)
